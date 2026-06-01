@@ -150,13 +150,17 @@ python scripts/generate_dataset_cards.py
 
 ```bash
 python scripts/push_datasets_to_hf.py
-# Dataset → https://huggingface.co/datasets/NecroMOnk/safety-ds-malicious-coding-clf-v2
-# Model   → https://huggingface.co/NecroMOnk/safety-ds-malicious-coding-clf-v2
-
-```bash
-python scripts/push_datasets_to_hf.py
 python scripts/push_model_to_hf.py
 ```
+
+- Dataset → https://huggingface.co/datasets/NecroMOnk/safety-ds-malicious-coding-clf-v2  
+- Model → https://huggingface.co/NecroMOnk/safety-ds-malicious-coding-clf-v2  
+
+**Publish to GitHub** (`GITHUB_TOKEN` with `repo` scope, or `gh auth login`):
+
+```bash
+python scripts/push_to_github.py
+# → https://github.com/NecroMOnk/Safety-DS
 ```
 
 v2 build now includes **HF benign negatives** in train (`--hf-in-train neg-only`, default for `--multilingual`).
@@ -188,6 +192,7 @@ Import: `python scripts/import_hf_malware.py` → `data/external/hf_imported.jso
 | `generate_dataset_cards.py` | Regenerate `docs/datasets/cards/` |
 | `push_datasets_to_hf.py` | Publish clf splits to HF Hub |
 | `push_model_to_hf.py` | Publish v2 joblibs + threshold to HF Hub |
+| `push_to_github.py` | Create/push repo to GitHub (`GITHUB_TOKEN` or `gh auth`) |
 
 ## Requirements
 
@@ -214,7 +219,8 @@ export TRANSFORMERS_OFFLINE=1
 
 ## Release checklist
 
-- [x] GitHub + HF model (see `push_model_to_hf.py`)
+- [x] HF dataset + model (`push_datasets_to_hf.py`, `push_model_to_hf.py`)
+- [ ] GitHub repo push (`push_to_github.py` — needs `gh auth login` or `GITHUB_TOKEN`)
 - [ ] Add **LICENSE** (project has none)
 - [ ] Confirm `.env` is not committed (listed in `.gitignore`)
 - [ ] Decide: commit `data/clf/v2/` (~56 MB) or document rebuild-only
