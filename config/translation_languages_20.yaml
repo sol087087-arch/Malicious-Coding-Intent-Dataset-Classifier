@@ -1,0 +1,18 @@
+# 20 most-spoken / highest-coverage locales (EN core → data/<code>/raw/).
+languages:
+  - zh   # Chinese
+  - hi   # Hindi
+  - es   # Spanish
+  - ar   # Arabic
+  - bn   # Bengali
+  - pt   # Portuguese
+  - ru   # Russian
+  - ja   # Japanese
+  - de   # German
+  - fr   # French
+  - tr   # Turkish
+  - ko   # Korean
+  - vi   # Vietnamese
+  - it   # Italian
+  - id   # Indonesian
+  - pl   # Polish (last — uk/ur/th/nl intentionally skipped)

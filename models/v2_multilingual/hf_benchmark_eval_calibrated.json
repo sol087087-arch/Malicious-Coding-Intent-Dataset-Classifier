@@ -1,0 +1,130 @@
+{
+  "model_dir": "models\\v2_multilingual",
+  "jsonl": "C:\\GitHub\\Safety DS\\data\\external\\hf_imported.jsonl",
+  "device": "cuda",
+  "binary_threshold": 0.999442,
+  "total_n": 8163,
+  "benchmarks": {
+    "all_external": {
+      "n": 8163,
+      "malicious_rate": 0.387,
+      "binary_threshold": 0.999442,
+      "binary": {
+        "precision": 0.888,
+        "recall": 0.6412,
+        "f1": 0.6412,
+        "roc_auc": 0.8817,
+        "false_positive_rate": 0.04
+      },
+      "multilabel": {
+        "micro_f1": 0.7035,
+        "macro_f1": 0.0696,
+        "macro_f1_positives_only": 0.0715
+      }
+    },
+    "NecroMOnk__Residual-SFT": {
+      "n": 447,
+      "malicious_rate": 0.0,
+      "binary_threshold": 0.999442,
+      "binary": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": NaN,
+        "false_positive_rate": 0.0
+      },
+      "multilabel": {
+        "micro_f1": 0.0,
+        "macro_f1": 0.0
+      },
+      "source": "hf:NecroMOnk/Residual-SFT"
+    },
+    "NecroMOnk__Tersa-DPO": {
+      "n": 511,
+      "malicious_rate": 0.0,
+      "binary_threshold": 0.999442,
+      "binary": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": NaN,
+        "false_positive_rate": 0.0039
+      },
+      "multilabel": {
+        "micro_f1": 0.0,
+        "macro_f1": 0.0
+      },
+      "source": "hf:NecroMOnk/Tersa-DPO"
+    },
+    "NecroMOnk__code-stress-bench": {
+      "n": 50,
+      "malicious_rate": 0.0,
+      "binary_threshold": 0.999442,
+      "binary": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": NaN,
+        "false_positive_rate": 0.0
+      },
+      "multilabel": {
+        "micro_f1": 0.0,
+        "macro_f1": 0.0
+      },
+      "source": "hf:NecroMOnk/code-stress-bench"
+    },
+    "NecroMOnk__red-team-refusals": {
+      "n": 159,
+      "malicious_rate": 1.0,
+      "binary_threshold": 0.999442,
+      "binary": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": NaN,
+        "false_positive_rate": 0.0
+      },
+      "multilabel": {
+        "micro_f1": 0.0105,
+        "macro_f1": 0.001,
+        "macro_f1_positives_only": 0.001
+      },
+      "source": "hf:NecroMOnk/red-team-refusals"
+    },
+    "phishdestroy__destroylist": {
+      "n": 3000,
+      "malicious_rate": 1.0,
+      "binary_threshold": 0.999442,
+      "binary": {
+        "precision": 1.0,
+        "recall": 0.6914,
+        "f1": 0.6914,
+        "roc_auc": NaN,
+        "false_positive_rate": 0.0
+      },
+      "multilabel": {
+        "micro_f1": 0.832,
+        "macro_f1": 0.0705,
+        "macro_f1_positives_only": 0.0705
+      },
+      "source": "hf:phishdestroy/destroylist"
+    },
+    "yatin-superintelligence__White-Hat-Security-Agent-Prompts-600K": {
+      "n": 3996,
+      "malicious_rate": 0.0,
+      "binary_threshold": 0.999442,
+      "binary": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": NaN,
+        "false_positive_rate": 0.0495
+      },
+      "multilabel": {
+        "micro_f1": 0.0,
+        "macro_f1": 0.0
+      },
+      "source": "hf:yatin-superintelligence/White-Hat-Security-Agent-Prompts-600K"
+    }
+  }
+}

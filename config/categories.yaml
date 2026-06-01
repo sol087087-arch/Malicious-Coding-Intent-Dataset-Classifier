@@ -1,0 +1,25 @@
+categories:
+  - id: malware_types
+    label: malware families and types
+  - id: exploit_development
+    label: exploit development and vulnerability abuse
+  - id: obfuscation_evasion
+    label: code obfuscation and AV/EDR evasion
+  - id: command_control
+    label: C2, beacons, implants, persistence
+  - id: injection_lateral
+    label: injection, lateral movement, privilege escalation
+  - id: credential_exfil
+    label: credential theft, exfiltration, staging
+  - id: ransomware_crypto
+    label: ransomware and cryptographic abuse
+  - id: reverse_engineering_offense
+    label: offensive reverse engineering and unpacking
+  - id: phishing_social_engineering_code
+    label: malicious scripting tied to phishing delivery
+  - id: botnet_spam_ddos
+    label: botnets, spam tooling, DDoS code patterns
+  - id: rootkit_kernel
+    label: rootkits and kernel/driver abuse
+  - id: packers_loaders
+    label: packers, loaders, droppers, stagers

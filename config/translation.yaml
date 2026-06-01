@@ -1,0 +1,36 @@
+# Phase 3: read EN only from data/en/, write each lang to data/<lang>/ (never mixed).
+# Default backend: openrouter (NLLB needs HuggingFace SSL on this machine).
+default_backend: openrouter
+
+source:
+  lang: en
+  processed: canonical_deduped.txt   # data/en/processed/
+  fallback: canonical.jsonl           # data/en/raw/
+
+# Per-language layout (no merge across langs):
+#   data/en/raw|processed/
+#   data/ar/raw|processed/
+#   data/de/raw|processed/
+#   ...
+
+nllb:
+  model: facebook/nllb-200-distilled-600M
+  batch_size: 32
+  max_length: 128
+
+openrouter:
+  profile: smart-cheap
+  batch_size: 35
+  temperature: 0.1
+  request_delay_seconds: 1.5
+  refine_langs: []
+
+keep_english_patterns:
+  - '^CVE-\d'
+  - '^[A-Z]{2,}-\d'
+  - '^(SQL|NoSQL|JSON|XML|HTTP|HTTPS|TLS|SSL|API|GPU|CPU|RAM|ROM|DNS|VPN|C2|IoT)\b'
+  - '\.(exe|dll|sys|bat|ps1|vbs|js|php|py|sh|bin|elf|apk|ipa)\b'
+  - '^[a-z]+-[a-z]+$'
+
+obfuscate_translations: true
+variants_per_term: 2

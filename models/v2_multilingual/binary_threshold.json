@@ -1,0 +1,146 @@
+{
+  "threshold": 0.004477,
+  "default": 0.5,
+  "calibrated_on": "hf:yatin-superintelligence/White-Hat-Security-Agent-Prompts-600K",
+  "constraints": {
+    "max_white_hat_fpr": 0.05,
+    "min_obfuscated_recall": 0.85
+  },
+  "metrics_at_threshold": {
+    "threshold": 0.004477,
+    "white_hat_fpr": 0.0494,
+    "benign_hf_fpr": 0.0741,
+    "obfuscated_recall": 1.0,
+    "malware_code_recall": 0.9728
+  },
+  "candidates": [
+    {
+      "threshold": 0.012771,
+      "white_hat_fpr": 0.0098,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9137,
+      "max_fpr_target": 0.01,
+      "min_obf_recall_target": 0.9
+    },
+    {
+      "threshold": 0.012771,
+      "white_hat_fpr": 0.0098,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9137,
+      "max_fpr_target": 0.01,
+      "min_obf_recall_target": 0.85
+    },
+    {
+      "threshold": 0.012771,
+      "white_hat_fpr": 0.0098,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9137,
+      "max_fpr_target": 0.01,
+      "min_obf_recall_target": 0.8
+    },
+    {
+      "threshold": 0.012771,
+      "white_hat_fpr": 0.0098,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9137,
+      "max_fpr_target": 0.01,
+      "min_obf_recall_target": 0.75
+    },
+    {
+      "threshold": 0.004477,
+      "white_hat_fpr": 0.0494,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9728,
+      "max_fpr_target": 0.05,
+      "min_obf_recall_target": 0.9
+    },
+    {
+      "threshold": 0.004477,
+      "white_hat_fpr": 0.0494,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9728,
+      "max_fpr_target": 0.05,
+      "min_obf_recall_target": 0.85
+    },
+    {
+      "threshold": 0.004477,
+      "white_hat_fpr": 0.0494,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9728,
+      "max_fpr_target": 0.05,
+      "min_obf_recall_target": 0.8
+    },
+    {
+      "threshold": 0.004477,
+      "white_hat_fpr": 0.0494,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9728,
+      "max_fpr_target": 0.05,
+      "min_obf_recall_target": 0.75
+    },
+    {
+      "threshold": 0.002472,
+      "white_hat_fpr": 0.0985,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9785,
+      "max_fpr_target": 0.1,
+      "min_obf_recall_target": 0.9
+    },
+    {
+      "threshold": 0.002472,
+      "white_hat_fpr": 0.0985,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9785,
+      "max_fpr_target": 0.1,
+      "min_obf_recall_target": 0.85
+    },
+    {
+      "threshold": 0.002472,
+      "white_hat_fpr": 0.0985,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9785,
+      "max_fpr_target": 0.1,
+      "min_obf_recall_target": 0.8
+    },
+    {
+      "threshold": 0.002472,
+      "white_hat_fpr": 0.0985,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9785,
+      "max_fpr_target": 0.1,
+      "min_obf_recall_target": 0.75
+    },
+    {
+      "threshold": 0.001649,
+      "white_hat_fpr": 0.1498,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9845,
+      "max_fpr_target": 0.15,
+      "min_obf_recall_target": 0.9
+    },
+    {
+      "threshold": 0.001649,
+      "white_hat_fpr": 0.1498,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9845,
+      "max_fpr_target": 0.15,
+      "min_obf_recall_target": 0.85
+    },
+    {
+      "threshold": 0.001649,
+      "white_hat_fpr": 0.1498,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9845,
+      "max_fpr_target": 0.15,
+      "min_obf_recall_target": 0.8
+    },
+    {
+      "threshold": 0.001649,
+      "white_hat_fpr": 0.1498,
+      "obfuscated_recall": 1.0,
+      "malware_code_recall": 0.9845,
+      "max_fpr_target": 0.15,
+      "min_obf_recall_target": 0.75
+    }
+  ]
+}

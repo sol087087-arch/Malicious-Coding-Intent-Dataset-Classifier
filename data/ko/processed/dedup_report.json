@@ -1,0 +1,19 @@
+{
+  "lang": "ko",
+  "dataset_dir": "C:\\GitHub\\Safety DS\\data\\ko",
+  "sources": [
+    "C:\\GitHub\\Safety DS\\data\\ko\\raw\\obfuscated.jsonl",
+    "C:\\GitHub\\Safety DS\\data\\ko\\raw\\translated.jsonl"
+  ],
+  "raw_preserved": true,
+  "raw_lines": 38939,
+  "unique_terms": 37751,
+  "canonical_unique": 13830,
+  "obfuscated_unique": 23921,
+  "duplicate_rows_archived": 1188,
+  "output_txt": "C:\\GitHub\\Safety DS\\data\\ko\\processed\\lexicon_deduped.txt",
+  "output_jsonl": "C:\\GitHub\\Safety DS\\data\\ko\\processed\\lexicon_deduped.jsonl",
+  "output_canonical_txt": "C:\\GitHub\\Safety DS\\data\\ko\\processed\\canonical_deduped.txt",
+  "output_obfuscated_txt": "C:\\GitHub\\Safety DS\\data\\ko\\processed\\obfuscated_deduped.txt",
+  "output_duplicate_archive": "C:\\GitHub\\Safety DS\\data\\ko\\processed\\duplicate_rows.jsonl"
+}

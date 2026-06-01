@@ -1,0 +1,45 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Large generated lexicon (regenerate via scripts)
+data/*/raw/*.jsonl
+data/*/raw/*.json
+data/*/raw/*.log
+data/*/processed/*.tmp
+data/raw/
+data/processed/
+
+# External HF pulls (regenerate: scripts/import_hf_malware.py)
+data/external/hf_imported.jsonl
+data/external/hf_import_report.json
+data/external/*.parquet
+data/external/*.tmp
+
+# Optional: uncomment to exclude rebuilt splits (~56 MB)
+# data/clf/
+
+# HF publish staging / clone workdirs
+data/hf_push_staging/
+data/hf_model_staging/
+data/_hf_git_work/
+data/_hf_model_git_work/
+
+# Classifier splits (~88 MB; rebuild or use HF dataset)
+data/clf/
+
+# Training logs
+data/train_v2.log
+data/train_v2_neg20k.log
+data/translation_20lang.log
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

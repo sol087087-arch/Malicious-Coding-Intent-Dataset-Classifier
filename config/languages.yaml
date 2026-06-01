@@ -1,0 +1,94 @@
+# 80+ target locales for lexicon translation (ISO 639-1 + script where needed).
+# nllb_code: FLORES-200 code for facebook/nllb-200-* local MT (optional).
+
+languages:
+  - { code: ar, name: Arabic, nllb_code: arb_Arab }
+  - { code: az, name: Azerbaijani, nllb_code: azj_Latn }
+  - { code: be, name: Belarusian, nllb_code: bel_Cyrl }
+  - { code: bg, name: Bulgarian, nllb_code: bul_Cyrl }
+  - { code: bn, name: Bengali, nllb_code: ben_Beng }
+  - { code: bs, name: Bosnian, nllb_code: bos_Latn }
+  - { code: ca, name: Catalan, nllb_code: cat_Latn }
+  - { code: cs, name: Czech, nllb_code: ces_Latn }
+  - { code: cy, name: Welsh, nllb_code: cym_Latn }
+  - { code: da, name: Danish, nllb_code: dan_Latn }
+  - { code: de, name: German, nllb_code: deu_Latn }
+  - { code: el, name: Greek, nllb_code: ell_Grek }
+  - { code: en, name: English, nllb_code: eng_Latn, source: true }
+  - { code: es, name: Spanish, nllb_code: spa_Latn }
+  - { code: et, name: Estonian, nllb_code: est_Latn }
+  - { code: eu, name: Basque, nllb_code: eus_Latn }
+  - { code: fa, name: Persian, nllb_code: pes_Arab }
+  - { code: fi, name: Finnish, nllb_code: fin_Latn }
+  - { code: fr, name: French, nllb_code: fra_Latn }
+  - { code: gl, name: Galician, nllb_code: glg_Latn }
+  - { code: gu, name: Gujarati, nllb_code: guj_Gujr }
+  - { code: he, name: Hebrew, nllb_code: heb_Hebr }
+  - { code: hi, name: Hindi, nllb_code: hin_Deva }
+  - { code: hr, name: Croatian, nllb_code: hrv_Latn }
+  - { code: hu, name: Hungarian, nllb_code: hun_Latn }
+  - { code: hy, name: Armenian, nllb_code: hye_Armn }
+  - { code: id, name: Indonesian, nllb_code: ind_Latn }
+  - { code: is, name: Icelandic, nllb_code: isl_Latn }
+  - { code: it, name: Italian, nllb_code: ita_Latn }
+  - { code: ja, name: Japanese, nllb_code: jpn_Jpan }
+  - { code: ka, name: Georgian, nllb_code: kat_Geor }
+  - { code: kk, name: Kazakh, nllb_code: kaz_Cyrl }
+  - { code: km, name: Khmer, nllb_code: khm_Khmr }
+  - { code: kn, name: Kannada, nllb_code: kan_Knda }
+  - { code: ko, name: Korean, nllb_code: kor_Hang }
+  - { code: ky, name: Kyrgyz, nllb_code: kir_Cyrl }
+  - { code: lo, name: Lao, nllb_code: lao_Laoo }
+  - { code: lt, name: Lithuanian, nllb_code: lit_Latn }
+  - { code: lv, name: Latvian, nllb_code: lvs_Latn }
+  - { code: mk, name: Macedonian, nllb_code: mkd_Cyrl }
+  - { code: ml, name: Malayalam, nllb_code: mal_Mlym }
+  - { code: mn, name: Mongolian, nllb_code: khk_Cyrl }
+  - { code: mr, name: Marathi, nllb_code: mar_Deva }
+  - { code: ms, name: Malay, nllb_code: zsm_Latn }
+  - { code: my, name: Burmese, nllb_code: mya_Mymr }
+  - { code: nb, name: Norwegian Bokmål, nllb_code: nob_Latn }
+  - { code: ne, name: Nepali, nllb_code: nep_Deva }
+  - { code: nl, name: Dutch, nllb_code: nld_Latn }
+  - { code: pa, name: Punjabi, nllb_code: pan_Guru }
+  - { code: pl, name: Polish, nllb_code: pol_Latn }
+  - { code: pt, name: Portuguese, nllb_code: por_Latn }
+  - { code: ro, name: Romanian, nllb_code: ron_Latn }
+  - { code: ru, name: Russian, nllb_code: rus_Cyrl }
+  - { code: si, name: Sinhala, nllb_code: sin_Sinh }
+  - { code: sk, name: Slovak, nllb_code: slk_Latn }
+  - { code: sl, name: Slovenian, nllb_code: slv_Latn }
+  - { code: sq, name: Albanian, nllb_code: als_Latn }
+  - { code: sr, name: Serbian, nllb_code: srp_Cyrl }
+  - { code: sv, name: Swedish, nllb_code: swe_Latn }
+  - { code: sw, name: Swahili, nllb_code: swh_Latn }
+  - { code: ta, name: Tamil, nllb_code: tam_Taml }
+  - { code: te, name: Telugu, nllb_code: tel_Telu }
+  - { code: th, name: Thai, nllb_code: tha_Thai }
+  - { code: tl, name: Tagalog, nllb_code: tgl_Latn }
+  - { code: tr, name: Turkish, nllb_code: tur_Latn }
+  - { code: uk, name: Ukrainian, nllb_code: ukr_Cyrl }
+  - { code: ur, name: Urdu, nllb_code: urd_Arab }
+  - { code: uz, name: Uzbek, nllb_code: uzn_Latn }
+  - { code: vi, name: Vietnamese, nllb_code: vie_Latn }
+  - { code: zh, name: Chinese (Simplified), nllb_code: zho_Hans }
+  - { code: zh-Hant, name: Chinese (Traditional), nllb_code: zho_Hant }
+  - { code: am, name: Amharic, nllb_code: amh_Ethi }
+  - { code: af, name: Afrikaans, nllb_code: afr_Latn }
+  - { code: ha, name: Hausa, nllb_code: hau_Latn }
+  - { code: yo, name: Yoruba, nllb_code: yor_Latn }
+  - { code: ig, name: Igbo, nllb_code: ibo_Latn }
+  - { code: zu, name: Zulu, nllb_code: zul_Latn }
+  - { code: xh, name: Xhosa, nllb_code: xho_Latn }
+  - { code: ps, name: Pashto, nllb_code: pbt_Arab }
+  - { code: sd, name: Sindhi, nllb_code: snd_Arab }
+  - { code: tg, name: Tajik, nllb_code: tgk_Cyrl }
+  - { code: tk, name: Turkmen, nllb_code: tuk_Latn }
+  - { code: ug, name: Uyghur, nllb_code: uig_Arab }
+  - { code: ku, name: Kurdish, nllb_code: kmr_Latn }
+  - { code: ceb, name: Cebuano, nllb_code: ceb_Latn }
+  - { code: ht, name: Haitian Creole, nllb_code: hat_Latn }
+  - { code: mg, name: Malagasy, nllb_code: plt_Latn }
+  - { code: mt, name: Maltese, nllb_code: mlt_Latn }
+  - { code: ga, name: Irish, nllb_code: gle_Latn }
+  - { code: lb, name: Luxembourgish, nllb_code: ltz_Latn }

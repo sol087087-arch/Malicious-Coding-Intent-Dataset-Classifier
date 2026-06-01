@@ -1,0 +1,33 @@
+# Active profile: smart-cheap | free
+profile: smart-cheap
+
+profiles:
+  smart-cheap:
+    description: Paid flash/coder models — best price/quality for canonical lexicon.
+    models:
+      - deepseek/deepseek-v4-flash
+      - qwen/qwen3-coder-30b-a3b-instruct
+      - google/gemma-3-12b-it
+
+  free:
+    description: Zero-cost; more 429 upstream, slower runs.
+    models:
+      - qwen/qwen3-coder:free
+      - deepseek/deepseek-v4-flash:free
+      - meta-llama/llama-3.3-70b-instruct:free
+      - openai/gpt-oss-120b:free
+      - nvidia/nemotron-3-super-120b-a12b:free
+      - moonshotai/kimi-k2.6:free
+
+generation:
+  language: en
+  # Phase 1 (API): canonical terms + stable short phrases (clean spelling)
+  target_canonical_entries: 15000
+  # Phase 2 (local): obfuscated variants on top of canonical
+  target_total_entries: 50000
+  variants_per_canonical: 3
+  batch_size: 80
+  temperature: 0.45
+  max_tokens: 4096
+  request_delay_seconds: 2.0
+  max_retries_per_batch: 6

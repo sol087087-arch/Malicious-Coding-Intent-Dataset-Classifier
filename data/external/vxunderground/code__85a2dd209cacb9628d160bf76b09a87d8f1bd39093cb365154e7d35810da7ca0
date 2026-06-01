@@ -1,0 +1,93 @@
+/*
+ * Generic utillities to make the life of a javascript exploit developer easier
+*/
+
+// Errors
+var ERR_NOT_NUM = function(arg){throw arg+" must be a numeric value";};
+var ERR_NOT_DEF = function(arg){throw arg+" is not defined";};
+var ERR_NOT_EXPECTED = function(arg){throw arg+" is not the expected value for the provided logic flow";};
+var ERR_OVERFLOW = function(arg){throw arg+" would overflow the target";};
+var ERR_UNSUPPORTED = function(arg){throw arg+" is not supported at this time"};
+
+
+// PWM-like sleep, useful to prevent gc()
+function millis(ms)
+{
+	var t1 = Date.now();
+    while(Date.now() - t1 < ms)
+    {
+    	//Simply wait
+    }
+}
+
+/*
+ * Generic Hex-Dec operations
+*/
+function hex(b) {
+    return ('0' + b.toString(16)).substr(-2);
+}
+
+// Convert a decimal to a hex string
+function hexify(intval = 0)
+{
+	return '0x'+parseInt(intval).toString(16);
+}
+
+// Convert a set of bytes into a hex string
+function hexlify(bytes) {
+    var res = [];
+    for (var i = 0; i < bytes.length; i++)
+        res.push(hex(bytes[i]));
+
+    return res.join('');
+}
+
+// Convert a hex string to a set of bytes
+function unhexlify(hexstr) 
+{
+    if (hexstr.length % 2 == 1)
+        throw new TypeError("Invalid hex string");
+
+    var bytes = new Uint8Array(hexstr.length / 2);
+    for (var i = 0; i < hexstr.length; i += 2)
+        bytes[i/2] = parseInt(hexstr.substr(i, 2), 16);
+
+    return bytes;
+}
+
+function get_png(url = '', async = true, callback = function(req){})
+{
+	var req = new XMLHttpRequest();
+	req.open("GET", url, async);
+	if(async){
+		req.responseType = "arraybuffer";
+		if(callback){
+			req.addEventListener('load', callback);
+			req.send(null);
+			return;
+		} else {
+			req.send(null);
+		}
+	} 
+	else {
+		req.send(null);
+		return req.responseText;
+	}
+};
+
+
+var xor = function(a, b)
+{
+	//result and base
+	var res = 0, base = 1;
+
+	//Perform the exclusive OR
+	for(var i = 0; i < 64; ++i)
+	{
+		res += base * ((a&1) ^(b&1));
+		a = (a-(a&1))/2;
+		b = (b-(b&1))/2;
+		base *= 2;
+	}
+	return res;
+};

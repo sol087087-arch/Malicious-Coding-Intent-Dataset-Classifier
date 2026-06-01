@@ -1,0 +1,101 @@
+{
+  "input": "C:\\GitHub\\Safety DS\\data\\en\\processed\\canonical_deduped.txt",
+  "input_count": 15038,
+  "kept_count": 15018,
+  "removed_count": 20,
+  "removed_by_reason": {
+    "block_exact": 4,
+    "block_regex:^security (accomplishment|achievement|ad": 4,
+    "block_regex:^security (account manager|support provi": 2,
+    "block_regex:^security (analyst|engineer|researcher|c": 10
+  },
+  "samples_removed": [
+    {
+      "term": "Behavioral Analysis",
+      "reason": "block_exact"
+    },
+    {
+      "term": "behavioral analysis",
+      "reason": "block_exact"
+    },
+    {
+      "term": "security accomplishment",
+      "reason": "block_regex:^security (accomplishment|achievement|ad"
+    },
+    {
+      "term": "security account manager",
+      "reason": "block_regex:^security (account manager|support provi"
+    },
+    {
+      "term": "security achievement",
+      "reason": "block_regex:^security (accomplishment|achievement|ad"
+    },
+    {
+      "term": "security advancement",
+      "reason": "block_regex:^security (accomplishment|achievement|ad"
+    },
+    {
+      "term": "security advantage",
+      "reason": "block_regex:^security (accomplishment|achievement|ad"
+    },
+    {
+      "term": "security amateur",
+      "reason": "block_regex:^security (analyst|engineer|researcher|c"
+    },
+    {
+      "term": "security analyst",
+      "reason": "block_regex:^security (analyst|engineer|researcher|c"
+    },
+    {
+      "term": "security apprentice",
+      "reason": "block_regex:^security (analyst|engineer|researcher|c"
+    },
+    {
+      "term": "security architect",
+      "reason": "block_regex:^security (analyst|engineer|researcher|c"
+    },
+    {
+      "term": "security author",
+      "reason": "block_regex:^security (analyst|engineer|researcher|c"
+    },
+    {
+      "term": "security blogger",
+      "reason": "block_exact"
+    },
+    {
+      "term": "security consultant",
+      "reason": "block_regex:^security (analyst|engineer|researcher|c"
+    },
+    {
+      "term": "security engineer",
+      "reason": "block_regex:^security (analyst|engineer|researcher|c"
+    },
+    {
+      "term": "security leadership",
+      "reason": "block_exact"
+    },
+    {
+      "term": "security manager",
+      "reason": "block_regex:^security (analyst|engineer|researcher|c"
+    },
+    {
+      "term": "security professional",
+      "reason": "block_regex:^security (analyst|engineer|researcher|c"
+    },
+    {
+      "term": "security researcher",
+      "reason": "block_regex:^security (analyst|engineer|researcher|c"
+    },
+    {
+      "term": "Security Support Provider",
+      "reason": "block_regex:^security (account manager|support provi"
+    }
+  ],
+  "samples_kept_random_hint": [
+    "abuse legitimate tools",
+    "abuse mailbox",
+    "abuse tools",
+    "abusing utilities",
+    "acceptance testing"
+  ]
+}

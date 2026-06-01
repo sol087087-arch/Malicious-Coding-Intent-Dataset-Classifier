@@ -1,0 +1,33 @@
+# Helga_Sable / NecroMOnk HF account — https://huggingface.co/NecroMOnk
+# Overlaps with C:\lora_training\repo\datasets — dedup handles duplicates.
+
+import:
+  - repo: NecroMOnk/red-team-refusals
+    file: train.jsonl
+    role: positive
+    text_field: prompt
+    category: malware_types
+    max_samples: 0  # all 160
+    min_chars: 12
+    exclude_regex: "(?i)(child|csam|minor|sexual abuse material)"
+
+  - repo: NecroMOnk/code-stress-bench
+    file: test.jsonl
+    role: negative
+    text_field: prompt
+    max_samples: 0
+    min_chars: 20
+
+  - repo: NecroMOnk/Tersa-DPO
+    file: train.jsonl
+    role: negative
+    text_field: question
+    max_samples: 0
+    min_chars: 30
+
+  - repo: NecroMOnk/Residual-SFT
+    file: train.jsonl
+    role: negative
+    text_field: messages_user
+    max_samples: 0
+    min_chars: 25

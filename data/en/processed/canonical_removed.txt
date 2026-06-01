@@ -1,0 +1,20 @@
+Behavioral Analysis	block_exact
+behavioral analysis	block_exact
+security accomplishment	block_regex:^security (accomplishment|achievement|ad
+security account manager	block_regex:^security (account manager|support provi
+security achievement	block_regex:^security (accomplishment|achievement|ad
+security advancement	block_regex:^security (accomplishment|achievement|ad
+security advantage	block_regex:^security (accomplishment|achievement|ad
+security amateur	block_regex:^security (analyst|engineer|researcher|c
+security analyst	block_regex:^security (analyst|engineer|researcher|c
+security apprentice	block_regex:^security (analyst|engineer|researcher|c
+security architect	block_regex:^security (analyst|engineer|researcher|c
+security author	block_regex:^security (analyst|engineer|researcher|c
+security blogger	block_exact
+security consultant	block_regex:^security (analyst|engineer|researcher|c
+security engineer	block_regex:^security (analyst|engineer|researcher|c
+security leadership	block_exact
+security manager	block_regex:^security (analyst|engineer|researcher|c
+security professional	block_regex:^security (analyst|engineer|researcher|c
+security researcher	block_regex:^security (analyst|engineer|researcher|c
+Security Support Provider	block_regex:^security (account manager|support provi

