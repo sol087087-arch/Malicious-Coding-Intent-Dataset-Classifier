@@ -107,6 +107,21 @@ Key artifacts:
 Large generated classifier splits are ignored by git and can be rebuilt or
 published separately to Hugging Face.
 
+## Published Artifacts
+
+| Artifact | Link | What it is |
+|----------|------|------------|
+| Code + evaluation story | [GitHub](https://github.com/sol087087-arch/Malicious-Coding-Intent-Dataset-Classifier) | scripts, README, docs, small model heads, eval reports |
+| v6 dataset | [HF dataset](https://huggingface.co/datasets/NecroMOnk/malicious-coding-intent-v6-data) | train/val/test splits for the recommended v6 model |
+| v6 model | [HF model](https://huggingface.co/NecroMOnk/malicious-coding-intent-v6) | balanced recommended classifier heads |
+| v8 model | [HF model](https://huggingface.co/NecroMOnk/malicious-coding-intent-v8-hard-negative-ablation) | code-hard-negative ablation heads |
+| Base encoder | [BAAI/bge-m3](https://huggingface.co/BAAI/bge-m3) | frozen embedding model used by all classifier heads |
+
+The large generated `data/external/malware_code_merged.json` file is not
+committed to GitHub. It is an intermediate pool used to build classifier splits;
+publish generated splits to the HF dataset repo instead of adding the raw 425MB
+JSON artifact to git.
+
 ## Reproduce Evaluation
 
 ```bash

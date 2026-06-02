@@ -35,6 +35,8 @@ models/v7_code_aware_50k_github_lora_benign_code/
 # HF publish staging / clone workdirs
 data/hf_push_staging/
 data/hf_model_staging/
+data/hf_push_staging*/
+data/hf_model_staging*/
 data/_hf_git_work/
 data/_hf_model_git_work/
 
