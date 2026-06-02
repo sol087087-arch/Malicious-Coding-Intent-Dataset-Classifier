@@ -1,0 +1,248 @@
+{
+  "model_dir": "models\\v8_code_aware_50k_oss_clean_plus_fp_pool",
+  "holdout": "data\\clf\\benign_code_holdout_mathtrain_reasoner_clean.jsonl",
+  "overall": {
+    "n": 12000,
+    "threshold": 0.5,
+    "false_positive_rate": 0.0079,
+    "flagged": 95,
+    "score_mean": 0.020715,
+    "score_p50": 0.000874,
+    "score_p90": 0.032725,
+    "score_p95": 0.099814,
+    "score_p99": 0.463613,
+    "score_max": 0.973555
+  },
+  "by_source": {
+    "local_project_code": {
+      "n": 165,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0061,
+      "flagged": 1,
+      "score_mean": 0.020163,
+      "score_p50": 0.00242,
+      "score_p90": 0.032904,
+      "score_p95": 0.047133,
+      "score_p99": 0.354292,
+      "score_max": 0.770936
+    },
+    "local_repo_hs": {
+      "n": 14,
+      "threshold": 0.5,
+      "false_positive_rate": 0.2143,
+      "flagged": 3,
+      "score_mean": 0.228853,
+      "score_p50": 0.142727,
+      "score_p90": 0.537983,
+      "score_p95": 0.563626,
+      "score_p99": 0.598728,
+      "score_max": 0.607504
+    },
+    "local_repo_isre": {
+      "n": 173,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.010636,
+      "score_p50": 0.001124,
+      "score_p90": 0.025243,
+      "score_p95": 0.045867,
+      "score_p99": 0.159579,
+      "score_max": 0.214947
+    },
+    "local_repo_job_application_pipeline": {
+      "n": 444,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0023,
+      "flagged": 1,
+      "score_mean": 0.01678,
+      "score_p50": 0.001522,
+      "score_p90": 0.027532,
+      "score_p95": 0.091225,
+      "score_p99": 0.264842,
+      "score_max": 0.682698
+    },
+    "local_repo_math_train": {
+      "n": 562,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0196,
+      "flagged": 11,
+      "score_mean": 0.035671,
+      "score_p50": 0.001702,
+      "score_p90": 0.063729,
+      "score_p95": 0.225431,
+      "score_p99": 0.721285,
+      "score_max": 0.86315
+    },
+    "local_repo_math_train2": {
+      "n": 68,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.01009,
+      "score_p50": 0.000679,
+      "score_p90": 0.025214,
+      "score_p95": 0.049481,
+      "score_p99": 0.113539,
+      "score_max": 0.136496
+    },
+    "local_repo_olympiad_math": {
+      "n": 55,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.009864,
+      "score_p50": 0.001324,
+      "score_p90": 0.020141,
+      "score_p95": 0.056901,
+      "score_p99": 0.13071,
+      "score_max": 0.152684
+    },
+    "local_repo_vesuvius": {
+      "n": 730,
+      "threshold": 0.5,
+      "false_positive_rate": 0.074,
+      "flagged": 54,
+      "score_mean": 0.124375,
+      "score_p50": 0.024499,
+      "score_p90": 0.402151,
+      "score_p95": 0.62727,
+      "score_p99": 0.933021,
+      "score_max": 0.973555
+    },
+    "python_stdlib": {
+      "n": 9789,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0026,
+      "flagged": 25,
+      "score_mean": 0.012329,
+      "score_p50": 0.000639,
+      "score_p90": 0.020569,
+      "score_p95": 0.051524,
+      "score_p99": 0.256747,
+      "score_max": 0.935251
+    }
+  },
+  "flagged_examples": [
+    {
+      "score": 0.770936,
+      "source": "local_project_code",
+      "path": "C:\\GitHub\\Safety DS\\scripts\\build_malware_code_pool.py",
+      "preview": "def download_vxunderground( spec: dict, builder: PoolBuilder, chunk_cfg: dict, insecure: bool ) -> None: repo = spec[\"repo\"] cache = ROOT / spec.get(\"cache_dir\", \"data/external/vxunderground\") cache.mkdir(parents=True, exist_ok=True) for su"
+    },
+    {
+      "score": 0.81859,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\clean_github.ps1",
+      "preview": "Set-Location 'C:\\GitHub\\Olympiad_Math' $remove = @( 'scraping\\olympiad.py', 'scraping\\geometry_scraper.py', 'scraping\\filter_geometry_links.py', 'scraping\\download_geometry_drive.py', 'scraping\\scraper_aops.py', 'scraping\\olympiad_dataset1."
+    },
+    {
+      "score": 0.810251,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\eval_general_reasoning.py",
+      "preview": "def load_hellaswag(n, seed): \"\"\"HellaSwag — 200 примеров.\"\"\" print(\"Loading HellaSwag...\") rng = random.Random(seed) ds = load_dataset(\"Rowan/hellaswag\", split=\"validation\", trust_remote_code=True) pool = [] for x in ds: endings = x[\"ending"
+    },
+    {
+      "score": 0.782356,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\list_files.ps1",
+      "preview": "Get-ChildItem 'C:\\lora_training\\OLympiad' -Filter '*.jsonl' | Sort-Object Length -Descending | ForEach-Object { $mb = [math]::Round($_.Length / 1MB, 1) Write-Output \"$mb MB $($_.Name)\" }"
+    },
+    {
+      "score": 0.550134,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\run_lora_3k_v2.ps1",
+      "preview": "$ErrorActionPreference = \"Stop\" $ScriptDir = \"C:\\Users\\sol08_p04dk8b\\MATH TRAIN\" cd $ScriptDir Write-Host \"=== run 1/3: Qwen3-4B lora_3k_v2 ===\" -ForegroundColor Cyan python train_qwen3_4b_instruct_lora_3k_v2.py 2>&1 | Tee-Object qwen3_3k_v"
+    },
+    {
+      "score": 0.803937,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\show_github.ps1",
+      "preview": "Write-Output \"=== C:\\GitHub\\Olympiad_Math ===\" Write-Output \"\" Write-Output \"--- Root files ---\" Get-ChildItem 'C:\\GitHub\\Olympiad_Math' -File | ForEach-Object { $mb = [math]::Round($_.Length / 1MB, 2) Write-Output \" $($_.Name) ($mb MB)\" } "
+    },
+    {
+      "score": 0.86315,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\show_structure.ps1",
+      "preview": "Write-Output \"=== Files in root ===\" Get-ChildItem 'C:\\lora_training\\OLympiad' -File | ForEach-Object { Write-Output $_.Name } Write-Output \"\" Write-Output \"=== Subfolders ===\" Get-ChildItem 'C:\\lora_training\\OLympiad' -Directory | ForEach-"
+    },
+    {
+      "score": 0.513428,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\test_qwen3_base_format.py",
+      "preview": "def fmt_B_chatml(question): \"\"\"Qwen3 ChatML (полный template с system prompt).\"\"\" return (f\"<|im_start|>system\\n{SYSTEM_MATH}<|im_end|>\\n\" f\"<|im_start|>user\\nProblem:\\n{question}<|im_end|>\\n\" f\"<|im_start|>assistant\\n\")"
+    },
+    {
+      "score": 0.606327,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\train_llama_1b_instruct_lora_div11k.py",
+      "preview": "\"\"\" train_llama_1b_instruct_lora_div11k.py ======================================== Track B-5: LoRA SFT на Llama-3.2-1B-Instruct. Датасет: diverse_11k_llama.jsonl (12,982 примеров) = math_train.jsonl (11,204 math) + stage1_more_llama.jsonl "
+    },
+    {
+      "score": 0.759052,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\train_llama_1b_instruct_lora_div14k.py",
+      "preview": "\"\"\" train_llama_1b_instruct_lora_div14k.py ======================================== Track B-5: LoRA SFT на Llama-3.2-1B-Instruct. Датасет: diverse_large_llama.jsonl (13,944 примеров) = math_train.jsonl (11,204 math) + stage1_more_llama.json"
+    },
+    {
+      "score": 0.61304,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\train_llama_3b_instruct_lora_div14k.py",
+      "preview": "\"\"\" train_llama_3b_instruct_lora_div14k.py ======================================== Track B-5: LoRA SFT на Llama-3.2-3B-Instruct. Датасет: diverse_large_llama.jsonl (13,944 примеров) = math_train.jsonl (11,204 math) + stage1_more_llama.json"
+    },
+    {
+      "score": 0.697139,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\upload_to_hf.py",
+      "preview": ": print(f\" [SKIP] {local_path.name} not found\") continue mb = round(local_path.stat().st_size / 1024**2, 1) print(f\" Uploading {local_path.name} ({mb} MB) -> {repo_path} ...\") api.upload_file( path_or_fileobj=str(local_path), path_in_repo=r"
+    },
+    {
+      "score": 0.54,
+      "source": "local_repo_hs",
+      "path": "C:\\GitHub\\HS\\assets\\glitch.js",
+      "preview": "(function () { var padp = document.querySelector(\".vis-padp\"); if (!padp) return; var bars = padp.querySelectorAll(\".p-bar\"); var vals = padp.querySelectorAll(\".p-val\"); var steps = padp.querySelectorAll(\".p-step\"); var title = padp.querySe"
+    },
+    {
+      "score": 0.607504,
+      "source": "local_repo_hs",
+      "path": "C:\\GitHub\\HS\\assets\\lora-anim.js",
+      "preview": "(nx*2 + t*0.10, ny*2 + t*0.07, 8); var ang = noise(nx*1.2, ny*1.2 + t*0.06, 9) * Math.PI * 4; var rot = { x: Math.cos(ang), y: Math.sin(ang) }; tvx = lerp(c3.x, rot.x, 0.55) * 5; tvy = lerp(c3.y, rot.y, 0.55) * 5; var cl = noise(nx*1.4, ny*"
+    },
+    {
+      "score": 0.533278,
+      "source": "local_repo_hs",
+      "path": "C:\\GitHub\\HS\\assets\\sphere.js",
+      "preview": "var fx = (d.ox - d.x) * SPRING; var fy = (d.oy - d.y) * SPRING; if (mouse.active) { var ddx = mx - d.x, ddy = my - d.y; var dist2 = ddx*ddx + ddy*ddy; if (dist2 < pullR2 && dist2 > 0.01) { var dist = Math.sqrt(dist2); var t = 1 - dist/pullR"
+    },
+    {
+      "score": 0.682698,
+      "source": "local_repo_job_application_pipeline",
+      "path": "C:\\GitHub\\Job Application Pipeline\\scripts\\run_daily_report.ps1",
+      "preview": "param( [string]$Date = \"\", [string]$SourcesConfig = \"\", [string]$Profile = \"\", [int]$MaxPackets = 1, [switch]$SkipPackets, [switch]$SkipTelegram ) $ErrorActionPreference = \"Stop\" $repoRoot = Split-Path -Parent $PSScriptRoot $env:PYTHONPATH "
+    },
+    {
+      "score": 0.605122,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\tools\\convert_gn_to_bn.py",
+      "preview": "class VesuviusEncoderGN(nn.Module): def __init__(self, in_channels=1, base_channels=32): super().__init__() c = base_channels self.enc2_0 = ConvBlockGN(in_channels, c) self.enc2_1 = ConvBlockGN(c * 1, c * 2) self.enc2_2 = ConvBlockGN(c * 4,"
+    },
+    {
+      "score": 0.606929,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\tools\\convert_gn_to_bn.py",
+      "preview": "class VesuviusEncoderBN(nn.Module): def __init__(self, in_channels=1, base_channels=32): super().__init__() c = base_channels self.enc2_0 = ConvBlockBN(in_channels, c) self.enc2_1 = ConvBlockBN(c * 1, c * 2) self.enc2_2 = ConvBlockBN(c * 4,"
+    },
+    {
+      "score": 0.905741,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\metric\\topological-metrics-kaggle\\external\\Betti-Matching-3D\\src\\main.cpp",
+      "preview": "; string unmatched0Filename = \"unmatched_0.csv\"; string unmatched1Filename = \"unmatched_1.csv\"; fileFormat format0; fileFormat format1; bool print = false; bool saveResult = false; for (int i = 1; i < argc; ++i) { const string arg(argv[i]);"
+    },
+    {
+      "score": 0.654853,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\metric\\topological-metrics-kaggle\\external\\Betti-Matching-3D\\src\\npy.hpp",
+      "preview": "ed(__ARMEB__) || \\ defined(__THUMBEB__) || \\ defined(__AARCH64EB__) || \\ defined(_MIBSEB) || defined(__MIBSEB) || defined(__MIBSEB__) const bool big_endian = true; #else const bool big_endian = false; #endif const char magic_string[] = \"\\x9"
+    }
+  ]
+}

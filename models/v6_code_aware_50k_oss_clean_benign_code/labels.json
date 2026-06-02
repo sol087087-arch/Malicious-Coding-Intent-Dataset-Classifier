@@ -1,0 +1,16 @@
+{
+  "categories": [
+    "malware_types",
+    "exploit_development",
+    "obfuscation_evasion",
+    "command_control",
+    "injection_lateral",
+    "credential_exfil",
+    "ransomware_crypto",
+    "reverse_engineering_offense",
+    "phishing_social_engineering_code",
+    "botnet_spam_ddos",
+    "rootkit_kernel",
+    "packers_loaders"
+  ]
+}

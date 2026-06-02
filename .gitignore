@@ -17,11 +17,20 @@ data/processed/
 # External HF pulls (regenerate: scripts/import_hf_malware.py)
 data/external/hf_imported.jsonl
 data/external/hf_import_report.json
+data/external/hf_benign_code*.jsonl
+data/external/hf_benign_code*.report.json
+data/external/vxunderground/
 data/external/*.parquet
 data/external/*.tmp
 
 # Optional: uncomment to exclude rebuilt splits (~56 MB)
 # data/clf/
+
+# Old local ablation artifacts kept off the public repo.
+models/v3_code_aware*/
+models/v4_code_aware_50k_benign_code/
+models/v5_code_aware_50k_oss_benign_code/
+models/v7_code_aware_50k_github_lora_benign_code/
 
 # HF publish staging / clone workdirs
 data/hf_push_staging/
@@ -37,6 +46,9 @@ data/train_v2.log
 data/train_v2_neg20k.log
 data/translation_20lang.log
 *.log
+
+# Local release notes / pre-publish scratchpad
+docs/RELEASE_CHECKLIST.md
 
 # OS / editor
 .DS_Store

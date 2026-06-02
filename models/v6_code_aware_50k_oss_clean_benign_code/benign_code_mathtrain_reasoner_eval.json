@@ -1,0 +1,248 @@
+{
+  "model_dir": "models\\v6_code_aware_50k_oss_clean_benign_code",
+  "holdout": "data\\clf\\benign_code_holdout_mathtrain_reasoner_clean.jsonl",
+  "overall": {
+    "n": 12000,
+    "threshold": 0.5,
+    "false_positive_rate": 0.01,
+    "flagged": 120,
+    "score_mean": 0.021423,
+    "score_p50": 0.000676,
+    "score_p90": 0.032512,
+    "score_p95": 0.097846,
+    "score_p99": 0.497524,
+    "score_max": 0.994358
+  },
+  "by_source": {
+    "local_project_code": {
+      "n": 165,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0061,
+      "flagged": 1,
+      "score_mean": 0.026509,
+      "score_p50": 0.002527,
+      "score_p90": 0.034257,
+      "score_p95": 0.099218,
+      "score_p99": 0.43596,
+      "score_max": 0.955582
+    },
+    "local_repo_hs": {
+      "n": 14,
+      "threshold": 0.5,
+      "false_positive_rate": 0.1429,
+      "flagged": 2,
+      "score_mean": 0.234466,
+      "score_p50": 0.173636,
+      "score_p90": 0.50088,
+      "score_p95": 0.601973,
+      "score_p99": 0.732286,
+      "score_max": 0.764864
+    },
+    "local_repo_isre": {
+      "n": 173,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.015629,
+      "score_p50": 0.000923,
+      "score_p90": 0.065123,
+      "score_p95": 0.111808,
+      "score_p99": 0.148813,
+      "score_max": 0.175909
+    },
+    "local_repo_job_application_pipeline": {
+      "n": 444,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0023,
+      "flagged": 1,
+      "score_mean": 0.016508,
+      "score_p50": 0.001555,
+      "score_p90": 0.038672,
+      "score_p95": 0.117372,
+      "score_p99": 0.200662,
+      "score_max": 0.691934
+    },
+    "local_repo_math_train": {
+      "n": 562,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0569,
+      "flagged": 32,
+      "score_mean": 0.070331,
+      "score_p50": 0.002097,
+      "score_p90": 0.163531,
+      "score_p95": 0.558199,
+      "score_p99": 0.93781,
+      "score_max": 0.990801
+    },
+    "local_repo_math_train2": {
+      "n": 68,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.015792,
+      "score_p50": 0.00076,
+      "score_p90": 0.047232,
+      "score_p95": 0.135641,
+      "score_p99": 0.156291,
+      "score_max": 0.166963
+    },
+    "local_repo_olympiad_math": {
+      "n": 55,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0182,
+      "flagged": 1,
+      "score_mean": 0.031321,
+      "score_p50": 0.001742,
+      "score_p90": 0.071487,
+      "score_p95": 0.192837,
+      "score_p99": 0.439802,
+      "score_max": 0.561933
+    },
+    "local_repo_vesuvius": {
+      "n": 730,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0548,
+      "flagged": 40,
+      "score_mean": 0.103365,
+      "score_p50": 0.018504,
+      "score_p90": 0.349818,
+      "score_p95": 0.531822,
+      "score_p99": 0.915992,
+      "score_max": 0.994358
+    },
+    "python_stdlib": {
+      "n": 9789,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0044,
+      "flagged": 43,
+      "score_mean": 0.012423,
+      "score_p50": 0.000479,
+      "score_p90": 0.017982,
+      "score_p95": 0.048102,
+      "score_p99": 0.254804,
+      "score_max": 0.97892
+    }
+  },
+  "flagged_examples": [
+    {
+      "score": 0.955582,
+      "source": "local_project_code",
+      "path": "C:\\GitHub\\Safety DS\\scripts\\build_malware_code_pool.py",
+      "preview": "def download_vxunderground( spec: dict, builder: PoolBuilder, chunk_cfg: dict, insecure: bool ) -> None: repo = spec[\"repo\"] cache = ROOT / spec.get(\"cache_dir\", \"data/external/vxunderground\") cache.mkdir(parents=True, exist_ok=True) for su"
+    },
+    {
+      "score": 0.77251,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\auto_pipeline.ps1",
+      "preview": "$stateFile = 'C:\\lora_training\\eval_results\\pipeline_state2.txt' $qwenLog = 'C:\\lora_training\\eval_results\\eval_qwen_merged_full.log' $glmLog = 'C:\\lora_training\\eval_results\\eval_glm_both_6k.log' $glmErr = 'C:\\lora_training\\eval_results\\ev"
+    },
+    {
+      "score": 0.705632,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\check_adapter_structure.py",
+      "preview": "import sys if hasattr(sys.stdout, \"reconfigure\"): sys.stdout.reconfigure(encoding=\"utf-8\") from safetensors import safe_open from pathlib import Path import json adapter = Path(r\"C:\\lora_training\\lora_MATH_output\\qwen_run_20260408_123730\\fi"
+    },
+    {
+      "score": 0.590817,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\check_lora_results.py",
+      "preview": "import json, os path = r\"C:\\lora_training\\eval_results\\all_adapters\" for fn in [\"eval_qwen3_instruct_lora.json\", \"eval_qwen3_instruct_lora_diverse.json\", \"eval_gemma3_instruct_lora.json\", \"eval_gemma3_instruct_lora_diverse.json\", \"eval_llam"
+    },
+    {
+      "score": 0.599163,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\check_qwen_log.ps1",
+      "preview": "$logfile = \"C:\\Users\\SOL08_~1\\AppData\\Local\\Temp\\claude\\C--Users-sol08-p04dk8b-MATH-TRAIN\\4a837286-97f6-4070-a5f2-37ba2c811443\\tasks\\b1yeq9q3i.output\" if (Test-Path $logfile) { $lines = Get-Content $logfile $total = $lines.Count Write-Outpu"
+    },
+    {
+      "score": 0.935582,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\check_sizes.ps1",
+      "preview": "$files = @( 'C:\\lora_training\\OLympiad\\_output\\good_solutions_deduped.jsonl', 'C:\\lora_training\\OLympiad\\_output\\broken_only_deduped.jsonl', 'C:\\lora_training\\OLympiad\\_output\\dpo_pairs.jsonl', 'C:\\lora_training\\OLympiad\\converted_for_sft.j"
+    },
+    {
+      "score": 0.990801,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\clean_github.ps1",
+      "preview": "Set-Location 'C:\\GitHub\\Olympiad_Math' $remove = @( 'scraping\\olympiad.py', 'scraping\\geometry_scraper.py', 'scraping\\filter_geometry_links.py', 'scraping\\download_geometry_drive.py', 'scraping\\scraper_aops.py', 'scraping\\olympiad_dataset1."
+    },
+    {
+      "score": 0.736009,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\download_llama3b_instruct.py",
+      "preview": "from huggingface_hub import snapshot_download import time print(\"Downloading Llama-3.2-3B-Instruct...\", flush=True) t0 = time.time() snapshot_download( repo_id=\"meta-llama/Llama-3.2-3B-Instruct\", local_dir=r\"C:\\models\\Llama-3.2-3B-Instruct\""
+    },
+    {
+      "score": 0.880296,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\eval_benchmark.py",
+      "preview": "def print_report(results, label): total = len(results) correct = sum(r[\"correct\"] for r in results) print(f\"\\n{'='*60}\") print(f\" {label}: {correct}/{total} = {correct/total*100:.1f}%\") print(f\"{'='*60}\") # По предметам by_subj = defaultdic"
+    },
+    {
+      "score": 0.509782,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\eval_general_reasoning.py",
+      "preview": "def load_mmlu(n, seed): \"\"\"MMLU: cais/mmlu all — 200 вопросов из разных предметов.\"\"\" print(\"Loading MMLU...\") rng = random.Random(seed) # Пробуем 'all', иначе сэмплируем из нескольких предметов try: ds = load_dataset(\"cais/mmlu\", \"all\", sp"
+    },
+    {
+      "score": 0.74435,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\eval_general_reasoning.py",
+      "preview": "def load_arc(n, seed): \"\"\"ARC-Challenge — 200 вопросов.\"\"\" print(\"Loading ARC-Challenge...\") rng = random.Random(seed) ds = load_dataset(\"allenai/ai2_arc\", \"ARC-Challenge\", split=\"test\", trust_remote_code=True) pool = [] for x in ds: labels"
+    },
+    {
+      "score": 0.946294,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\eval_general_reasoning.py",
+      "preview": "def load_hellaswag(n, seed): \"\"\"HellaSwag — 200 примеров.\"\"\" print(\"Loading HellaSwag...\") rng = random.Random(seed) ds = load_dataset(\"Rowan/hellaswag\", split=\"validation\", trust_remote_code=True) pool = [] for x in ds: endings = x[\"ending"
+    },
+    {
+      "score": 0.569382,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\inspect_lora.py",
+      "preview": "import sys if hasattr(sys.stdout, \"reconfigure\"): sys.stdout.reconfigure(encoding=\"utf-8\") from safetensors import safe_open import json from pathlib import Path adapter_path = r\"C:\\lora_training\\lora_MATH_output\\qwen_run_20260408_123730\\fi"
+    },
+    {
+      "score": 0.956672,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\list_files.ps1",
+      "preview": "Get-ChildItem 'C:\\lora_training\\OLympiad' -Filter '*.jsonl' | Sort-Object Length -Descending | ForEach-Object { $mb = [math]::Round($_.Length / 1MB, 1) Write-Output \"$mb MB $($_.Name)\" }"
+    },
+    {
+      "score": 0.826007,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\peek_local_bench.ps1",
+      "preview": "$files = @( 'C:\\lora_training\\OLympiad\\olympiad\\olympiad_final_MATH.jsonl', 'C:\\lora_training\\OLympiad\\_raw\\aops_dataset.jsonl', 'C:\\lora_training\\OLympiad\\_raw\\math_dataset.jsonl' ) foreach ($f in $files) { if (Test-Path $f) { Write-Output"
+    },
+    {
+      "score": 0.84162,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\peek_scripts.ps1",
+      "preview": "$scripts = @( 'generate_cot_dataset.py', 'Complete_cot.py', 'janitor44.py', 'triage_flagged.py', 'merge_dataset.py' ) foreach ($s in $scripts) { $path = \"C:\\lora_training\\OLympiad\\$s\" if (Test-Path $path) { Write-Output \"=== $s ===\" Get-Con"
+    },
+    {
+      "score": 0.813426,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\run_lora_3k_v2.ps1",
+      "preview": "$ErrorActionPreference = \"Stop\" $ScriptDir = \"C:\\Users\\sol08_p04dk8b\\MATH TRAIN\" cd $ScriptDir Write-Host \"=== run 1/3: Qwen3-4B lora_3k_v2 ===\" -ForegroundColor Cyan python train_qwen3_4b_instruct_lora_3k_v2.py 2>&1 | Tee-Object qwen3_3k_v"
+    },
+    {
+      "score": 0.7723,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\setup_github_project.py",
+      "preview": "| SFT (good solutions) | ~22,990 | ChatML `{\"text\": ...}` | | Broken / incomplete | ~6,518 | same | | DPO pairs | ~4,393 | `{\"problem\", \"chosen\", \"rejected\"}` | Data files are **not included** in this repo (too large). Sources: AoPS, IMO Sh"
+    },
+    {
+      "score": 0.976724,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\show_github.ps1",
+      "preview": "Write-Output \"=== C:\\GitHub\\Olympiad_Math ===\" Write-Output \"\" Write-Output \"--- Root files ---\" Get-ChildItem 'C:\\GitHub\\Olympiad_Math' -File | ForEach-Object { $mb = [math]::Round($_.Length / 1MB, 2) Write-Output \" $($_.Name) ($mb MB)\" } "
+    },
+    {
+      "score": 0.982568,
+      "source": "local_repo_math_train",
+      "path": "C:\\Users\\sol08_p04dk8b\\MATH TRAIN\\show_structure.ps1",
+      "preview": "Write-Output \"=== Files in root ===\" Get-ChildItem 'C:\\lora_training\\OLympiad' -File | ForEach-Object { Write-Output $_.Name } Write-Output \"\" Write-Output \"=== Subfolders ===\" Get-ChildItem 'C:\\lora_training\\OLympiad' -Directory | ForEach-"
+    }
+  ]
+}

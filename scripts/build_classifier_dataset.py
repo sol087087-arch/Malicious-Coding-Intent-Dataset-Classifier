@@ -37,6 +37,7 @@ LANGS_CFG = ROOT / "config" / "translation_languages_20.yaml"
 DEFAULT_MALWARE_CODE = ROOT / "data" / "external" / "malware_code_merged.json"
 DEFAULT_MALWARE_CODE_FALLBACK = ROOT / "data" / "external" / "malware_code_big_clean.json"
 DEFAULT_HF_IMPORT = ROOT / "data" / "external" / "hf_imported.jsonl"
+DEFAULT_BENIGN_CODE = ROOT / "data" / "clf" / "benign_code_holdout.jsonl"
 MAX_CODE_CHARS = 12_000  # BGE-m3 handles long inputs; cap outliers
 MAX_HF_TEXT_CHARS = 12_000
 
@@ -379,11 +380,42 @@ def load_hf_imported(path: Path) -> tuple[list[dict], list[dict]]:
     return pos, neg
 
 
+def load_benign_code_samples(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    out: list[dict] = []
+    seen: set[str] = set()
+    with path.open(encoding="utf-8") as f:
+        for line in f:
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            text = row.get("text")
+            if not isinstance(text, str) or len(text.strip()) < 80:
+                continue
+            text = text.strip()
+            if len(text) > MAX_CODE_CHARS:
+                text = text[:MAX_CODE_CHARS]
+            key = hashlib.sha256(text.encode("utf-8")).hexdigest()
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(
+                {
+                    "text": text,
+                    "source": row.get("source", "benign_code"),
+                    "path": row.get("path"),
+                }
+            )
+    return out
+
+
 def write_splits(
     out_dir: Path,
     splits: dict[str, list[dict]],
     obf: list[dict],
     code_samples: list[dict],
+    benign_code_test: list[dict],
     report: dict,
     seed: int,
 ) -> None:
@@ -397,9 +429,10 @@ def write_splits(
 
     with (out_dir / "test_obfuscated.jsonl").open("w", encoding="utf-8") as f:
         for row in obf:
-            f.write(
-                json.dumps(to_record(row["term"], 1, row["category"]), ensure_ascii=False) + "\n"
-            )
+            rec = to_record(row["term"], 1, row["category"])
+            if row.get("lang"):
+                rec["lang"] = row["lang"]
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
     with (out_dir / "test_malware_code.jsonl").open("w", encoding="utf-8") as f:
         for sample in code_samples:
@@ -411,11 +444,49 @@ def write_splits(
                 + "\n"
             )
 
+    with (out_dir / "test_benign_code.jsonl").open("w", encoding="utf-8") as f:
+        for sample in benign_code_test:
+            f.write(
+                json.dumps(
+                    to_record(sample["text"], 0, None, sample["source"]),
+                    ensure_ascii=False,
+                )
+                + "\n"
+            )
+
     (out_dir / "labels.json").write_text(
         json.dumps({"categories": CATEGORIES}, indent=2), encoding="utf-8"
     )
     (out_dir / "dataset_report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps(report, indent=2))
+
+
+def split_code_samples(
+    samples: list[dict],
+    train_n: int,
+    val_n: int,
+    seed: int,
+) -> tuple[list[dict], list[dict], list[dict]]:
+    rows = list(samples)
+    random.Random(seed).shuffle(rows)
+    train = rows[:train_n] if train_n > 0 else []
+    val = rows[train_n : train_n + val_n] if val_n > 0 else []
+    test = rows[train_n + val_n :]
+    return train, val, test
+
+
+def split_samples(
+    samples: list[dict],
+    train_n: int,
+    val_n: int,
+    seed: int,
+) -> tuple[list[dict], list[dict], list[dict]]:
+    rows = list(samples)
+    random.Random(seed).shuffle(rows)
+    train = rows[:train_n] if train_n > 0 else []
+    val = rows[train_n : train_n + val_n] if val_n > 0 else []
+    test = rows[train_n + val_n :]
+    return train, val, test
 
 
 def main() -> None:
@@ -459,6 +530,21 @@ def main() -> None:
         default=None,
         help="v2: neg-only adds HF benign to train (default neg-only if --multilingual)",
     )
+    ap.add_argument(
+        "--code-aware",
+        action="store_true",
+        help="v3: put part of malware-code positives into train/val and keep the rest as test_malware_code",
+    )
+    ap.add_argument("--malware-code-train", type=int, default=8000)
+    ap.add_argument("--malware-code-val", type=int, default=500)
+    ap.add_argument(
+        "--benign-code",
+        type=Path,
+        default=DEFAULT_BENIGN_CODE,
+        help="JSONL benign-code hard negatives; use 0 to skip",
+    )
+    ap.add_argument("--benign-code-train", type=int, default=0)
+    ap.add_argument("--benign-code-val", type=int, default=0)
     args = ap.parse_args()
 
     out_dir = args.out_dir or (V2_CLF_DIR if args.multilingual else CLF_DIR)
@@ -482,6 +568,27 @@ def main() -> None:
     elif malware_path == DEFAULT_MALWARE_CODE and not malware_path.exists():
         malware_path = DEFAULT_MALWARE_CODE_FALLBACK
     code_samples = load_malware_code_samples(malware_path)
+    code_train: list[dict] = []
+    code_val: list[dict] = []
+    code_test = code_samples
+    if args.code_aware:
+        code_train, code_val, code_test = split_code_samples(
+            code_samples,
+            args.malware_code_train,
+            args.malware_code_val,
+            args.seed,
+        )
+
+    benign_code_path = args.benign_code
+    if str(benign_code_path) == "0":
+        benign_code_path = Path("/nonexistent")
+    benign_code_samples = load_benign_code_samples(benign_code_path)
+    benign_code_train, benign_code_val, benign_code_test = split_samples(
+        benign_code_samples,
+        args.benign_code_train,
+        args.benign_code_val,
+        args.seed,
+    )
 
     hf_path = args.hf_import
     if str(hf_path) == "0":
@@ -508,7 +615,14 @@ def main() -> None:
         src = "lexicon_multilingual" if args.multilingual else "lexicon"
         add_record(term, 1, cat, src)
 
-    if not args.multilingual:
+    if args.code_aware:
+        for sample in code_train:
+            add_record(sample["text"], 1, sample["category"], sample["source"])
+        for sample in code_val:
+            rec = to_record(sample["text"], 1, sample["category"], sample["source"])
+            if deduper.try_add(sample["text"], sample["source"]):
+                splits["val"].append(rec)
+    elif not args.multilingual:
         for sample in code_samples:
             add_record(sample["text"], 1, sample["category"], sample["source"])
     for sample in hf_pos_train:
@@ -518,12 +632,18 @@ def main() -> None:
         add_record(neg, 0, None, "template_negative")
     for sample in hf_neg_train:
         add_record(sample["text"], 0, None, sample["source"])
+    for sample in benign_code_train:
+        if deduper.try_add(sample["text"], sample["source"]):
+            splits["train"].append(to_record(sample["text"], 0, None, sample["source"]))
+    for sample in benign_code_val:
+        if deduper.try_add(sample["text"], sample["source"]):
+            splits["val"].append(to_record(sample["text"], 0, None, sample["source"]))
 
     obf_langs = translated_langs if args.multilingual else None
     obf = load_obfuscated(args.obfuscated_test, args.seed, langs=obf_langs)
 
     code_cats: dict[str, int] = {}
-    for s in code_samples:
+    for s in code_test:
         code_cats[s["category"]] = code_cats.get(s["category"], 0) + 1
 
     dedup_report = deduper.report()
@@ -531,37 +651,46 @@ def main() -> None:
     n_mal = sum(1 for r in all_recs if r["malicious"])
 
     report = {
-        "variant": "v2_multilingual" if args.multilingual else "v1_en",
+        "variant": "v3_code_aware" if args.code_aware else "v2_multilingual" if args.multilingual else "v1_en",
         "out_dir": str(out_dir),
         "languages": [SOURCE_LANG] + translated_langs if args.multilingual else [SOURCE_LANG],
         "hf_in_train": hf_in_train,
         "sources_raw": {
             "lexicon": n_pos,
-            "malware_code_in_train": 0 if args.multilingual else len(code_samples),
+            "malware_code_total": len(code_samples),
+            "malware_code_in_train": len(code_train) if args.code_aware else 0 if args.multilingual else len(code_samples),
+            "malware_code_in_val": len(code_val) if args.code_aware else 0,
             "hf_pos_imported": len(hf_pos),
             "hf_pos_in_train": len(hf_pos_train),
             "template_neg": len(negatives),
             "hf_neg_imported": len(hf_neg),
             "hf_neg_in_train": len(hf_neg_train),
+            "benign_code_total": len(benign_code_samples),
+            "benign_code_in_train": len(benign_code_train),
+            "benign_code_in_val": len(benign_code_val),
         },
         "dedup": dedup_report,
         "records_malicious": n_mal,
         "records_total": len(all_recs),
         "split_counts": {k: len(v) for k, v in splits.items()},
         "obfuscated_test": len(obf),
-        "malware_code_test": len(code_samples),
+        "malware_code_test": len(code_test),
+        "benign_code_test": len(benign_code_test),
         "malware_code_categories": code_cats,
         "malware_code_path": str(malware_path) if code_samples else None,
+        "benign_code_path": str(benign_code_path) if benign_code_samples else None,
         "hf_import_path": str(hf_path) if hf_path.exists() else None,
         "categories": len(CATEGORIES),
         "holdout_notes": (
-            "obfuscated + malware_code never in train; HF positives stay eval-only when hf-in-train=neg-only"
+            "malware_code split into train/val/test; obfuscated remains hold-out"
+            if args.code_aware
+            else "obfuscated + malware_code never in train; HF positives stay eval-only when hf-in-train=neg-only"
             if args.multilingual
             else "standard v1 mix"
         ),
         "notes": "Cross-source dedup (normalize+hash).",
     }
-    write_splits(out_dir, splits, obf, code_samples, report, args.seed)
+    write_splits(out_dir, splits, obf, code_test, benign_code_test, report, args.seed)
 
 
 if __name__ == "__main__":

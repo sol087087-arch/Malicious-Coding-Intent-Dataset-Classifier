@@ -1,0 +1,590 @@
+{
+  "languages": [
+    "en",
+    "zh",
+    "hi",
+    "es",
+    "ar",
+    "bn",
+    "pt",
+    "ru",
+    "ja",
+    "de",
+    "fr",
+    "tr",
+    "ko",
+    "vi",
+    "it",
+    "id",
+    "pl"
+  ],
+  "limit_per_lang": 500,
+  "benign_jsonl": null,
+  "note": "Positive per-language recall is evaluated from data/<lang>/ sources. Per-language FPR is only reported when --benign-jsonl is supplied.",
+  "models": {
+    "v6_code_aware_50k_oss_clean_benign_code": {
+      "model_dir": "models\\v6_code_aware_50k_oss_clean_benign_code",
+      "threshold": 0.5,
+      "positive_splits": {
+        "canonical": {
+          "en": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.992,
+            "missed": 4,
+            "score_p50": 0.997835,
+            "score_p10": 0.922502
+          },
+          "zh": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.999679,
+            "score_p10": 0.988184
+          },
+          "hi": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999983,
+            "score_p10": 0.998303
+          },
+          "es": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999932,
+            "score_p10": 0.997117
+          },
+          "ar": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999985,
+            "score_p10": 0.998226
+          },
+          "bn": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999989,
+            "score_p10": 0.998602
+          },
+          "pt": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.99996,
+            "score_p10": 0.997702
+          },
+          "ru": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999982,
+            "score_p10": 0.998878
+          },
+          "ja": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999978,
+            "score_p10": 0.9986
+          },
+          "de": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999991,
+            "score_p10": 0.998992
+          },
+          "fr": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999911,
+            "score_p10": 0.994828
+          },
+          "tr": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.999895,
+            "score_p10": 0.992355
+          },
+          "ko": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.99997,
+            "score_p10": 0.998706
+          },
+          "vi": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.999802,
+            "score_p10": 0.990979
+          },
+          "it": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999875,
+            "score_p10": 0.994271
+          },
+          "id": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.99981,
+            "score_p10": 0.989657
+          },
+          "pl": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999958,
+            "score_p10": 0.997324
+          }
+        },
+        "obfuscated": {
+          "en": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.999563,
+            "score_p10": 0.980151
+          },
+          "zh": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.994,
+            "missed": 3,
+            "score_p50": 0.999533,
+            "score_p10": 0.985399
+          },
+          "hi": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999986,
+            "score_p10": 0.999263
+          },
+          "es": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.999917,
+            "score_p10": 0.99591
+          },
+          "ar": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.999982,
+            "score_p10": 0.998731
+          },
+          "bn": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999994,
+            "score_p10": 0.999493
+          },
+          "pt": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999938,
+            "score_p10": 0.997008
+          },
+          "ru": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999976,
+            "score_p10": 0.99841
+          },
+          "ja": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999971,
+            "score_p10": 0.997213
+          },
+          "de": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.954,
+            "missed": 23,
+            "score_p50": 0.999963,
+            "score_p10": 0.970533
+          },
+          "fr": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999923,
+            "score_p10": 0.996895
+          },
+          "tr": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.99991,
+            "score_p10": 0.991098
+          },
+          "ko": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.99997,
+            "score_p10": 0.998574
+          },
+          "vi": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999888,
+            "score_p10": 0.992204
+          },
+          "it": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999835,
+            "score_p10": 0.989191
+          },
+          "id": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.994,
+            "missed": 3,
+            "score_p50": 0.999864,
+            "score_p10": 0.993478
+          },
+          "pl": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.994,
+            "missed": 3,
+            "score_p50": 0.999946,
+            "score_p10": 0.997551
+          }
+        }
+      }
+    },
+    "v8_code_aware_50k_oss_clean_plus_fp_pool": {
+      "model_dir": "models\\v8_code_aware_50k_oss_clean_plus_fp_pool",
+      "threshold": 0.5,
+      "positive_splits": {
+        "canonical": {
+          "en": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.988,
+            "missed": 6,
+            "score_p50": 0.996074,
+            "score_p10": 0.902844
+          },
+          "zh": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.99,
+            "missed": 5,
+            "score_p50": 0.999121,
+            "score_p10": 0.969329
+          },
+          "hi": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999937,
+            "score_p10": 0.995819
+          },
+          "es": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999766,
+            "score_p10": 0.993967
+          },
+          "ar": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999947,
+            "score_p10": 0.996038
+          },
+          "bn": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999954,
+            "score_p10": 0.99664
+          },
+          "pt": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999874,
+            "score_p10": 0.994056
+          },
+          "ru": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999932,
+            "score_p10": 0.996759
+          },
+          "ja": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.99993,
+            "score_p10": 0.996758
+          },
+          "de": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999967,
+            "score_p10": 0.997958
+          },
+          "fr": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999696,
+            "score_p10": 0.987261
+          },
+          "tr": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.999638,
+            "score_p10": 0.983023
+          },
+          "ko": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999905,
+            "score_p10": 0.996763
+          },
+          "vi": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.999429,
+            "score_p10": 0.98249
+          },
+          "it": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.999659,
+            "score_p10": 0.988602
+          },
+          "id": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999497,
+            "score_p10": 0.978418
+          },
+          "pl": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999843,
+            "score_p10": 0.994474
+          }
+        },
+        "obfuscated": {
+          "en": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.994,
+            "missed": 3,
+            "score_p50": 0.998957,
+            "score_p10": 0.967036
+          },
+          "zh": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.994,
+            "missed": 3,
+            "score_p50": 0.99865,
+            "score_p10": 0.969285
+          },
+          "hi": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999931,
+            "score_p10": 0.997776
+          },
+          "es": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.999731,
+            "score_p10": 0.990981
+          },
+          "ar": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.99994,
+            "score_p10": 0.997178
+          },
+          "bn": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999967,
+            "score_p10": 0.998194
+          },
+          "pt": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999791,
+            "score_p10": 0.993275
+          },
+          "ru": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999905,
+            "score_p10": 0.99618
+          },
+          "ja": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.996,
+            "missed": 2,
+            "score_p50": 0.99988,
+            "score_p10": 0.993348
+          },
+          "de": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.944,
+            "missed": 28,
+            "score_p50": 0.99987,
+            "score_p10": 0.92242
+          },
+          "fr": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999744,
+            "score_p10": 0.991382
+          },
+          "tr": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.992,
+            "missed": 4,
+            "score_p50": 0.999589,
+            "score_p10": 0.980036
+          },
+          "ko": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999903,
+            "score_p10": 0.996641
+          },
+          "vi": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 1.0,
+            "missed": 0,
+            "score_p50": 0.999631,
+            "score_p10": 0.981263
+          },
+          "it": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.998,
+            "missed": 1,
+            "score_p50": 0.999515,
+            "score_p10": 0.979066
+          },
+          "id": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.99,
+            "missed": 5,
+            "score_p50": 0.999602,
+            "score_p10": 0.987479
+          },
+          "pl": {
+            "n": 500,
+            "threshold": 0.5,
+            "recall": 0.994,
+            "missed": 3,
+            "score_p50": 0.999826,
+            "score_p10": 0.993024
+          }
+        }
+      }
+    }
+  }
+}

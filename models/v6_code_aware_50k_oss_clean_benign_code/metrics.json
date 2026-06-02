@@ -1,0 +1,31 @@
+{
+  "embedder": "BAAI/bge-m3",
+  "device": "cuda",
+  "embedding_dim": 1024,
+  "max_length": 128,
+  "clf_dir": "data\\clf\\v6_code_aware_50k_oss_clean_benign_code",
+  "counts": {
+    "train": 222950,
+    "test": 27736,
+    "obfuscated_test": 4000,
+    "malware_code_test": 2000
+  },
+  "binary": {
+    "precision": 0.9996,
+    "recall": 0.9964,
+    "f1": 0.998,
+    "roc_auc": 0.9997,
+    "false_positive_rate": 0.004,
+    "obfuscated_recall": 0.9935,
+    "obfuscated_count": 4000,
+    "malware_code_recall": 0.989,
+    "malware_code_count": 2000
+  },
+  "multilabel": {
+    "micro_f1": 0.6146,
+    "macro_f1": 0.514,
+    "macro_f1_positives_only": 0.5141,
+    "obfuscated_macro_f1": 0.3011,
+    "malware_code_macro_f1": 0.1235
+  }
+}

@@ -17,6 +17,9 @@ torch>=2.0
 # SSL for HF hub (train_classifier.py)
 certifi>=2023.0
 
+# Eval plots (scripts/plot_score_dist.py)
+matplotlib>=3.7
+
 # Optional: translate_lexicon.py --backend nllb
 # transformers>=4.40
 # sentencepiece>=0.2

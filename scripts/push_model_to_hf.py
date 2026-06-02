@@ -103,10 +103,16 @@ Training data: [NecroMOnk/safety-ds-malicious-coding-clf-v2](https://huggingface
 | `clf_binary.joblib` | Binary malicious/benign head |
 | `clf_multilabel.joblib` | 12-category multilabel head |
 | `labels.json` | Category ids |
-| `binary_threshold.json` | Calibrated threshold (**{thr}**) + metrics |
+| `binary_threshold.json` | Operating point (**{thr}**) selected under a White-Hat FPR cap |
 | `metrics.json` | Train/eval summary |
 
-## Metrics (calibrated threshold)
+## Evaluation framing
+
+The low threshold is a recall-oriented operating point, not a magic model
+quality number. Scores are compressed toward zero, so use ROC/PR-AUC and score
+distribution plots from the GitHub repo before comparing thresholds.
+
+## Metrics at operating point
 
 | Dataset | Recall | FPR | Threshold |
 |---------|--------|-----|-----------|
@@ -114,7 +120,10 @@ Training data: [NecroMOnk/safety-ds-malicious-coding-clf-v2](https://huggingface
 | Obfuscated hold-out | 100% | n/a | {thr} |
 | Malware code hold-out | 98.6% | n/a | {thr} |
 
-Note: after retrain with White-Hat negatives, sklearn default threshold (0.5) severely degrades malware-code recall — use `binary_threshold.json`.
+Note: obfuscated and malware-code hold-outs are all-positive, so these rows are
+recall-only stress checks. The sklearn/default threshold (0.5) is kept as a
+baseline comparison and severely degrades malware-code recall on current
+weights.
 
 ## Usage
 
@@ -138,7 +147,7 @@ p = clf_bin.predict_proba(x)[0, 1]
 print("malicious" if p >= thr else "benign", p)
 ```
 
-Or clone [Safety-DS](https://github.com/NecroMOnk/Safety-DS) and run `scripts/predict_classifier.py`.
+Or clone [Malicious-Coding-Intent-Dataset-Classifier](https://github.com/sol087087-arch/Malicious-Coding-Intent-Dataset-Classifier) and run `scripts/predict_classifier.py`.
 """
 
 

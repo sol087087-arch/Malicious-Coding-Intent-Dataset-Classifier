@@ -1,0 +1,284 @@
+{
+  "model_dir": "models\\v8_code_aware_50k_oss_clean_plus_fp_pool",
+  "holdout": "data\\clf\\benign_code_holdout_github_lora_clean.jsonl",
+  "overall": {
+    "n": 12000,
+    "threshold": 0.5,
+    "false_positive_rate": 0.0078,
+    "flagged": 94,
+    "score_mean": 0.021276,
+    "score_p50": 0.000913,
+    "score_p90": 0.035272,
+    "score_p95": 0.103479,
+    "score_p99": 0.46175,
+    "score_max": 0.973555
+  },
+  "by_source": {
+    "local_project_code": {
+      "n": 160,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0063,
+      "flagged": 1,
+      "score_mean": 0.020748,
+      "score_p50": 0.002427,
+      "score_p90": 0.032955,
+      "score_p95": 0.04948,
+      "score_p99": 0.362833,
+      "score_max": 0.770936
+    },
+    "local_repo_hs": {
+      "n": 14,
+      "threshold": 0.5,
+      "false_positive_rate": 0.2143,
+      "flagged": 3,
+      "score_mean": 0.228853,
+      "score_p50": 0.142727,
+      "score_p90": 0.537983,
+      "score_p95": 0.563626,
+      "score_p99": 0.598728,
+      "score_max": 0.607504
+    },
+    "local_repo_isre": {
+      "n": 173,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.010636,
+      "score_p50": 0.001124,
+      "score_p90": 0.025243,
+      "score_p95": 0.045867,
+      "score_p99": 0.159579,
+      "score_max": 0.214947
+    },
+    "local_repo_job_application_pipeline": {
+      "n": 444,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0023,
+      "flagged": 1,
+      "score_mean": 0.01678,
+      "score_p50": 0.001522,
+      "score_p90": 0.027532,
+      "score_p95": 0.091225,
+      "score_p99": 0.264842,
+      "score_max": 0.682698
+    },
+    "local_repo_llama_cpp": {
+      "n": 1000,
+      "threshold": 0.5,
+      "false_positive_rate": 0.009,
+      "flagged": 9,
+      "score_mean": 0.035161,
+      "score_p50": 0.004799,
+      "score_p90": 0.073904,
+      "score_p95": 0.176423,
+      "score_p99": 0.490611,
+      "score_max": 0.960493
+    },
+    "local_repo_olympiad_math": {
+      "n": 53,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.010182,
+      "score_p50": 0.001314,
+      "score_p90": 0.020649,
+      "score_p95": 0.058206,
+      "score_p99": 0.131524,
+      "score_max": 0.152684
+    },
+    "local_repo_packing": {
+      "n": 316,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0032,
+      "flagged": 1,
+      "score_mean": 0.010008,
+      "score_p50": 0.000221,
+      "score_p90": 0.004749,
+      "score_p95": 0.024278,
+      "score_p99": 0.22543,
+      "score_max": 0.720243
+    },
+    "local_repo_pipeline": {
+      "n": 136,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0074,
+      "flagged": 1,
+      "score_mean": 0.012794,
+      "score_p50": 0.001298,
+      "score_p90": 0.014629,
+      "score_p95": 0.035176,
+      "score_p99": 0.257477,
+      "score_max": 0.565864
+    },
+    "local_repo_repo": {
+      "n": 13,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.050017,
+      "score_p50": 0.002628,
+      "score_p90": 0.143356,
+      "score_p95": 0.177811,
+      "score_p99": 0.216438,
+      "score_max": 0.226095
+    },
+    "local_repo_utils": {
+      "n": 114,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0088,
+      "flagged": 1,
+      "score_mean": 0.012336,
+      "score_p50": 0.000708,
+      "score_p90": 0.011919,
+      "score_p95": 0.036259,
+      "score_p99": 0.104212,
+      "score_max": 0.767851
+    },
+    "local_repo_vesuvius": {
+      "n": 730,
+      "threshold": 0.5,
+      "false_positive_rate": 0.074,
+      "flagged": 54,
+      "score_mean": 0.124375,
+      "score_p50": 0.024499,
+      "score_p90": 0.402151,
+      "score_p95": 0.62727,
+      "score_p99": 0.933021,
+      "score_max": 0.973555
+    },
+    "python_stdlib": {
+      "n": 8847,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0026,
+      "flagged": 23,
+      "score_mean": 0.011986,
+      "score_p50": 0.000588,
+      "score_p90": 0.0194,
+      "score_p95": 0.047762,
+      "score_p99": 0.256061,
+      "score_max": 0.935251
+    }
+  },
+  "flagged_examples": [
+    {
+      "score": 0.770936,
+      "source": "local_project_code",
+      "path": "C:\\GitHub\\Safety DS\\scripts\\build_malware_code_pool.py",
+      "preview": "def download_vxunderground( spec: dict, builder: PoolBuilder, chunk_cfg: dict, insecure: bool ) -> None: repo = spec[\"repo\"] cache = ROOT / spec.get(\"cache_dir\", \"data/external/vxunderground\") cache.mkdir(parents=True, exist_ok=True) for su"
+    },
+    {
+      "score": 0.720243,
+      "source": "local_repo_packing",
+      "path": "C:\\GitHub\\packing\\core\\pack_cuda_primitives.py",
+      "preview": "ss) forward_counts[0] = n_subj; for (int i = 0; i < n_subj; ++i) { forward_polys[0][i] = subj[i]; } } else { // Initialize current buffer current_count = n_subj; for (int i = 0; i < n_subj; ++i) { current_poly[i] = subj[i]; } } // Apply eac"
+    },
+    {
+      "score": 0.53516,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\convert_hf_to_gguf.py",
+      "preview": "def __init__(self, *args, **kwargs): super().__init__(*args, **kwargs) # SwigLU activation assert self.hparams[\"activation_function\"] == \"swiglu\" # ALiBi position embedding assert self.hparams[\"position_embedding_type\"] == \"alibi\" # Embeddi"
+    },
+    {
+      "score": 0.659107,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\arg.cpp",
+      "preview": "_ARG_NO_KV_OFFLOAD\")); add_opt(common_arg( {\"-nr\", \"--no-repack\"}, \"disable weight repacking\", [](common_params & params) { params.no_extra_bufts = true; } ).set_env(\"LLAMA_ARG_NO_REPACK\")); add_opt(common_arg( {\"--no-host\"}, \"bypass host b"
+    },
+    {
+      "score": 0.960493,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\arg.cpp",
+      "preview": "nd_dev_t> devices; for (size_t i = 0; i < ggml_backend_dev_count(); ++i) { auto * dev = ggml_backend_dev_get(i); if (ggml_backend_dev_type(dev) != GGML_BACKEND_DEVICE_TYPE_CPU) { devices.push_back(dev); } } printf(\"Available devices:\\n\"); f"
+    },
+    {
+      "score": 0.772781,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\chat-parser-xml-toolcall.cpp",
+      "preview": "int i = l; while (i < r) { const std::string &s = forbids[i]; if ((int)s.size() == depth) { ++i; continue; } unsigned char c = (unsigned char)s[depth]; int j = i; while (j < r && (int)forbids[j].size() > depth && (unsigned char)forbids[j][d"
+    },
+    {
+      "score": 0.783634,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\common.cpp",
+      "preview": "d-%H_%M_%S\", std::localtime(&as_time_t)); const int64_t ns = std::chrono::duration_cast<std::chrono::nanoseconds>( current_time.time_since_epoch() % 1000000000).count(); char timestamp_ns[11]; snprintf(timestamp_ns, 11, \"%09\" PRId64, ns); r"
+    },
+    {
+      "score": 0.837582,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\common.cpp",
+      "preview": "ARATOR; } return p; }; if (getenv(\"LLAMA_CACHE\")) { cache_directory = std::getenv(\"LLAMA_CACHE\"); } else { #if defined(__linux__) || defined(__FreeBSD__) || defined(_AIX) || defined(__OpenBSD__) if (std::getenv(\"XDG_CACHE_HOME\")) { cache_di"
+    },
+    {
+      "score": 0.695738,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\download.cpp",
+      "preview": "local_path, token, false)) { throw std::runtime_error(\"Failed to download Docker Model\"); } LOG_INF(\"%s: Downloaded Docker Model to: %s\\n\", __func__, local_path.c_str()); return local_path; } catch (const std::exception & e) { LOG_ERR(\"%s: "
+    },
+    {
+      "score": 0.602298,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\json-partial.cpp",
+      "preview": "last_non_sp_char == 'E' || last_non_sp_char == '-'; }; std::string closing; for (size_t i = err_loc.stack.size(); i > 0; i--) { auto & el = err_loc.stack[i - 1]; if (el.type == COMMON_JSON_STACK_ELEMENT_OBJECT) { closing += \"}\"; } else if ("
+    },
+    {
+      "score": 0.558078,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\speculative.cpp",
+      "preview": "} { const int n_vocab_tgt = llama_vocab_n_tokens(vocab_tgt); const int n_vocab_dft = llama_vocab_n_tokens(vocab_dft); const int vocab_diff = n_vocab_tgt > n_vocab_dft ? n_vocab_tgt - n_vocab_dft : n_vocab_dft - n_vocab_tgt; if (vocab_diff >"
+    },
+    {
+      "score": 0.565864,
+      "source": "local_repo_pipeline",
+      "path": "C:\\lora_training\\math_professor_sft\\pipeline\\run_llama32_1b_train_clean_v1.ps1",
+      "preview": "$ErrorActionPreference = \"Stop\" $ProjectRoot = \"C:\\lora_training\\math_professor_sft\" $Script = Join-Path $ProjectRoot \"pipeline\\train_llama32_1b_math_sft.py\" $Dataset = \"C:\\lora_training\\OLympiad\\final_sft_train_math_strict_v2_plus_openrout"
+    },
+    {
+      "score": 0.767851,
+      "source": "local_repo_utils",
+      "path": "C:\\lora_training\\utils\\generate_variants.py",
+      "preview": "from transformers import AutoModelForCausalLM, AutoTokenizer from peft import PeftModel import torch import json # Загрузка модели (как в telegram_bot.py) base_model = AutoModelForCausalLM.from_pretrained( \"./solar_model\", device_map=\"auto\""
+    },
+    {
+      "score": 0.54,
+      "source": "local_repo_hs",
+      "path": "C:\\GitHub\\HS\\assets\\glitch.js",
+      "preview": "(function () { var padp = document.querySelector(\".vis-padp\"); if (!padp) return; var bars = padp.querySelectorAll(\".p-bar\"); var vals = padp.querySelectorAll(\".p-val\"); var steps = padp.querySelectorAll(\".p-step\"); var title = padp.querySe"
+    },
+    {
+      "score": 0.607504,
+      "source": "local_repo_hs",
+      "path": "C:\\GitHub\\HS\\assets\\lora-anim.js",
+      "preview": "(nx*2 + t*0.10, ny*2 + t*0.07, 8); var ang = noise(nx*1.2, ny*1.2 + t*0.06, 9) * Math.PI * 4; var rot = { x: Math.cos(ang), y: Math.sin(ang) }; tvx = lerp(c3.x, rot.x, 0.55) * 5; tvy = lerp(c3.y, rot.y, 0.55) * 5; var cl = noise(nx*1.4, ny*"
+    },
+    {
+      "score": 0.533278,
+      "source": "local_repo_hs",
+      "path": "C:\\GitHub\\HS\\assets\\sphere.js",
+      "preview": "var fx = (d.ox - d.x) * SPRING; var fy = (d.oy - d.y) * SPRING; if (mouse.active) { var ddx = mx - d.x, ddy = my - d.y; var dist2 = ddx*ddx + ddy*ddy; if (dist2 < pullR2 && dist2 > 0.01) { var dist = Math.sqrt(dist2); var t = 1 - dist/pullR"
+    },
+    {
+      "score": 0.682698,
+      "source": "local_repo_job_application_pipeline",
+      "path": "C:\\GitHub\\Job Application Pipeline\\scripts\\run_daily_report.ps1",
+      "preview": "param( [string]$Date = \"\", [string]$SourcesConfig = \"\", [string]$Profile = \"\", [int]$MaxPackets = 1, [switch]$SkipPackets, [switch]$SkipTelegram ) $ErrorActionPreference = \"Stop\" $repoRoot = Split-Path -Parent $PSScriptRoot $env:PYTHONPATH "
+    },
+    {
+      "score": 0.605122,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\tools\\convert_gn_to_bn.py",
+      "preview": "class VesuviusEncoderGN(nn.Module): def __init__(self, in_channels=1, base_channels=32): super().__init__() c = base_channels self.enc2_0 = ConvBlockGN(in_channels, c) self.enc2_1 = ConvBlockGN(c * 1, c * 2) self.enc2_2 = ConvBlockGN(c * 4,"
+    },
+    {
+      "score": 0.606929,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\tools\\convert_gn_to_bn.py",
+      "preview": "class VesuviusEncoderBN(nn.Module): def __init__(self, in_channels=1, base_channels=32): super().__init__() c = base_channels self.enc2_0 = ConvBlockBN(in_channels, c) self.enc2_1 = ConvBlockBN(c * 1, c * 2) self.enc2_2 = ConvBlockBN(c * 4,"
+    },
+    {
+      "score": 0.905741,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\metric\\topological-metrics-kaggle\\external\\Betti-Matching-3D\\src\\main.cpp",
+      "preview": "; string unmatched0Filename = \"unmatched_0.csv\"; string unmatched1Filename = \"unmatched_1.csv\"; fileFormat format0; fileFormat format1; bool print = false; bool saveResult = false; for (int i = 1; i < argc; ++i) { const string arg(argv[i]);"
+    }
+  ]
+}

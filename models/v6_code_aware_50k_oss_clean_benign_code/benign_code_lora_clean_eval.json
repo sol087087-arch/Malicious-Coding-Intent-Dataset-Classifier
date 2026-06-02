@@ -1,0 +1,284 @@
+{
+  "model_dir": "models\\v6_code_aware_50k_oss_clean_benign_code",
+  "holdout": "data\\clf\\benign_code_holdout_lora_clean.jsonl",
+  "overall": {
+    "n": 10000,
+    "threshold": 0.5,
+    "false_positive_rate": 0.0097,
+    "flagged": 97,
+    "score_mean": 0.022216,
+    "score_p50": 0.000779,
+    "score_p90": 0.036148,
+    "score_p95": 0.103489,
+    "score_p99": 0.483205,
+    "score_max": 0.994358
+  },
+  "by_source": {
+    "local_project_code": {
+      "n": 160,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0063,
+      "flagged": 1,
+      "score_mean": 0.027283,
+      "score_p50": 0.002633,
+      "score_p90": 0.034741,
+      "score_p95": 0.107271,
+      "score_p99": 0.437606,
+      "score_max": 0.955582
+    },
+    "local_repo_hs": {
+      "n": 14,
+      "threshold": 0.5,
+      "false_positive_rate": 0.1429,
+      "flagged": 2,
+      "score_mean": 0.234466,
+      "score_p50": 0.173636,
+      "score_p90": 0.50088,
+      "score_p95": 0.601973,
+      "score_p99": 0.732286,
+      "score_max": 0.764864
+    },
+    "local_repo_isre": {
+      "n": 173,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.015629,
+      "score_p50": 0.000923,
+      "score_p90": 0.065123,
+      "score_p95": 0.111808,
+      "score_p99": 0.148813,
+      "score_max": 0.175909
+    },
+    "local_repo_job_application_pipeline": {
+      "n": 444,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0023,
+      "flagged": 1,
+      "score_mean": 0.016508,
+      "score_p50": 0.001555,
+      "score_p90": 0.038672,
+      "score_p95": 0.117372,
+      "score_p99": 0.200662,
+      "score_max": 0.691934
+    },
+    "local_repo_llama_cpp": {
+      "n": 833,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0228,
+      "flagged": 19,
+      "score_mean": 0.046812,
+      "score_p50": 0.004319,
+      "score_p90": 0.11022,
+      "score_p95": 0.229066,
+      "score_p99": 0.614219,
+      "score_max": 0.991824
+    },
+    "local_repo_math": {
+      "n": 6,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.00212,
+      "score_p50": 0.001785,
+      "score_p90": 0.004231,
+      "score_p95": 0.004744,
+      "score_p99": 0.005155,
+      "score_max": 0.005257
+    },
+    "local_repo_olympiad_math": {
+      "n": 53,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0189,
+      "flagged": 1,
+      "score_mean": 0.032375,
+      "score_p50": 0.001522,
+      "score_p90": 0.075568,
+      "score_p95": 0.202259,
+      "score_p99": 0.444325,
+      "score_max": 0.561933
+    },
+    "local_repo_pipeline": {
+      "n": 136,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0074,
+      "flagged": 1,
+      "score_mean": 0.021312,
+      "score_p50": 0.001563,
+      "score_p90": 0.037614,
+      "score_p95": 0.080462,
+      "score_p99": 0.369778,
+      "score_max": 0.888886
+    },
+    "local_repo_repo": {
+      "n": 13,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.049554,
+      "score_p50": 0.003904,
+      "score_p90": 0.15528,
+      "score_p95": 0.195039,
+      "score_p99": 0.231913,
+      "score_max": 0.241131
+    },
+    "local_repo_utils": {
+      "n": 114,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0088,
+      "flagged": 1,
+      "score_mean": 0.017779,
+      "score_p50": 0.000741,
+      "score_p90": 0.021215,
+      "score_p95": 0.039684,
+      "score_p99": 0.316717,
+      "score_max": 0.970841
+    },
+    "local_repo_vesuvius": {
+      "n": 730,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0548,
+      "flagged": 40,
+      "score_mean": 0.103365,
+      "score_p50": 0.018504,
+      "score_p90": 0.349818,
+      "score_p95": 0.531822,
+      "score_p99": 0.915992,
+      "score_max": 0.994358
+    },
+    "python_stdlib": {
+      "n": 7324,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0042,
+      "flagged": 31,
+      "score_mean": 0.011296,
+      "score_p50": 0.000434,
+      "score_p90": 0.015448,
+      "score_p95": 0.039071,
+      "score_p99": 0.230201,
+      "score_max": 0.97892
+    }
+  },
+  "flagged_examples": [
+    {
+      "score": 0.955582,
+      "source": "local_project_code",
+      "path": "C:\\GitHub\\Safety DS\\scripts\\build_malware_code_pool.py",
+      "preview": "def download_vxunderground( spec: dict, builder: PoolBuilder, chunk_cfg: dict, insecure: bool ) -> None: repo = spec[\"repo\"] cache = ROOT / spec.get(\"cache_dir\", \"data/external/vxunderground\") cache.mkdir(parents=True, exist_ok=True) for su"
+    },
+    {
+      "score": 0.586343,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\convert_hf_to_gguf.py",
+      "preview": "def __init__(self, *args, **kwargs): super().__init__(*args, **kwargs) # SwigLU activation assert self.hparams[\"activation_function\"] == \"swiglu\" # ALiBi position embedding assert self.hparams[\"position_embedding_type\"] == \"alibi\" # Embeddi"
+    },
+    {
+      "score": 0.863325,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\arg.cpp",
+      "preview": "_ARG_NO_KV_OFFLOAD\")); add_opt(common_arg( {\"-nr\", \"--no-repack\"}, \"disable weight repacking\", [](common_params & params) { params.no_extra_bufts = true; } ).set_env(\"LLAMA_ARG_NO_REPACK\")); add_opt(common_arg( {\"--no-host\"}, \"bypass host b"
+    },
+    {
+      "score": 0.991824,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\arg.cpp",
+      "preview": "nd_dev_t> devices; for (size_t i = 0; i < ggml_backend_dev_count(); ++i) { auto * dev = ggml_backend_dev_get(i); if (ggml_backend_dev_type(dev) != GGML_BACKEND_DEVICE_TYPE_CPU) { devices.push_back(dev); } } printf(\"Available devices:\\n\"); f"
+    },
+    {
+      "score": 0.60719,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\arg.cpp",
+      "preview": "n_ubatch = 1024; params.n_batch = 1024; params.n_ctx = 0; params.n_cache_reuse = 256; } ).set_examples({LLAMA_EXAMPLE_SERVER})); add_opt(common_arg( {\"--fim-qwen-7b-spec\"}, string_format(\"use Qwen 2.5 Coder 7B + 0.5B draft for speculative d"
+    },
+    {
+      "score": 0.827293,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\arg.cpp",
+      "preview": "wen 3 Coder 30B A3B Instruct (note: can download weights from the internet)\"), [](common_params & params) { params.model.hf_repo = \"ggml-org/Qwen3-Coder-30B-A3B-Instruct-Q8_0-GGUF\"; params.model.hf_file = \"qwen3-coder-30b-a3b-instruct-q8_0."
+    },
+    {
+      "score": 0.534571,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\base64.hpp",
+      "preview": "; return 62; } else if (c == '_') { alphabet = alphabet::url_filename_safe; return 63; } } throw base64_error(\"invalid base64 character.\"); } }; #endif // !PUBLIC_DOMAIN_BASE64_HPP_"
+    },
+    {
+      "score": 0.551723,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\chat-parser.cpp",
+      "preview": "n_regex preamble_regex(\"<\\\\|channel\\\\|>commentary\"); static const common_regex tool_call1_regex(recipient + \"<\\\\|channel\\\\|>(analysis|commentary)\" + constraint + \"?\"); static const common_regex tool_call2_regex(\"<\\\\|channel\\\\|>(analysis|com"
+    },
+    {
+      "score": 0.536037,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\chat-parser.cpp",
+      "preview": "case COMMON_CHAT_FORMAT_DEEPSEEK_R1: common_chat_parse_deepseek_r1(builder); break; case COMMON_CHAT_FORMAT_DEEPSEEK_V3_1: common_chat_parse_deepseek_v3_1(builder); break; case COMMON_CHAT_FORMAT_FUNCTIONARY_V3_2: common_chat_parse_function"
+    },
+    {
+      "score": 0.616117,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\chat-parser.cpp",
+      "preview": "common_chat_parse_kimi_k2(builder); break; case COMMON_CHAT_FORMAT_QWEN3_CODER_XML: common_chat_parse_qwen3_coder_xml(builder); break; case COMMON_CHAT_FORMAT_APRIEL_1_5: common_chat_parse_apriel_1_5(builder); break; case COMMON_CHAT_FORMAT"
+    },
+    {
+      "score": 0.609806,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\chat.cpp",
+      "preview": "msg_new.tool_calls.size() < msg_prv.tool_calls.size()) { throw std::runtime_error(\"Invalid diff: now finding less tool calls!\"); } if (!msg_prv.tool_calls.empty()) { const auto idx = msg_prv.tool_calls.size() - 1; const auto & pref = msg_pr"
+    },
+    {
+      "score": 0.876555,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\chat.cpp",
+      "preview": "y v3.1 Llama 3.1\"; case COMMON_CHAT_FORMAT_DEEPSEEK_V3_1: return \"DeepSeek V3.1\"; case COMMON_CHAT_FORMAT_HERMES_2_PRO: return \"Hermes 2 Pro\"; case COMMON_CHAT_FORMAT_COMMAND_R7B: return \"Command R7B\"; case COMMON_CHAT_FORMAT_GRANITE: retur"
+    },
+    {
+      "score": 0.610185,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\chat.h",
+      "preview": "OMMON_CHAT_FORMAT_GRANITE, COMMON_CHAT_FORMAT_GPT_OSS, COMMON_CHAT_FORMAT_SEED_OSS, COMMON_CHAT_FORMAT_NEMOTRON_V2, COMMON_CHAT_FORMAT_APERTUS, COMMON_CHAT_FORMAT_LFM2_WITH_JSON_TOOLS, COMMON_CHAT_FORMAT_GLM_4_5, COMMON_CHAT_FORMAT_MINIMAX_"
+    },
+    {
+      "score": 0.864733,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\common.cpp",
+      "preview": "d-%H_%M_%S\", std::localtime(&as_time_t)); const int64_t ns = std::chrono::duration_cast<std::chrono::nanoseconds>( current_time.time_since_epoch() % 1000000000).count(); char timestamp_ns[11]; snprintf(timestamp_ns, 11, \"%09\" PRId64, ns); r"
+    },
+    {
+      "score": 0.972733,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\common.cpp",
+      "preview": "ARATOR; } return p; }; if (getenv(\"LLAMA_CACHE\")) { cache_directory = std::getenv(\"LLAMA_CACHE\"); } else { #if defined(__linux__) || defined(__FreeBSD__) || defined(_AIX) || defined(__OpenBSD__) if (std::getenv(\"XDG_CACHE_HOME\")) { cache_di"
+    },
+    {
+      "score": 0.526275,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\common.cpp",
+      "preview": "mmon_params_sampling_config::COMMON_PARAMS_SAMPLING_CONFIG_MIN_P); get_float(llama_model_meta_key_str(LLAMA_MODEL_META_KEY_SAMPLING_XTC_PROBABILITY), sparams.xtc_probability, common_params_sampling_config::COMMON_PARAMS_SAMPLING_CONFIG_XTC_"
+    },
+    {
+      "score": 0.539756,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\download.cpp",
+      "preview": "l_successful = common_pull_file(cli, parts.path, path_temporary, supports_ranges, existing_size, total_size); if (!was_pull_successful) { if (i + 1 < max_attempts) { const int exponential_backoff_delay = std::pow(retry_delay_seconds, i) * 1"
+    },
+    {
+      "score": 0.530205,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\download.cpp",
+      "preview": "size_t len) { buf.insert(buf.end(), data, data + len); return params.max_size == 0 || buf.size() <= static_cast<size_t>(params.max_size); }, nullptr ); if (!res) { throw std::runtime_error(\"error: cannot make GET request\"); } return { res->"
+    },
+    {
+      "score": 0.882664,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\download.cpp",
+      "preview": "local_path, token, false)) { throw std::runtime_error(\"Failed to download Docker Model\"); } LOG_INF(\"%s: Downloaded Docker Model to: %s\\n\", __func__, local_path.c_str()); return local_path; } catch (const std::exception & e) { LOG_ERR(\"%s: "
+    },
+    {
+      "score": 0.765199,
+      "source": "local_repo_llama_cpp",
+      "path": "C:\\lora_training\\llama.cpp\\common\\json-partial.cpp",
+      "preview": "last_non_sp_char == 'E' || last_non_sp_char == '-'; }; std::string closing; for (size_t i = err_loc.stack.size(); i > 0; i--) { auto & el = err_loc.stack[i - 1]; if (el.type == COMMON_JSON_STACK_ELEMENT_OBJECT) { closing += \"}\"; } else if ("
+    }
+  ]
+}

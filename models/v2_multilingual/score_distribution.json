@@ -1,0 +1,101 @@
+{
+  "model_dir": "C:\\GitHub\\Safety DS\\models\\v2_multilingual",
+  "active_threshold": 0.004477,
+  "default_threshold": 0.5,
+  "splits": {
+    "test": {
+      "n": 22984,
+      "malicious_rate": 0.8924,
+      "scores": {
+        "mean": 0.883175,
+        "median": 0.999217,
+        "p95": 0.999992,
+        "p99": 0.999999,
+        "max": 1.0
+      },
+      "roc_auc": 0.9998,
+      "pr_auc": 1.0,
+      "at_active_threshold": {
+        "precision": 0.985,
+        "recall": 1.0,
+        "f1": 0.9924,
+        "false_positive_rate": 0.1265
+      },
+      "at_default_0_5": {
+        "precision": 0.9993,
+        "recall": 0.9965,
+        "f1": 0.9979,
+        "false_positive_rate": 0.0061
+      }
+    },
+    "test_obfuscated": {
+      "n": 4000,
+      "malicious_rate": 1.0,
+      "scores": {
+        "mean": 0.985816,
+        "median": 0.999127,
+        "p95": 0.999981,
+        "p99": 0.999996,
+        "max": 1.0
+      },
+      "roc_auc": null,
+      "pr_auc": null,
+      "at_active_threshold": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "at_default_0_5": {
+        "precision": 1.0,
+        "recall": 0.9942,
+        "f1": 0.9971,
+        "false_positive_rate": 0.0
+      }
+    },
+    "test_malware_code": {
+      "n": 4000,
+      "malicious_rate": 1.0,
+      "scores": {
+        "mean": 0.080536,
+        "median": 0.05658,
+        "p95": 0.22946,
+        "p99": 0.389297,
+        "max": 0.831453
+      },
+      "roc_auc": null,
+      "pr_auc": null,
+      "at_active_threshold": {
+        "precision": 1.0,
+        "recall": 0.9728,
+        "f1": 0.9862,
+        "false_positive_rate": 0.0
+      },
+      "at_default_0_5": {
+        "precision": 1.0,
+        "recall": 0.0043,
+        "f1": 0.0085,
+        "false_positive_rate": 0.0
+      }
+    },
+    "white_hat": {
+      "n": 8000,
+      "malicious_rate": 0.0,
+      "scores": {
+        "mean": 0.001133,
+        "median": 0.000354,
+        "p95": 0.004446,
+        "p99": 0.011645,
+        "max": 0.102222
+      },
+      "roc_auc": null,
+      "pr_auc": null,
+      "at_active_threshold": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 0.0495
+      }
+    }
+  }
+}

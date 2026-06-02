@@ -1,0 +1,224 @@
+{
+  "model_dir": "models\\v8_code_aware_50k_oss_clean_plus_fp_pool",
+  "holdout": "data\\clf\\benign_code_holdout_oss_clean.jsonl",
+  "overall": {
+    "n": 8000,
+    "threshold": 0.5,
+    "false_positive_rate": 0.01,
+    "flagged": 80,
+    "score_mean": 0.022337,
+    "score_p50": 0.000862,
+    "score_p90": 0.033512,
+    "score_p95": 0.108402,
+    "score_p99": 0.494646,
+    "score_max": 0.973555
+  },
+  "by_source": {
+    "local_project_code": {
+      "n": 160,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0063,
+      "flagged": 1,
+      "score_mean": 0.020748,
+      "score_p50": 0.002427,
+      "score_p90": 0.032955,
+      "score_p95": 0.04948,
+      "score_p99": 0.362833,
+      "score_max": 0.770936
+    },
+    "local_repo_hs": {
+      "n": 14,
+      "threshold": 0.5,
+      "false_positive_rate": 0.2143,
+      "flagged": 3,
+      "score_mean": 0.228853,
+      "score_p50": 0.142727,
+      "score_p90": 0.537983,
+      "score_p95": 0.563626,
+      "score_p99": 0.598728,
+      "score_max": 0.607504
+    },
+    "local_repo_isre": {
+      "n": 173,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.010636,
+      "score_p50": 0.001124,
+      "score_p90": 0.025243,
+      "score_p95": 0.045867,
+      "score_p99": 0.159579,
+      "score_max": 0.214947
+    },
+    "local_repo_job_application_pipeline": {
+      "n": 444,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0023,
+      "flagged": 1,
+      "score_mean": 0.01678,
+      "score_p50": 0.001522,
+      "score_p90": 0.027532,
+      "score_p95": 0.091225,
+      "score_p99": 0.264842,
+      "score_max": 0.682698
+    },
+    "local_repo_olympiad_math": {
+      "n": 60,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0,
+      "flagged": 0,
+      "score_mean": 0.009108,
+      "score_p50": 0.001312,
+      "score_p90": 0.018872,
+      "score_p95": 0.05364,
+      "score_p99": 0.128676,
+      "score_max": 0.152684
+    },
+    "local_repo_vesuvius": {
+      "n": 730,
+      "threshold": 0.5,
+      "false_positive_rate": 0.074,
+      "flagged": 54,
+      "score_mean": 0.124375,
+      "score_p50": 0.024499,
+      "score_p90": 0.402151,
+      "score_p95": 0.62727,
+      "score_p99": 0.933021,
+      "score_max": 0.973555
+    },
+    "python_stdlib": {
+      "n": 6419,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0033,
+      "flagged": 21,
+      "score_mean": 0.011145,
+      "score_p50": 0.000553,
+      "score_p90": 0.017076,
+      "score_p95": 0.041777,
+      "score_p99": 0.227737,
+      "score_max": 0.935251
+    }
+  },
+  "flagged_examples": [
+    {
+      "score": 0.770936,
+      "source": "local_project_code",
+      "path": "C:\\GitHub\\Safety DS\\scripts\\build_malware_code_pool.py",
+      "preview": "def download_vxunderground( spec: dict, builder: PoolBuilder, chunk_cfg: dict, insecure: bool ) -> None: repo = spec[\"repo\"] cache = ROOT / spec.get(\"cache_dir\", \"data/external/vxunderground\") cache.mkdir(parents=True, exist_ok=True) for su"
+    },
+    {
+      "score": 0.54,
+      "source": "local_repo_hs",
+      "path": "C:\\GitHub\\HS\\assets\\glitch.js",
+      "preview": "(function () { var padp = document.querySelector(\".vis-padp\"); if (!padp) return; var bars = padp.querySelectorAll(\".p-bar\"); var vals = padp.querySelectorAll(\".p-val\"); var steps = padp.querySelectorAll(\".p-step\"); var title = padp.querySe"
+    },
+    {
+      "score": 0.607504,
+      "source": "local_repo_hs",
+      "path": "C:\\GitHub\\HS\\assets\\lora-anim.js",
+      "preview": "(nx*2 + t*0.10, ny*2 + t*0.07, 8); var ang = noise(nx*1.2, ny*1.2 + t*0.06, 9) * Math.PI * 4; var rot = { x: Math.cos(ang), y: Math.sin(ang) }; tvx = lerp(c3.x, rot.x, 0.55) * 5; tvy = lerp(c3.y, rot.y, 0.55) * 5; var cl = noise(nx*1.4, ny*"
+    },
+    {
+      "score": 0.533278,
+      "source": "local_repo_hs",
+      "path": "C:\\GitHub\\HS\\assets\\sphere.js",
+      "preview": "var fx = (d.ox - d.x) * SPRING; var fy = (d.oy - d.y) * SPRING; if (mouse.active) { var ddx = mx - d.x, ddy = my - d.y; var dist2 = ddx*ddx + ddy*ddy; if (dist2 < pullR2 && dist2 > 0.01) { var dist = Math.sqrt(dist2); var t = 1 - dist/pullR"
+    },
+    {
+      "score": 0.682698,
+      "source": "local_repo_job_application_pipeline",
+      "path": "C:\\GitHub\\Job Application Pipeline\\scripts\\run_daily_report.ps1",
+      "preview": "param( [string]$Date = \"\", [string]$SourcesConfig = \"\", [string]$Profile = \"\", [int]$MaxPackets = 1, [switch]$SkipPackets, [switch]$SkipTelegram ) $ErrorActionPreference = \"Stop\" $repoRoot = Split-Path -Parent $PSScriptRoot $env:PYTHONPATH "
+    },
+    {
+      "score": 0.605122,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\tools\\convert_gn_to_bn.py",
+      "preview": "class VesuviusEncoderGN(nn.Module): def __init__(self, in_channels=1, base_channels=32): super().__init__() c = base_channels self.enc2_0 = ConvBlockGN(in_channels, c) self.enc2_1 = ConvBlockGN(c * 1, c * 2) self.enc2_2 = ConvBlockGN(c * 4,"
+    },
+    {
+      "score": 0.606929,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\tools\\convert_gn_to_bn.py",
+      "preview": "class VesuviusEncoderBN(nn.Module): def __init__(self, in_channels=1, base_channels=32): super().__init__() c = base_channels self.enc2_0 = ConvBlockBN(in_channels, c) self.enc2_1 = ConvBlockBN(c * 1, c * 2) self.enc2_2 = ConvBlockBN(c * 4,"
+    },
+    {
+      "score": 0.905741,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\metric\\topological-metrics-kaggle\\external\\Betti-Matching-3D\\src\\main.cpp",
+      "preview": "; string unmatched0Filename = \"unmatched_0.csv\"; string unmatched1Filename = \"unmatched_1.csv\"; fileFormat format0; fileFormat format1; bool print = false; bool saveResult = false; for (int i = 1; i < argc; ++i) { const string arg(argv[i]);"
+    },
+    {
+      "score": 0.654853,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\metric\\topological-metrics-kaggle\\external\\Betti-Matching-3D\\src\\npy.hpp",
+      "preview": "ed(__ARMEB__) || \\ defined(__THUMBEB__) || \\ defined(__AARCH64EB__) || \\ defined(_MIBSEB) || defined(__MIBSEB) || defined(__MIBSEB__) const bool big_endian = true; #else const bool big_endian = false; #endif const char magic_string[] = \"\\x9"
+    },
+    {
+      "score": 0.614978,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\metric\\topological-metrics-kaggle\\external\\Betti-Matching-3D\\src\\_BettiMatching.cpp",
+      "preview": "ut2MatchedDeathCoordinates[dimension].mutable_unchecked(); int i = 0; for (auto &match : matchesByDimension[dimension]) { for (size_t d = 0; d < numDimensions; d++) { input1MatchedBirthCoordinatesView(i, d) = match.pair0.birth[d]; input1Mat"
+    },
+    {
+      "score": 0.640222,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\metric\\topological-metrics-kaggle\\external\\Betti-Matching-3D\\src\\_BettiMatching.cpp",
+      "preview": "d(); auto input2UnmatchedDeathCoordinatesView = input2UnmatchedDeathCoordinates[dimension].mutable_unchecked(); auto numUnmatchedInput2ByDimView = numUnmatchedInput2ByDim.mutable_unchecked(); for (auto &unmatched : input2UnmatchedByDimensio"
+    },
+    {
+      "score": 0.665919,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\metric\\topological-metrics-kaggle\\external\\Betti-Matching-3D\\src\\src_1D\\data_structures.cpp",
+      "preview": "cout << \"0 \"; } } } value_t *CubicalGridComplex::allocateMemory() const { value_t *g = new value_t[shape[0] + 2]; if (g == NULL) { throw runtime_error(\"Out of memory!\"); } return g; } void CubicalGridComplex::getGridFromVector(const vector<"
+    },
+    {
+      "score": 0.700051,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\metric\\topological-metrics-kaggle\\external\\Betti-Matching-3D\\src\\src_2D\\data_structures.cpp",
+      "preview": "ut << \"0 \"; } } cout << endl; } } value_t **CubicalGridComplex::allocateMemory() const { value_t **g = new value_t *[shape[0] + 2]; for (index_t i = 0; i < shape[0] + 2; ++i) { g[i] = new value_t[shape[1] + 2]; } if (g == NULL) { throw runt"
+    },
+    {
+      "score": 0.678344,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\metric\\topological-metrics-kaggle\\external\\Betti-Matching-3D\\src\\src_nD\\data_structures.cpp",
+      "preview": "index_t idx = 0; for (size_t i = dim; i-- > 0;) { idx += pixelCoordinates[i] * pixelCoordFactor[i]; } return idx; } value_t CubicalGridComplex::getValue(const vector<index_t> &pixelCoordinates) const { return image[getIndex(pixelCoordinates"
+    },
+    {
+      "score": 0.602299,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\misc\\ScrollSlabViewer\\biglime-min.js",
+      "preview": "licks= 0},300):(clearTimeout(d.Namespace.clickTimer),e(f),d.Namespace.clicks=0)});d.addEventListener(\"dblclick\",function(f){f.preventDefault()})}})(window.BigLime=window.BigLime||{}); (function(c){function t(f,g){f=c(this);!0!==f.data(\"tap_"
+    },
+    {
+      "score": 0.613187,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\misc\\ScrollSlabViewer\\biglime-min.js",
+      "preview": "];this.dragStartFunc=this._onDragStart.bind(this);this.dragMoveFunc=this._onDragMove.bind(this); this.dragEndFunc=this._onDragEnd.bind(this);this.onCancel=this.onOk=null;this.neverBeenShown=!0;this._initUi()};c.Dialog.FontFamily=c.Ui.Defaul"
+    },
+    {
+      "score": 0.765633,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\misc\\ScrollSlabViewer\\biglime-min.js",
+      "preview": "otype.removeEventListener=function(d,a){c.Notifier.prototype.removeEventListener.call(this,d,a)};c.Dialog.prototype.trigger=function(d,a){c.Notifier.prototype.trigger.call(this,d,a)}})(window.BigLime=window.BigLime||{}); (function(c,t){c.Fp"
+    },
+    {
+      "score": 0.702794,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\misc\\ScrollSlabViewer\\biglime-min.js",
+      "preview": "astErrorMsg=function(){for(var d=c.Logger._IncidentList.length-1;0<=d;d--){var a=c.Logger._IncidentList[d];if(a.severity===c.Logger.Severity.Error)return a.msg}return\"\"};c.Logger.LastWarningMsg=function(){for(var d=c.Logger._IncidentList.le"
+    },
+    {
+      "score": 0.954874,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\misc\\ScrollSlabViewer\\biglime-min.js",
+      "preview": "w Uint16Array(k[h]),n=0;n<b;n++){var l=n*e;m[l]=m[l+e-1]=0}for(n=0;n<e;n++)m[n]=m[d+n]=0}e=[];e.push(0<g?new Uint8Array(k[0]):null);e.push(1<g?new Uint8Array(k[1]):null);b=0;d=2*f;for(h=0;h<d;h+=2)for(f=0;2>f;f++)e[f]?(this.rgbaBuf[b++]=a.b"
+    },
+    {
+      "score": 0.679642,
+      "source": "local_repo_vesuvius",
+      "path": "C:\\GitHub\\Vesuvius\\misc\\ScrollSlabViewer\\biglime-min.js",
+      "preview": "ng:0};this.deltaPrevPinch={sep:0,ctr:d.create(),ang:0};this.deltaStartPinch={sep:0,ctr:d.create(),ang:0};this.isTouchDevice?(this.touchStartListener=this._onStartBase.bind(this),this.touchMoveListener=this._onMoveBase.bind(this),this.touchE"
+    }
+  ]
+}

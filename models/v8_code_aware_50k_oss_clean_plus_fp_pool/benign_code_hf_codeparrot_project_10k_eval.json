@@ -1,0 +1,152 @@
+{
+  "model_dir": "models\\v8_code_aware_50k_oss_clean_plus_fp_pool",
+  "holdout": "data\\external\\hf_benign_code_codeparrot_clean_project_10k.jsonl",
+  "overall": {
+    "n": 10000,
+    "threshold": 0.5,
+    "false_positive_rate": 0.0228,
+    "flagged": 228,
+    "score_mean": 0.046637,
+    "score_p50": 0.003619,
+    "score_p90": 0.116477,
+    "score_p95": 0.276899,
+    "score_p99": 0.751242,
+    "score_max": 0.994451
+  },
+  "by_source": {
+    "hf_benign_code:codeparrot/codeparrot-clean-train:default:train": {
+      "n": 10000,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0228,
+      "flagged": 228,
+      "score_mean": 0.046637,
+      "score_p50": 0.003619,
+      "score_p90": 0.116477,
+      "score_p95": 0.276899,
+      "score_p99": 0.751242,
+      "score_max": 0.994451
+    }
+  },
+  "flagged_examples": [
+    {
+      "score": 0.957186,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "crwls.py",
+      "preview": "* 1000) crtwls.log( \"Fazendo undeploy da Aplicacao '%s'\" % self.name) progress = wlst.undeploy(self.name, block='true') wlst.activate() crtwls.edit(10 * 60 * 1000, 5 * 60 * 1000) crtwls.log(\"Fazendo deploy da Aplicacao '%s'\" % self.name) pr"
+    },
+    {
+      "score": 0.975205,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "crwls.py",
+      "preview": "ParallelConnectDelay(5) auth.setResultsTimeLimit(1000) auth.setAllUsersFilter('objectClass=user') auth.setPropagateCauseForLoginException(False) auth.setHost( 'sptbrdc04.petrobras.biz sptbrdc14.petrobras.biz sptbrdc08.petrobras.biz sptbrdc0"
+    },
+    {
+      "score": 0.956432,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "crwls.py",
+      "preview": "r) authenticator = classmethod(authenticator) def configure(cls): crtwls.connectToAdminServer() crtwls.edit() domainName = wlst.cmo.getName() crtwls.log(\"Configurando o Domain Log\") wlst.cmo.getLog().setFileMinSize(40000) wlst.cmo.getLog()."
+    },
+    {
+      "score": 0.725107,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "crwls.py",
+      "preview": "envSuffix = argv(4) adminAddress = argv(5) Domain.create(domainName, envSuffix, adminAddress) elif subcmd == 'configure': Domain.configure() elif subcmd == 'configure-authenticator': Domain.authenticator() elif subcmd == 'list-datasource': "
+    },
+    {
+      "score": 0.786328,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "kbe/src/lib/python/Lib/encodings/cp863.py",
+      "preview": "00ac, # NOT SIGN 0x00ab: 0x00bd, # VULGAR FRACTION ONE HALF 0x00ac: 0x00bc, # VULGAR FRACTION ONE QUARTER 0x00ad: 0x00be, # VULGAR FRACTION THREE QUARTERS 0x00ae: 0x00ab, # LEFT-POINTING DOUBLE ANGLE QUOTATION MARK 0x00af: 0x00bb, # RIGHT-P"
+    },
+    {
+      "score": 0.635123,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "kbe/src/lib/python/Lib/encodings/cp863.py",
+      "preview": "E 0x00c8: 0x255a, # BOX DRAWINGS DOUBLE UP AND RIGHT 0x00c9: 0x2554, # BOX DRAWINGS DOUBLE DOWN AND RIGHT 0x00ca: 0x2569, # BOX DRAWINGS DOUBLE UP AND HORIZONTAL 0x00cb: 0x2566, # BOX DRAWINGS DOUBLE DOWN AND HORIZONTAL 0x00cc: 0x2560, # BO"
+    },
+    {
+      "score": 0.974275,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "kbe/src/lib/python/Lib/encodings/cp863.py",
+      "preview": "-> CARRIAGE RETURN '\\x0e' # 0x000e -> SHIFT OUT '\\x0f' # 0x000f -> SHIFT IN '\\x10' # 0x0010 -> DATA LINK ESCAPE '\\x11' # 0x0011 -> DEVICE CONTROL ONE '\\x12' # 0x0012 -> DEVICE CONTROL TWO '\\x13' # 0x0013 -> DEVICE CONTROL THREE '\\x14' # 0x0"
+    },
+    {
+      "score": 0.510765,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "kbe/src/lib/python/Lib/encodings/cp863.py",
+      "preview": "x005e -> CIRCUMFLEX ACCENT '_' # 0x005f -> LOW LINE '`' # 0x0060 -> GRAVE ACCENT 'a' # 0x0061 -> LATIN SMALL LETTER A 'b' # 0x0062 -> LATIN SMALL LETTER B 'c' # 0x0063 -> LATIN SMALL LETTER C 'd' # 0x0064 -> LATIN SMALL LETTER D 'e' # 0x006"
+    },
+    {
+      "score": 0.933084,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "kbe/src/lib/python/Lib/encodings/cp863.py",
+      "preview": "STOP 0x002f: 0x002f, # SOLIDUS 0x0030: 0x0030, # DIGIT ZERO 0x0031: 0x0031, # DIGIT ONE 0x0032: 0x0032, # DIGIT TWO 0x0033: 0x0033, # DIGIT THREE 0x0034: 0x0034, # DIGIT FOUR 0x0035: 0x0035, # DIGIT FIVE 0x0036: 0x0036, # DIGIT SIX 0x0037: "
+    },
+    {
+      "score": 0.759762,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "kbe/src/lib/python/Lib/encodings/cp863.py",
+      "preview": "0x0057: 0x0057, # LATIN CAPITAL LETTER W 0x0058: 0x0058, # LATIN CAPITAL LETTER X 0x0059: 0x0059, # LATIN CAPITAL LETTER Y 0x005a: 0x005a, # LATIN CAPITAL LETTER Z 0x005b: 0x005b, # LEFT SQUARE BRACKET 0x005c: 0x005c, # REVERSE SOLIDUS 0x00"
+    },
+    {
+      "score": 0.903098,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "kbe/src/lib/python/Lib/encodings/cp863.py",
+      "preview": "7d: 0x007d, # RIGHT CURLY BRACKET 0x007e: 0x007e, # TILDE 0x007f: 0x007f, # DELETE 0x00a0: 0x00ff, # NO-BREAK SPACE 0x00a2: 0x009b, # CENT SIGN 0x00a3: 0x009c, # POUND SIGN 0x00a4: 0x0098, # CURRENCY SIGN 0x00a6: 0x00a0, # BROKEN BAR 0x00a7"
+    },
+    {
+      "score": 0.51182,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "src/pyasm/deprecated/flash/flash_file_naming.py",
+      "preview": "########################################################### # # Copyright (c) 2005, Southpaw Technology # All Rights Reserved # # PROPRIETARY INFORMATION. This software is proprietary to # Southpaw Technology, and is not to be reproduced, t"
+    },
+    {
+      "score": 0.610523,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "test/sap_client.py",
+      "preview": "00, 0x04): pass elif params[0].getValue() == 0x02: self.bufsize = params[1].getValue() self.__sendMsg(SAPMessage_CONNECT_REQ(self.bufsize)) params = self.__rcvMsg(SAPMessage_CONNECT_RESP()).getParams() if params[0].getValue() not in (0x00, "
+    },
+    {
+      "score": 0.588154,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "src/demos/trackVehicle/validationPlots_test_M113.py",
+      "preview": "a_dir + gearSubsys, data_dir + idlerSubsys, data_dir + ptrainSubsys, data_dir + shoe0, data_dir + gearCV, data_dir + idlerCV, data_dir + rollerCV, data_dir + gearContact, data_dir+shoeGearContact] # handle_list = ['Gear','idler','ptrain','s"
+    },
+    {
+      "score": 0.601642,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "radio.py",
+      "preview": "['receive_type'] = self.receive_type return_val['digital_channel_mask'] = self.digital_channel_mask return_val['analog_channel_mask'] = self.analog_channel_mask return_val['digital_data'] = self.digital_data return_val['analog_data'] = self"
+    },
+    {
+      "score": 0.891953,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "radio.py",
+      "preview": "6 = ord(self.usb.read()) sn_ord5 = ord(self.usb.read()) sn_ord4 = ord(self.usb.read()) sn_ord3 = ord(self.usb.read()) sn_ord2 = ord(self.usb.read()) sn_ord1 = ord(self.usb.read()) self._byte_count += 8 self.serial_number = hex_dump(sn_ord8)"
+    },
+    {
+      "score": 0.617919,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "lib/ansible/modules/cloud/amazon/ec2_ami.py",
+      "preview": "xxxxxxxxxxx aws_secret_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx instance_id: i-xxxxxx name: newtest device_mapping: - device_name: /dev/sda1 size: XXX delete_on_termination: true volume_type: gp2 - device_name: /dev/sdb size: YYY d"
+    },
+    {
+      "score": 0.556524,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "channels/piratestreaming.py",
+      "preview": "chivio Serie TV[/COLOR]\", action=\"categoryarchive\", url=\"%s/archivio-serietv.php\" % host, thumbnail=\"http://repository-butchabay.googlecode.com/svn/branches/eden/skin.cirrus.extended.v2/extras/moviegenres/TV%20Series.png\"), Item(channel=__c"
+    },
+    {
+      "score": 0.914596,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "channels/piratestreaming.py",
+      "preview": "Item(channel=__channel__, action=\"findvid_serie\", title=title + \" (\" + lang_title + \")\", url=item.url, thumbnail=item.thumbnail, extra=data, fulltitle=item.fulltitle, show=item.show)) logger.info(\"[piratestreaming.py] episodios\") itemlist ="
+    },
+    {
+      "score": 0.783074,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "channels/piratestreaming.py",
+      "preview": "le=\"Scarica tutti gli episodi della serie\", url=item.url, action=\"download_all_episodes\", extra=\"episodios\", show=item.show)) return itemlist def findvid_serie(item): logger.info(\"[piratestreaming.py] findvideos\") # Descarga la página data "
+    }
+  ]
+}

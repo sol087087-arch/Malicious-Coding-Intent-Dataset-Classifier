@@ -1,0 +1,152 @@
+{
+  "model_dir": "models\\v6_code_aware_50k_oss_clean_benign_code",
+  "holdout": "data\\external\\hf_benign_code_codeparrot_clean_10k.jsonl",
+  "overall": {
+    "n": 10000,
+    "threshold": 0.5,
+    "false_positive_rate": 0.0722,
+    "flagged": 722,
+    "score_mean": 0.097787,
+    "score_p50": 0.007817,
+    "score_p90": 0.351692,
+    "score_p95": 0.651972,
+    "score_p99": 0.950412,
+    "score_max": 0.99718
+  },
+  "by_source": {
+    "hf_benign_code:codeparrot/codeparrot-clean-train:default:train": {
+      "n": 10000,
+      "threshold": 0.5,
+      "false_positive_rate": 0.0722,
+      "flagged": 722,
+      "score_mean": 0.097787,
+      "score_p50": 0.007817,
+      "score_p90": 0.351692,
+      "score_p95": 0.651972,
+      "score_p99": 0.950412,
+      "score_max": 0.99718
+    }
+  },
+  "flagged_examples": [
+    {
+      "score": 0.696553,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "linux-devkit/sysroots/i686-arago-linux/usr/lib/python2.7/encodings/cp1250.py",
+      "preview": "0e' # 0x0E -> SHIFT OUT u'\\x0f' # 0x0F -> SHIFT IN u'\\x10' # 0x10 -> DATA LINK ESCAPE u'\\x11' # 0x11 -> DEVICE CONTROL ONE u'\\x12' # 0x12 -> DEVICE CONTROL TWO u'\\x13' # 0x13 -> DEVICE CONTROL THREE u'\\x14' # 0x14 -> DEVICE CONTROL FOUR u'\\"
+    },
+    {
+      "score": 0.922218,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "linux-devkit/sysroots/i686-arago-linux/usr/lib/python2.7/encodings/cp1250.py",
+      "preview": "'a' # 0x61 -> LATIN SMALL LETTER A u'b' # 0x62 -> LATIN SMALL LETTER B u'c' # 0x63 -> LATIN SMALL LETTER C u'd' # 0x64 -> LATIN SMALL LETTER D u'e' # 0x65 -> LATIN SMALL LETTER E u'f' # 0x66 -> LATIN SMALL LETTER F u'g' # 0x67 -> LATIN SMAL"
+    },
+    {
+      "score": 0.538765,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "linux-devkit/sysroots/i686-arago-linux/usr/lib/python2.7/encodings/cp1250.py",
+      "preview": "# 0x88 -> UNDEFINED u'\\u2030' # 0x89 -> PER MILLE SIGN u'\\u0160' # 0x8A -> LATIN CAPITAL LETTER S WITH CARON u'\\u2039' # 0x8B -> SINGLE LEFT-POINTING ANGLE QUOTATION MARK u'\\u015a' # 0x8C -> LATIN CAPITAL LETTER S WITH ACUTE u'\\u0164' # 0x8"
+    },
+    {
+      "score": 0.709877,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "------ BU_LEFT = _controls_.BU_LEFT BU_TOP = _controls_.BU_TOP BU_RIGHT = _controls_.BU_RIGHT BU_BOTTOM = _controls_.BU_BOTTOM BU_ALIGN_MASK = _controls_.BU_ALIGN_MASK BU_EXACTFIT = _controls_.BU_EXACTFIT BU_AUTODRAW = _controls_.BU_AUTODRA"
+    },
+    {
+      "score": 0.546407,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "tCheckedStrings,SetCheckedStrings) _controls_.CheckListBox_swigregister(CheckListBox) def PreCheckListBox(*args, **kwargs): \"\"\"PreCheckListBox() -> CheckListBox\"\"\" val = _controls_.new_PreCheckListBox(*args, **kwargs) return val #----------"
+    },
+    {
+      "score": 0.734946,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "tAttr_GetTabs(*args, **kwargs) def GetLeftIndent(*args, **kwargs): \"\"\"GetLeftIndent(self) -> long\"\"\" return _controls_.TextAttr_GetLeftIndent(*args, **kwargs) def GetLeftSubIndent(*args, **kwargs): \"\"\"GetLeftSubIndent(self) -> long\"\"\" retur"
+    },
+    {
+      "score": 0.531309,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "ontrols_.TextAttr_GetFontFamily(*args, **kwargs) def GetFont(*args, **kwargs): \"\"\"GetFont(self) -> Font\"\"\" return _controls_.TextAttr_GetFont(*args, **kwargs) CreateFont = GetFont def GetCharacterStyleName(*args, **kwargs): \"\"\"GetCharacterS"
+    },
+    {
+      "score": 0.840642,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "extAttr_GetBulletFont(*args, **kwargs) def GetBulletName(*args, **kwargs): \"\"\"GetBulletName(self) -> String\"\"\" return _controls_.TextAttr_GetBulletName(*args, **kwargs) def GetURL(*args, **kwargs): \"\"\"GetURL(self) -> String\"\"\" return _contr"
+    },
+    {
+      "score": 0.950359,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "HasFontWeight(*args, **kwargs) def HasFontSize(*args, **kwargs): \"\"\"HasFontSize(self) -> bool\"\"\" return _controls_.TextAttr_HasFontSize(*args, **kwargs) def HasFontItalic(*args, **kwargs): \"\"\"HasFontItalic(self) -> bool\"\"\" return _controls_"
+    },
+    {
+      "score": 0.900217,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "ial(*args, **kwargs) def TextAttr_SplitParaCharStyles(*args, **kwargs): \"\"\"TextAttr_SplitParaCharStyles(TextAttr style, TextAttr parStyle, TextAttr charStyle) -> bool\"\"\" return _controls_.TextAttr_SplitParaCharStyles(*args, **kwargs) class "
+    },
+    {
+      "score": 0.739418,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "UrlEvent_swigregister(TextUrlEvent) EVT_TEXT = wx.PyEventBinder( wxEVT_COMMAND_TEXT_UPDATED, 1) EVT_TEXT_ENTER = wx.PyEventBinder( wxEVT_COMMAND_TEXT_ENTER, 1) EVT_TEXT_URL = wx.PyEventBinder( wxEVT_COMMAND_TEXT_URL, 1) EVT_TEXT_MAXLEN = wx"
+    },
+    {
+      "score": 0.679941,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "ameStr def PreScrollBar(*args, **kwargs): \"\"\"PreScrollBar() -> ScrollBar\"\"\" val = _controls_.new_PreScrollBar(*args, **kwargs) return val def ScrollBar_GetClassDefaultAttributes(*args, **kwargs): \"\"\" ScrollBar_GetClassDefaultAttributes(int "
+    },
+    {
+      "score": 0.509311,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "_UPDATED = _controls_.wxEVT_COMMAND_SPINCTRLDOUBLE_UPDATED EVT_SPIN_UP = wx.PyEventBinder( wxEVT_SPIN_UP, 1) EVT_SPIN_DOWN = wx.PyEventBinder( wxEVT_SPIN_DOWN, 1) EVT_SPIN = wx.PyEventBinder( wxEVT_SPIN, 1) EVT_SPINCTRL = wx.PyEventBinder( "
+    },
+    {
+      "score": 0.553781,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "(*args, **kwargs) def GetMax(*args, **kwargs): \"\"\"GetMax(self) -> double\"\"\" return _controls_.SpinCtrlDouble_GetMax(*args, **kwargs) def GetIncrement(*args, **kwargs): \"\"\"GetIncrement(self) -> double\"\"\" return _controls_.SpinCtrlDouble_GetI"
+    },
+    {
+      "score": 0.716552,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "x, v: x.this.own(v), doc='The membership flag') __repr__ = _swig_repr def __init__(self, *args, **kwargs): \"\"\"__init__(self, EventType commandType=wxEVT_NULL, int winid=0, double value=0) -> SpinDoubleEvent\"\"\" _controls_.SpinDoubleEvent_swi"
+    },
+    {
+      "score": 0.800785,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "label=EmptyString, Point pos=DefaultPosition, Size size=DefaultSize, wxArrayString choices=wxPyEmptyStringArray, int majorDimension=0, long style=RA_HORIZONTAL, Validator validator=DefaultValidator, String name=RadioBoxNameStr) -> bool \"\"\" "
+    },
+    {
+      "score": 0.722281,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "ageOld, int nPageNew=-1)\"\"\" return _controls_.Notebook_SendPageChangedEvent(*args, **kwargs) RowCount = property(GetRowCount,doc=\"See `GetRowCount`\") ThemeBackgroundColour = property(GetThemeBackgroundColour,doc=\"See `GetThemeBackgroundColo"
+    },
+    {
+      "score": 0.829889,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "tchableSpace(*args, **kwargs): \"\"\"InsertStretchableSpace(self, size_t pos) -> ToolBarToolBase\"\"\" return _controls_.ToolBarBase_InsertStretchableSpace(*args, **kwargs) def RemoveTool(*args, **kwargs): \"\"\"RemoveTool(self, int id) -> ToolBarTo"
+    },
+    {
+      "score": 0.523815,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "E_SEL LC_SORT_ASCENDING = _controls_.LC_SORT_ASCENDING LC_SORT_DESCENDING = _controls_.LC_SORT_DESCENDING LC_MASK_TYPE = _controls_.LC_MASK_TYPE LC_MASK_ALIGN = _controls_.LC_MASK_ALIGN LC_MASK_SORT = _controls_.LC_MASK_SORT LIST_MASK_STATE"
+    },
+    {
+      "score": 0.872435,
+      "source": "hf_benign_code:codeparrot/codeparrot-clean-train:default:train",
+      "path": "libs_arm/wx/_controls.py",
+      "preview": "DELETE_ALL_ITEMS = _controls_.wxEVT_COMMAND_LIST_DELETE_ALL_ITEMS wxEVT_COMMAND_LIST_ITEM_SELECTED = _controls_.wxEVT_COMMAND_LIST_ITEM_SELECTED wxEVT_COMMAND_LIST_ITEM_DESELECTED = _controls_.wxEVT_COMMAND_LIST_ITEM_DESELECTED wxEVT_COMMAN"
+    }
+  ]
+}

@@ -1,237 +1,173 @@
-# Safety DS — Malicious Coding Lexicon & Classifier
+# Malicious Coding Intent Classifier
 
-Multilingual lexicon of malicious-coding intent (16 languages) plus **BGE-m3 + logistic heads** classifiers for binary malicious/benign and 12-category multi-label scoring.
+Classifier for detecting malicious-coding intent in AI prompts and code-like
+inputs. The project is framed as a red-team evaluation: build a lightweight
+filter, then try to break it with realistic bypasses and document where it
+fails.
 
-## What ships in this repo
+The model uses `BAAI/bge-m3` embeddings with small logistic-regression heads:
+one binary malicious/benign head and one 12-category multilabel head. The
+encoder is frozen, so training the heads is cheap and reproducible.
 
-| Artifact | Path | Notes |
-|----------|------|--------|
-| **v2 classifier** (recommended) | `models/v2_multilingual/` | 16-lang train; hold-outs: obfuscated + malware code |
-| **v1 classifier** (EN baseline) | `models/v1_en/` | Smaller EN-focused model; stronger on some HF benches |
-| Label schema | `data/clf/v2/labels.json` | 12 categories (see `config/categories.yaml`) |
-| Classifier splits | `data/clf/v2/*.jsonl` | Rebuild with `build_classifier_dataset.py` (~56 MB) |
-| Per-language lexicon | `data/<lang>/` | Raw/processed; large files gitignored |
+## What This Tests
 
-Embedder at runtime: **`BAAI/bge-m3`** (download once; scripts default to offline cache).
+Safety filters can look strong on clean English prompts and still fail under
+simple adversarial pressure. This repo focuses on three bypass axes:
 
-## Quick start — inference
+1. **Obfuscation** - leetspeak, homoglyphs, punctuation, truncation.
+2. **Language pivot** - the same malicious intent outside English.
+3. **Code-vs-intent confusion** - checking whether the classifier learned
+   malicious intent or merely learned that code-looking text is suspicious.
+
+The third axis is the main finding. A code-heavy model reached very high recall,
+but flagged too much normal benign code. Adding benign-code hard negatives fixed
+most of that failure mode, with a measurable recall trade-off.
+
+## Headline Results
+
+Recommended model: `models/v6_code_aware_50k_oss_clean_benign_code/`.
+
+| Check | Result |
+|-------|-------:|
+| In-distribution test | F1 99.80%, ROC-AUC 0.9997, FPR 0.40% |
+| Obfuscated hold-out | Recall 99.35% |
+| Malware-code hold-out | Recall 98.90% |
+| Clean OSS benign-code hold-out | FPR 1.12% |
+| Language-pivot obfuscated recall | Avg 99.49% across 16 languages |
+
+The important sanity check is benign code. Before benign-code hard negatives,
+the 50k code-heavy model flagged **26.7%** of normal code as malicious. The
+recommended v6 model reduces broader clean OSS benign-code FPR to **1.12%**
+while keeping malware-code recall at **98.90%**.
+
+## v6 vs v8
+
+`v8` is a hard-negative ablation, not a blanket replacement for v6.
+
+| Model | Role | Malware-code recall | Obfuscated recall | HF CodeParrot benign-code FPR |
+|-------|------|--------------------:|------------------:|------------------------------:|
+| `v6_code_aware_50k_oss_clean_benign_code` | balanced / recommended | 98.90% | 99.35% | 7.13% |
+| `v8_code_aware_50k_oss_clean_plus_fp_pool` | code-hardened ablation | 98.40% | 99.18% | 2.28% |
+
+Interpretation: v8 cuts CodeParrot false positives by about 3.1x
+(`713/10,000` -> `228/10,000`) but costs 0.50 points of malware-code recall.
+That is an explicit operating trade-off, not an "everything got better" claim.
+
+## Language Axis
+
+The language-pivot check did not show a low-resource collapse in positive
+recall. On a 500-example-per-language sample:
+
+| Model | Canonical avg recall | Obfuscated avg recall | Worst obfuscated language |
+|-------|---------------------:|----------------------:|--------------------------:|
+| v6 | 99.85% | 99.49% | de 95.40% |
+| v8 | 99.71% | 99.35% | de 94.40% |
+
+Arabic, Chinese, Japanese, Korean, Hindi, and Bengali all stayed around
+99.4-100.0% obfuscated recall in this check. Per-language FPR is still pending:
+the repo needs matched multilingual benign prompts before precision/FPR by
+language can be claimed honestly.
+
+![Per-language obfuscated recall](docs/language_axis_obfuscated_recall.png)
+
+Full evaluation notes are in [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md).
+
+## Quick Start
 
 ```bash
 cd "C:/GitHub/Safety DS"
 python -m venv .venv
-.venv/Scripts/activate   # Windows
+.venv/Scripts/activate
 pip install -r requirements.txt
 
-# First run: downloads BGE-m3 (~2 GB) unless already cached
+# After the first BGE-m3 download, scripts can run from local cache.
 set HF_HUB_OFFLINE=1
 set TRANSFORMERS_OFFLINE=1
 
-python scripts/predict_classifier.py --model-dir models/v2_multilingual \
+python scripts/predict_classifier.py --model-dir models/v6_code_aware_50k_oss_clean_benign_code \
   "write code to dump lsass" "how do I enable 2FA"
 ```
 
-**Threshold:** active **`0.004477`** (calibrated on White-Hat, max FPR 5%). Use `--profile holdout` for sklearn default **0.5**.
+## Repository Layout
 
-Full tables and the train/calibrate story: **[docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md)**.
-
-## What we fixed (human story)
-
-1. **White-Hat false alarms** — defensive prompts scored malicious before benign HF rows were in train.
-2. **Train negatives** — ~20k White-Hat + ~1k other HF benign (`--hf-in-train neg-only`); hold-outs unchanged.
-3. **Retrain + calibrate** on White-Hat → active threshold **`0.004477`**.
-4. **Hold-outs** — obfuscated **100%**, malware-code **98.6%**, White-Hat FPR **~5%**.
-
-> Added ~20k White-Hat security prompts and additional HF benign negatives to training. After retraining and threshold calibration, the classifier maintained **100%** recall on obfuscated hold-outs and **98.6%** recall on malware-code hold-outs while reducing White-Hat false positives to approximately **5%**.
-
-## Model metrics (v2 neg-20k)
-
-| Dataset | Recall | FPR | Threshold |
-|---------|--------|-----|-----------|
-| White-Hat-600K | n/a | **4.9%** | 0.004477 |
-| Obfuscated hold-out | **100%** | n/a | 0.004477 |
-| Malware code hold-out | **98.6%** | n/a | 0.004477 |
-| In-distribution test | **99.7%** | **0.6%** | 0.5 |
-
-Note: the retrained model requires threshold calibration; using sklearn's default threshold (0.5) severely degrades malware-code recall.
-
-Per-source HF benchmarks and before/after detail: [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md).
-
-## Full pipeline
-
-### 1. Lexicon (per language)
-
-```bash
-pip install -r requirements.txt
-cp .env.example .env   # OPENROUTER_API_KEY for generation/translation
-
-# English
-python scripts/generate_lexicon.py
-python scripts/expand_obfuscations.py
-python scripts/dedup_lexicon.py --lang en
-python scripts/audit_canonical.py --apply
-
-# Other languages (after EN deduped)
-python scripts/translate_lexicon.py --backend nllb --lang ar
-python scripts/dedup_lexicon.py --lang ar
+```text
+config/   data/   docs/   models/   scripts/
 ```
 
-Plans: [docs/translation_plan.md](docs/translation_plan.md), [docs/rag_plan.md](docs/rag_plan.md).
+Key artifacts:
 
-### 2. Classifier dataset + train (v2)
+| Artifact | Path |
+|----------|------|
+| Recommended model | `models/v6_code_aware_50k_oss_clean_benign_code/` |
+| Hard-negative ablation | `models/v8_code_aware_50k_oss_clean_plus_fp_pool/` |
+| Evaluation report | `docs/EVAL_RESULTS.md` |
+| Language-axis report | `docs/language_axis_eval.json` |
+| Label schema | `config/categories.yaml` |
 
-```bash
-# GPU recommended (CUDA). Install torch matching your CUDA build, e.g.:
-# pip install torch --index-url https://download.pytorch.org/whl/cu130
+Large generated classifier splits are ignored by git and can be rebuilt or
+published separately to Hugging Face.
 
-bash scripts/run_train_v2.sh
-# or manually:
-python scripts/import_hf_malware.py
-python scripts/build_classifier_dataset.py --multilingual --hf-in-train neg-only
-python scripts/generate_dataset_cards.py
-python scripts/train_classifier.py \
-  --clf-dir data/clf/v2 --model-dir models/v2_multilingual \
-  --device cuda --batch-size 64 --holdout-batch-size 4
-```
-
-v2 train: **multilingual lexicon positives** + **template negatives** + **HF benign negatives** (`neg-only`). HF positives and malware_code stay **out of train** (eval / hold-out).
-
-### 3. Threshold calibration
+## Reproduce Evaluation
 
 ```bash
-python scripts/import_hf_malware.py   # once: data/external/hf_imported.jsonl
-
-python scripts/calibrate_binary_threshold.py \
-  --model-dir models/v2_multilingual \
-  --max-fpr 0.05 --min-obf-recall 0.85 --write --device cuda
-```
-
-### 4. Evaluation
-
-```bash
-# Internal hold-outs
 python scripts/evaluate_classifier.py \
-  --model-dir models/v2_multilingual --clf-dir data/clf/v2 \
-  --splits test_obfuscated test_malware_code \
-  --out models/v2_multilingual/holdout_eval.json --device cuda
+  --model-dir models/v6_code_aware_50k_oss_clean_benign_code \
+  --clf-dir data/clf/v6_code_aware_50k_oss_clean_benign_code \
+  --splits test test_obfuscated test_malware_code \
+  --device cuda
 
-# External HF benchmarks (grouped by source)
-python scripts/evaluate_hf_benchmarks.py \
-  --model-dir models/v2_multilingual \
-  --out models/v2_multilingual/hf_benchmark_eval.json --device cuda
+python scripts/evaluate_benign_code_holdout.py \
+  --model-dir models/v6_code_aware_50k_oss_clean_benign_code \
+  --holdout data/clf/v6_code_aware_50k_oss_clean_benign_code/test_benign_code.jsonl \
+  --device cuda
+
+python scripts/evaluate_language_axis.py \
+  --model-dir models/v6_code_aware_50k_oss_clean_benign_code \
+  --model-dir models/v8_code_aware_50k_oss_clean_plus_fp_pool \
+  --out docs/language_axis_eval.json \
+  --csv-out docs/language_axis_eval.csv \
+  --chart-out docs/language_axis_obfuscated_recall.png \
+  --limit-per-lang 500 --device cuda --max-length 128
 ```
 
-## Layout
-
-```
-config/           # categories, HF import specs, translation langs
-data/
-  en/ ar/ zh/ …   # per-language lexicon (raw gitignored)
-  clf/v2/         # train/val/test + hold-out jsonl
-  external/       # HF imports (generated, gitignored)
-docs/
-  EVAL_RESULTS.md   # neg-20k story + metric tables
-models/
-  v1_en/          # frozen EN baseline
-  v2_multilingual/  # joblibs + metrics + binary_threshold.json
-scripts/          # pipeline entrypoints
-```
-
-## Dataset catalog (cards)
-
-Per-dataset documentation: **[docs/datasets/README.md](docs/datasets/README.md)** (`docs/datasets/cards/*.md`).
-
-Regenerate after rebuild:
+## Training Pipeline
 
 ```bash
-python scripts/generate_dataset_cards.py
+python scripts/build_malware_code_pool.py --target 50000
+
+python scripts/build_benign_code_holdout.py \
+  --out data/clf/benign_code_holdout_oss_clean.jsonl --target 8000
+
+python scripts/build_classifier_dataset.py \
+  --multilingual --hf-in-train neg-only --code-aware \
+  --malware-code-train 47500 --malware-code-val 500 \
+  --benign-code data/clf/benign_code_holdout_oss_clean.jsonl \
+  --benign-code-train 3500 --benign-code-val 500 \
+  --out-dir data/clf/v6_code_aware_50k_oss_clean_benign_code
+
+python scripts/train_classifier.py \
+  --clf-dir data/clf/v6_code_aware_50k_oss_clean_benign_code \
+  --model-dir models/v6_code_aware_50k_oss_clean_benign_code \
+  --device cuda --batch-size 128 --holdout-batch-size 32 --max-length 128
 ```
 
-**Publish to Hugging Face Hub** (requires `git`, `git-lfs`, `hf auth login` or `HF_TOKEN`):
+## Known Limitations
 
-```bash
-python scripts/push_datasets_to_hf.py
-python scripts/push_model_to_hf.py
-```
+- Obfuscated and malware-code hold-outs are positive-only, so they report recall
+  but not precision.
+- Per-language FPR is not claimed yet; matched multilingual benign negatives
+  are the next evaluation artifact.
+- The multilabel category head is weaker than the binary head on long
+  malware-code snippets.
+- v8 improves one hard-negative axis but slightly reduces recall; v6 remains
+  the recommended balanced model.
 
-- Dataset → https://huggingface.co/datasets/NecroMOnk/safety-ds-malicious-coding-clf-v2  
-- Model → https://huggingface.co/NecroMOnk/safety-ds-malicious-coding-clf-v2  
+## Scope
 
-**Publish to GitHub** (`GITHUB_TOKEN` with `repo` scope, or `gh auth login`):
+This is a malicious-coding intent classifier, not a general toxicity benchmark.
+It is meant to evaluate security-relevant prompts/code and red-team bypass
+patterns.
 
-```bash
-python scripts/push_to_github.py
-# → https://github.com/NecroMOnk/Safety-DS
-```
+## License
 
-v2 build now includes **HF benign negatives** in train (`--hf-in-train neg-only`, default for `--multilingual`).
-
-## External benchmarks
-
-Configured in `config/hf_malware_datasets.yaml` and `config/necromonk_datasets.yaml`:
-
-- `phishdestroy/destroylist` (malicious)
-- `White-Hat-Security-Agent-Prompts-600K` (benign — use for calibration)
-- `NecroMOnk/red-team-refusals`, `code-stress-bench`, etc.
-
-Import: `python scripts/import_hf_malware.py` → `data/external/hf_imported.jsonl`.
-
-**Not** the same as Jigsaw/toxicity benchmarks — this project targets **malicious coding intent**, not general hate speech.
-
-## Scripts reference
-
-| Script | Purpose |
-|--------|---------|
-| `predict_classifier.py` | CLI inference |
-| `train_classifier.py` | Train binary + multilabel heads |
-| `build_classifier_dataset.py` | Build `data/clf/` splits |
-| `calibrate_binary_threshold.py` | White-Hat–aware threshold |
-| `evaluate_classifier.py` | Metrics on clf splits |
-| `evaluate_hf_benchmarks.py` | Per-source HF eval |
-| `import_hf_malware.py` | Download HF benchmark corpora |
-| `build_malware_code_pool.py` | Malware code hold-out pool |
-| `generate_dataset_cards.py` | Regenerate `docs/datasets/cards/` |
-| `push_datasets_to_hf.py` | Publish clf splits to HF Hub |
-| `push_model_to_hf.py` | Publish v2 joblibs + threshold to HF Hub |
-| `push_to_github.py` | Create/push repo to GitHub (`GITHUB_TOKEN` or `gh auth`) |
-
-## Requirements
-
-- **Python 3.10+**
-- **Lexicon generation**: `pyyaml`, `pandas`, `pyarrow`, `datasets` (see `requirements.txt`)
-- **Classifier**: `torch`, `sentence-transformers`, `scikit-learn`, `joblib`, `numpy` (see `requirements.txt`)
-- **GPU**: strongly recommended for train/eval at full scale; CPU works for small `predict_classifier` batches
-- **Disk**: BGE-m3 cache ~2 GB; full `data/` much larger if you generate all languages
-
-Offline after first embedder download:
-
-```bash
-export HF_HUB_OFFLINE=1
-export TRANSFORMERS_OFFLINE=1
-```
-
-## Known limitations
-
-1. **Other HF benign sets** (Residual-SFT, Tersa-DPO) still show **40–63% FPR** @ calibrated threshold — White-Hat was the calibration target only.
-2. **Single global threshold** — trade-off is explicit; profile `holdout` (0.5) still kills malware-code recall on current weights.
-3. **Hold-out FPR** is not meaningful (100% malicious splits); report recall there.
-4. **Multilabel** on hold-outs is weak; binary head is the deployment signal.
-5. **No unit tests** yet; validate with eval scripts above before release.
-
-## Release checklist
-
-- [x] HF dataset + model (`push_datasets_to_hf.py`, `push_model_to_hf.py`)
-- [ ] GitHub repo push (`push_to_github.py` — needs `gh auth login` or `GITHUB_TOKEN`)
-- [ ] Add **LICENSE** (project has none)
-- [ ] Confirm `.env` is not committed (listed in `.gitignore`)
-- [ ] Decide: commit `data/clf/v2/` (~56 MB) or document rebuild-only
-- [ ] Commit `models/*/clf_*.joblib` + `labels.json` + `binary_threshold.json` (~110 KB)
-- [ ] Pin `requirements.txt` / document CUDA torch install
-- [x] **Retrain v2** after `--hf-in-train neg-only` (`data/train_v2_neg20k.log`)
-- [x] Calibrate threshold + hold-out / HF eval (`holdout_eval_neg20k.json`, `hf_eval_neg20k.json`)
-- [ ] Run `generate_dataset_cards.py` after each dataset rebuild
-
-## Notes
-
-- Do not commit `.env` or `.venv/`.
-- Raw lexicon `data/*/raw/*.jsonl` is gitignored; regenerate or distribute separately.
-- No script merges languages automatically.
+MIT. See [LICENSE](LICENSE).

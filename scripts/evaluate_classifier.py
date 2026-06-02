@@ -74,7 +74,12 @@ def eval_split(
     embed_batch_size: int | None = None,
     binary_threshold: float = DEFAULT_BINARY_THRESHOLD,
 ):
-    from sklearn.metrics import f1_score, precision_recall_fscore_support, roc_auc_score
+    from sklearn.metrics import (
+        average_precision_score,
+        f1_score,
+        precision_recall_fscore_support,
+        roc_auc_score,
+    )
 
     if not rows:
         return None
@@ -98,8 +103,10 @@ def eval_split(
     p, r, rec, _ = precision_recall_fscore_support(y, pred, average="binary", zero_division=0)
     try:
         auc = round(float(roc_auc_score(y, proba)), 4)
+        pr_auc = round(float(average_precision_score(y, proba)), 4)
     except ValueError:
         auc = None  # single-class split (all positive or all negative)
+        pr_auc = None
 
     out = {
         "n": len(rows),
@@ -110,6 +117,7 @@ def eval_split(
             "recall": round(float(rec), 4),
             "f1": round(float(f1_score(y, pred, average="binary", zero_division=0)), 4),
             "roc_auc": auc,
+            "pr_auc": pr_auc,
             "false_positive_rate": round(float(((pred == 1) & (y == 0)).sum() / max(1, (y == 0).sum())), 4),
         },
     }

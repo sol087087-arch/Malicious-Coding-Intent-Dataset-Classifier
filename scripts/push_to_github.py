@@ -7,7 +7,7 @@ Requires: git, GitHub token with `repo` scope.
 
 Example:
   export GITHUB_TOKEN=ghp_...
-  python scripts/push_to_github.py --repo NecroMOnk/Safety-DS
+  python scripts/push_to_github.py --repo sol087087-arch/Malicious-Coding-Intent-Dataset-Classifier
 """
 
 from __future__ import annotations
@@ -16,11 +16,13 @@ import argparse
 import json
 import os
 import re
+import stat
 import subprocess
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_REPO = "NecroMOnk/Safety-DS"
+DEFAULT_REPO = "sol087087-arch/Malicious-Coding-Intent-Dataset-Classifier"
 
 
 def load_token() -> str:
@@ -46,6 +48,37 @@ def run(cmd: list[str], cwd: Path | None = None, check: bool = True) -> subproce
     return subprocess.run(cmd, cwd=cwd, check=check, text=True)
 
 
+def git_push_with_token(repo: str, branch: str, token: str) -> None:
+    """Push without writing the token into .git/config."""
+    with tempfile.TemporaryDirectory() as td:
+        askpass = Path(td) / ("git-askpass.bat" if os.name == "nt" else "git-askpass.sh")
+        if os.name == "nt":
+            askpass.write_text(
+                "@echo off\r\n"
+                "if /I \"%~1\"==\"Username for 'https://github.com':\" echo x-access-token\r\n"
+                "if /I \"%~1\"==\"Password for 'https://x-access-token@github.com':\" echo %GITHUB_TOKEN%\r\n",
+                encoding="utf-8",
+            )
+        else:
+            askpass.write_text(
+                "#!/usr/bin/env sh\n"
+                "case \"$1\" in\n"
+                "*Username*) printf '%s\\n' 'x-access-token' ;;\n"
+                "*Password*) printf '%s\\n' \"$GITHUB_TOKEN\" ;;\n"
+                "esac\n",
+                encoding="utf-8",
+            )
+            askpass.chmod(askpass.stat().st_mode | stat.S_IXUSR)
+        env = {
+            **os.environ,
+            "GIT_ASKPASS": str(askpass),
+            "GIT_TERMINAL_PROMPT": "0",
+            "GITHUB_TOKEN": token,
+        }
+        print("+ git push -u origin", branch)
+        subprocess.run(["git", "push", "-u", "origin", branch], cwd=ROOT, check=True, text=True, env=env)
+
+
 def curl_api(method: str, url: str, token: str, data: dict | None = None) -> str:
     cmd = ["curl", "-kfsSL", "-X", method, url, "-H", f"Authorization: Bearer {token}"]
     if data is not None:
@@ -58,7 +91,7 @@ def ensure_repo(repo: str, token: str, private: bool) -> None:
         curl_api("GET", f"https://api.github.com/repos/{repo}", token)
         print(f"Repo exists: https://github.com/{repo}")
     except subprocess.CalledProcessError:
-        owner, name = repo.split("/", 1)
+        _, name = repo.split("/", 1)
         print(f"Creating https://github.com/{repo} …")
         curl_api(
             "POST",
@@ -82,7 +115,7 @@ def main() -> None:
     token = load_token()
     ensure_repo(args.repo, token, args.private)
 
-    remote = f"https://{args.repo.split('/')[0]}:{token}@github.com/{args.repo}.git"
+    remote = f"https://github.com/{args.repo}.git"
     r = subprocess.run(
         ["git", "remote", "get-url", "origin"],
         cwd=ROOT,
@@ -94,7 +127,7 @@ def main() -> None:
     else:
         run(["git", "remote", "set-url", "origin", remote], cwd=ROOT)
 
-    run(["git", "push", "-u", "origin", args.branch], cwd=ROOT)
+    git_push_with_token(args.repo, args.branch, token)
     print(f"\nPublished: https://github.com/{args.repo}")
 
 

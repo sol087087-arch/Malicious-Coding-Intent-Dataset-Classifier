@@ -76,7 +76,8 @@ class OpenRouterClient:
         headers = {
             "Authorization": f"Bearer {self.config.api_key}",
             "Content-Type": "application/json",
-            "HTTP-Referer": self.config.site_url or "https://github.com/safety-ds",
+            "HTTP-Referer": self.config.site_url
+            or "https://github.com/sol087087-arch/Malicious-Coding-Intent-Dataset-Classifier",
             "X-Title": self.config.app_name,
         }
         last_err: Exception | None = None

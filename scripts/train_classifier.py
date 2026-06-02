@@ -49,6 +49,66 @@ def embed_texts(model, texts: list[str], batch_size: int) -> np.ndarray:
     )
 
 
+class TransformersClsEncoder:
+    """SentenceTransformer-compatible fallback for BGE-m3 CLS + Normalize."""
+
+    def __init__(self, model_name: str, device: str, max_length: int) -> None:
+        import torch
+        from transformers import AutoModel, AutoTokenizer
+
+        self.torch = torch
+        self.device = device
+        self.max_length = max_length
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        self.model = AutoModel.from_pretrained(model_name).to(device)
+        self.model.eval()
+
+    def encode(
+        self,
+        texts: list[str],
+        batch_size: int,
+        show_progress_bar: bool = True,
+        normalize_embeddings: bool = True,
+        convert_to_numpy: bool = True,
+    ):
+        from tqdm.auto import tqdm
+
+        chunks = range(0, len(texts), batch_size)
+        if show_progress_bar:
+            chunks = tqdm(chunks, total=(len(texts) + batch_size - 1) // batch_size)
+
+        vectors = []
+        with self.torch.no_grad():
+            for start in chunks:
+                batch = texts[start : start + batch_size]
+                encoded = self.tokenizer(
+                    batch,
+                    padding=True,
+                    truncation=True,
+                    max_length=self.max_length,
+                    return_tensors="pt",
+                ).to(self.device)
+                out = self.model(**encoded)
+                emb = out.last_hidden_state[:, 0]
+                if normalize_embeddings:
+                    emb = self.torch.nn.functional.normalize(emb, p=2, dim=1)
+                vectors.append(emb.cpu())
+        arr = self.torch.cat(vectors, dim=0)
+        return arr.numpy() if convert_to_numpy else arr
+
+
+def load_encoder(model_name: str, device: str, max_length: int):
+    if os.environ.get("SAFETY_DS_USE_SENTENCE_TRANSFORMERS") == "1":
+        from sentence_transformers import SentenceTransformer
+
+        return SentenceTransformer(model_name, device=device)
+    print(
+        "Using transformers CLS fallback "
+        f"(BGE-m3 sentence-transformers config: CLS pooling + normalize, max_length={max_length})"
+    )
+    return TransformersClsEncoder(model_name, device, max_length)
+
+
 def multilabel_matrix(rows: list[dict], categories: list[str]) -> np.ndarray:
     idx = {c: i for i, c in enumerate(categories)}
     Y = np.zeros((len(rows), len(categories)), dtype=int)
@@ -81,10 +141,12 @@ def main() -> None:
         help="batch size for long hold-outs (obfuscated / malware_code); avoids CUDA OOM",
     )
     ap.add_argument("--device", choices=["auto", "cuda", "cpu"], default="auto")
+    ap.add_argument("--max-length", type=int, default=256, help="token truncation length for fallback encoder")
     ap.add_argument("--max-train", type=int, default=0, help="cap train rows (0=all) for quick runs")
+    ap.add_argument("--max-test", type=int, default=0, help="cap test rows (0=all) for quick runs")
+    ap.add_argument("--max-holdout", type=int, default=0, help="cap each hold-out split (0=all) for quick runs")
     args = ap.parse_args()
 
-    from sentence_transformers import SentenceTransformer
     from sklearn.linear_model import LogisticRegression
     from sklearn.metrics import f1_score, precision_recall_fscore_support, roc_auc_score
     from sklearn.multiclass import OneVsRestClassifier
@@ -102,6 +164,13 @@ def main() -> None:
     malware_code = load_split(clf_dir, "test_malware_code")
     if args.max_train and len(train) > args.max_train:
         train = train[: args.max_train]
+    if args.max_test and len(test) > args.max_test:
+        test = test[: args.max_test]
+    if args.max_holdout:
+        if len(obf) > args.max_holdout:
+            obf = obf[: args.max_holdout]
+        if len(malware_code) > args.max_holdout:
+            malware_code = malware_code[: args.max_holdout]
     if not train or not test:
         raise SystemExit(f"Missing train/test in {clf_dir}. Run build_classifier_dataset.py first.")
 
@@ -111,7 +180,7 @@ def main() -> None:
         f"obf_test={len(obf)} malware_code_test={len(malware_code)}"
     )
     print(f"Loading embedder {EMBED_MODEL} (offline)…")
-    model = SentenceTransformer(EMBED_MODEL, device=device)
+    model = load_encoder(EMBED_MODEL, device, args.max_length)
 
     def texts(rows):
         return [r["text"] for r in rows]
@@ -196,6 +265,7 @@ def main() -> None:
         "embedder": EMBED_MODEL,
         "device": device,
         "embedding_dim": int(Xtr.shape[1]),
+        "max_length": args.max_length,
         "clf_dir": str(clf_dir),
         "counts": {
             "train": len(train),
