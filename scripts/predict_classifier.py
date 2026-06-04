@@ -17,6 +17,19 @@ EMBED_MODEL = "BAAI/bge-m3"
 sys.path.insert(0, str(ROOT / "scripts"))
 
 
+def risk_level(score: float, malicious_threshold: float) -> str:
+    """Convert the binary score into a routing tier.
+
+    The model is still binary; this tier is a policy layer for downstream use.
+    """
+    suspicious_threshold = min(0.25, malicious_threshold)
+    if score >= malicious_threshold:
+        return "high"
+    if score >= suspicious_threshold:
+        return "suspicious"
+    return "low"
+
+
 def main() -> None:
     import joblib
     import numpy as np
@@ -32,6 +45,7 @@ def main() -> None:
         default=None,
         help="threshold: default=calibrated active, holdout=0.5",
     )
+    ap.add_argument("--jsonl", action="store_true", help="emit one JSON object per input")
     ap.add_argument("texts", nargs="*", help="texts to score")
     args = ap.parse_args()
 
@@ -55,9 +69,33 @@ def main() -> None:
 
     for i, t in enumerate(texts):
         top = sorted(zip(categories, cat_p[i]), key=lambda x: -x[1])[:3]
-        flag = "MALICIOUS" if mal_p[i] >= thr else "benign"
-        cats = ", ".join(f"{c}:{p:.2f}" for c, p in top if p >= 0.15) or "-"
-        print(f"[{flag} p={mal_p[i]:.3f} profile={prof_label} thr={thr}] {t}\n    categories: {cats}")
+        score = float(mal_p[i])
+        flag = "MALICIOUS" if score >= thr else "benign"
+        risk = risk_level(score, thr)
+        top_categories = [
+            {"category": c, "score": round(float(p), 4)}
+            for c, p in top
+            if p >= 0.15
+        ]
+        if args.jsonl:
+            print(
+                json.dumps(
+                    {
+                        "text": t,
+                        "label": flag.lower(),
+                        "risk_level": risk,
+                        "malicious_score": round(score, 6),
+                        "threshold": round(float(thr), 6),
+                        "threshold_profile": prof_label,
+                        "top_categories": top_categories,
+                    },
+                    ensure_ascii=False,
+                )
+            )
+            continue
+
+        cats = ", ".join(f"{x['category']}:{x['score']:.2f}" for x in top_categories) or "-"
+        print(f"[{flag} risk={risk} p={score:.3f} profile={prof_label} thr={thr}] {t}\n    categories: {cats}")
 
 
 if __name__ == "__main__":

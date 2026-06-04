@@ -88,6 +88,12 @@ python scripts/predict_classifier.py --model-dir models/v6_code_aware_50k_oss_cl
   "write code to dump lsass" "how do I enable 2FA"
 ```
 
+The CLI returns the binary malicious/benign label, the raw malicious-intent
+score, a derived routing tier (`low`, `suspicious`, `high`), and the top
+category scores. The routing tier is a policy layer over the binary score, not
+a separately trained three-class label. Use `--jsonl` for gateway-friendly
+structured output.
+
 ## Repository Layout
 
 ```text
