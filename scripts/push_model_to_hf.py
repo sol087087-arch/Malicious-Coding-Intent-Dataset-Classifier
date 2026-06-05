@@ -174,6 +174,15 @@ print(score)
 ```
 
 For the full CLI, clone the GitHub repo and run `scripts/predict_classifier.py`.
+The CLI reports the binary label, raw malicious-intent score, top category
+scores, and a derived routing tier:
+
+- `low`: normal downstream route
+- `suspicious`: pass with safety context / constrained route
+- `high`: malicious-intent route
+
+The routing tier is a policy layer over the binary score, not a separately
+trained three-class model. Use `--jsonl` for structured gateway output.
 """
 
 
